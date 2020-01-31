@@ -67,11 +67,14 @@ alias nano="nano -u"
 alias nbrc="nano -u ~/.bashrc"
 
 
+goroot="${HOME}/go/src/github.com/bozso"
+
 paths=\
 "
-${progs}/github.com/gamma
+${goroot}/gamma
 ${progs}/github.com/stm-bi
 ${progs}/github.com/insar_meteo
+${progs}/github.com/utils
 "
 
 for path in ${paths}; do
