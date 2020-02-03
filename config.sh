@@ -75,6 +75,7 @@ ${goroot}/gamma
 ${progs}/github.com/stm-bi
 ${progs}/github.com/insar_meteo
 ${progs}/github.com/utils
+${progs}/bitbucket.org/stm-bi
 "
 
 for path in ${paths}; do
