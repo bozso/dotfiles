@@ -66,13 +66,11 @@ proton() {
 alias nano="nano -u"
 alias nbrc="nano -u ~/.bashrc"
 
-
 goroot="${HOME}/go/src/github.com/bozso"
 
 paths=\
 "
 ${goroot}/gamma
-${progs}/github.com/stm-bi
 ${progs}/github.com/insar_meteo
 ${progs}/github.com/utils
 ${progs}/bitbucket.org/stm-bi
@@ -80,6 +78,7 @@ ${progs}/bitbucket.org/stm-bi
 
 for path in ${paths}; do
     p="${path}/init.sh"
+    
     if [ -f "${p}" ]; then
         source "${p}" "${path}"
     fi
