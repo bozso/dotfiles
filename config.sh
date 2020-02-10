@@ -71,9 +71,9 @@ goroot="${HOME}/go/src/github.com/bozso"
 
 paths=\
 "
-${goroot}/gamma
 ${progs}/github.com/stm-bi
 ${progs}/github.com/insar_meteo
+${progs}/github.com/pygomma
 ${progs}/github.com/utils
 ${progs}/bitbucket.org/stm-bi
 "
