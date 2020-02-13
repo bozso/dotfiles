@@ -80,14 +80,14 @@ main() {
         esac
         
         
-        if [ "true" = "$passwd" ]; then
-            stty -echo
-            printf "Password: "
-            read pwd
-            stty echo
-            printf "\n"        
+        #if [ "true" = "$passwd" ]; then
+            #stty -echo
+            #printf "Password: "
+            #read pwd
+            #stty echo
+            #printf "\n"        
         
-        fi
+        #fi
         
         printf "<!DOCTYPE html>\n<html>\n<body>\n" > $out
         printf "<style>\np {white-space: pre-wrap}\n</style>\n" >> $out
@@ -96,14 +96,6 @@ main() {
             cd "$repo"
             
             printf "$start_tpl" "$repo"
-            
-            local address="$(printf "$tpl" "$pwd")"
-            
-            local url="$(git remote get-url --all origin | \
-                         awk -F '/' '{ print $NF; }')"
-            
-            local url="${address}/${url}"
-            
             
             case "$2" in
                 "stat")
@@ -119,10 +111,10 @@ main() {
                     
                     printf "Type in commit message for $(last_field $repo)!\n"
                     git commit -a -F -
-                    git push "${url}"
+                    git push origin master
                     ;;
                 "pull")
-                    git pull "${url}"
+                    git pull origin master
                     ;;
                 *)
                     printf "Unrecognized option %s!\n" $2 >&2
