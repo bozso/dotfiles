@@ -1,7 +1,8 @@
 #! /usr/bin/env sh
 
 progs="${HOME}/progs"
-
+gh="${progs}/github.com"
+bb="${progs}/bitbucket.org"
 
 start_tpl="
 =============
@@ -16,11 +17,15 @@ end_tpl="
 *
 "
 
+
+
 repos="
-${progs}/insar_meteo
-${progs}/utils
-${progs}/gamma
-${progs}/geodynamics
+${gh}/insar_meteo
+${gh}/utils
+${gh}/pygomma
+${gh}/geodynamics
+${gh}/dotfiles
+${bb}/stm-bi
 ${HOME}/Dokumentumok/texfiles
 "
 

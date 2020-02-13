@@ -3,6 +3,7 @@ dotfiles="${progs}/github.com/dotfiles"
 
 alias reload='. ${dotfiles}/config.sh'
 alias menu='sh ${dotfiles}/menu.sh modules'
+alias gim="python ${progs}/github.com/utils/tools/git.py"
 
 export temu=lxterminal
 browser="chromium-browser"
