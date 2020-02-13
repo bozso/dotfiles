@@ -93,7 +93,9 @@ main() {
         printf "<style>\np {white-space: pre-wrap}\n</style>\n" >> $out
         
         for repo in $repos; do
-            cd "$repo"
+            # [ ! -f "${repo}" ] && continue
+        
+            cd "${repo}"
             
             printf "$start_tpl" "$repo"
             
