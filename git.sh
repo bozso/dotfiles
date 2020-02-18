@@ -61,7 +61,7 @@ main() {
     check_narg "$#" "1"
     local passwd="false"
     
-    local out="/tmp/git_report.html"
+    local out="${HOME}/git_report.html"
     local config_path=".git/config"
     local tpl="https://bozso:%s@github.com/bozso"
     local nocom="nothing to commit, working tree clean"
