@@ -205,7 +205,7 @@ gamma() {
     if [ -n "$sel" ]; then
         local path="$path/$sel"
         notify "Opening documentation" "${sel}" "music_note.png"
-        chromium-browser "${path}"
+        "${BROWSER}" "${path}"
     fi
 }
 

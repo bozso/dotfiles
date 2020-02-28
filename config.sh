@@ -6,7 +6,7 @@ alias menu='sh ${dotfiles}/menu.sh modules'
 alias gim="python ${progs}/github.com/utils/tools/git.py"
 
 export temu=lxterminal
-browser="chromium-browser"
+export BROWSER="brave-browser-stable"
 
 for file in $(ls ${dotfiles}/bash_completion/); do
     if [ -r ${file} ]; then
