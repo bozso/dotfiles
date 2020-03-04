@@ -85,7 +85,11 @@ for path in ${paths}; do
     fi
 done
 
-export PATH="${PATH}:${pkgs}/usr/bin:${HOME}/.nimble/bin:${HOME}/go/bin"
+# Disable ascii coloring as geany's compiler message panel can not
+# handle them at the moment
+export NO_COLOR=1
+
+export PATH="${PATH}:${pkgs}/usr/bin:${HOME}/.nimble/bin:${HOME}/go/bin:${dotfiles}/bin"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${pkgs}/usr/lib/x86_64-linux-gnu"
 
 export OMP_NUM_THREADS=8

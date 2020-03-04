@@ -2,6 +2,7 @@
 
 progs="${HOME}/progs"
 icons="$progs/utils/icons"
+dotfiles="${progs}/github.com/dotfiles"
 
 set -e
 
@@ -244,20 +245,14 @@ Basename() {
     done    
 }
 
+py="${HOME}/miniconda3/bin/python"
+
 import() {
-    local root="${HOME}/screencap"
-    mkdir -p "${root}"
-    
-    last="$(ls ${root}/img_*.png \
-            | Basename \
-            | tr -d '[:alpha:]' \
-            | tr -d '_' \
-            | sort -g \
-            | tail -1)"
-    
-    new=$((last+1))
-    
-    import "${root}/img_${new}.png" > "${HOME}/import.log"
+    ${py} ${dotfiles}/bin/import.py
+}
+
+programs() {
+    PATH="${PATH}:${HOME}/packages/usr/bin"; dmenu_run $opt
 }
 
 main() {
@@ -265,7 +260,7 @@ main() {
         
     case $1 in
         "programs")
-            dmenu_run $opt
+            programs
             ;;
         "modules")
             select_module
