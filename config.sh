@@ -54,7 +54,7 @@ alias nbrc="nano -u ~/.bashrc"
 pkgs="${HOME}/packages"
 
 src="${pkgs}/src"
-gh="${src}/github.com/bozso/"
+gh="${src}/github.com/bozso"
 
 dotfiles="${gh}/dotfiles"
 
