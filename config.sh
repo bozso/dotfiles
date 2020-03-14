@@ -1,21 +1,5 @@
-progs="${HOME}/progs"
-dotfiles="${progs}/github.com/dotfiles"
-
-alias reload='. ${dotfiles}/config.sh'
-alias menu='sh ${dotfiles}/menu.sh modules'
-alias gim="python ${progs}/github.com/utils/tools/git.py"
-
 export temu=lxterminal
 export BROWSER="brave-browser-stable"
-
-for file in $(ls ${dotfiles}/bash_completion/); do
-    if [ -r ${file} ]; then
-        . ${file}
-    fi
-done
-
-
-pkgs="${HOME}/packages"
 
 local_install() {
     if [ "$#" != "1" ]; then
@@ -67,14 +51,22 @@ proton() {
 alias nano="nano -u"
 alias nbrc="nano -u ~/.bashrc"
 
-goroot="${HOME}/go/src/github.com/bozso"
+pkgs="${HOME}/packages"
+
+src="${pkgs}/src"
+gh="${src}/github.com/bozso/"
+
+dotfiles="${gh}/dotfiles"
+
+alias reload='. ${dotfiles}/config.sh'
+alias menu='sh ${dotfiles}/menu.sh modules'
 
 paths=\
 "
-${progs}/github.com/insar_meteo
-${progs}/github.com/pygomma
-${progs}/github.com/utils
-${progs}/bitbucket.org/stm-bi
+${gh}/insar_meteo
+${gh}/pygomma
+${gh}/utils
+${src}/ibozso/bitbucket.org/stm-bi
 "
 
 for path in ${paths}; do
@@ -89,7 +81,8 @@ done
 # handle them at the moment
 export NO_COLOR=1
 
-export PATH="${PATH}:${pkgs}/usr/bin:${HOME}/.nimble/bin:${HOME}/go/bin:${dotfiles}/bin"
+export GOPATH="${pkgs}"
+export PATH="${PATH}:${pkgs}/usr/bin:${HOME}/.nimble/bin:${dotfiles}/bin"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${pkgs}/usr/lib/x86_64-linux-gnu"
 
 export OMP_NUM_THREADS=8
