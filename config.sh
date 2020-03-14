@@ -66,7 +66,7 @@ paths=\
 ${gh}/insar_meteo
 ${gh}/pygomma
 ${gh}/utils
-${src}/ibozso/bitbucket.org/stm-bi
+${src}/bitbucket.org/ibozso/stm-bi
 "
 
 for path in ${paths}; do
