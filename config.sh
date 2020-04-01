@@ -66,7 +66,7 @@ paths=\
 ${gh}/insar_meteo
 ${gh}/pygomma
 ${gh}/utils
-${src}/bitbucket.org/ibozso/stm-bi
+${src}/bitbucket.org/ibozso/stmpy
 "
 
 for path in ${paths}; do
@@ -82,7 +82,7 @@ done
 export NO_COLOR=1
 
 export GOPATH="${pkgs}"
-export PATH="${PATH}:${pkgs}/usr/bin:${HOME}/.nimble/bin:${dotfiles}/bin"
+export PATH="${PATH}:${pkgs}/usr/bin:${pkgs}/bin:${HOME}/.nimble/bin:${dotfiles}/bin"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${pkgs}/usr/lib/x86_64-linux-gnu"
 
 export OMP_NUM_THREADS=8

@@ -1,8 +1,8 @@
 #! /usr/bin/env sh
 
+music_player="audacious"
 progs="${HOME}/progs"
-icons="$progs/utils/icons"
-dotfiles="${progs}/github.com/dotfiles"
+dotfiles="${HOME}/packages/src/github.com/bozso/dotfiles"
 
 set -e
 
@@ -88,7 +88,7 @@ playlists() {
     if [ -n "$sel" ]; then
         local path="$path/$sel"
         notify "Playing music" "$sel" "music_note.png"
-        parole $path &
+        ${music_player} $path &
     fi
 }
 
@@ -221,7 +221,6 @@ work
 gamma
 mount
 "
-
 
 select_module() {
     local log="$HOME/menu.log"

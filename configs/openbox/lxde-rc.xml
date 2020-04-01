@@ -315,7 +315,7 @@
     </keybind>
     <keybind key="W-i">
       <action name="Execute">
-        <command>sh /home/istvan/packages/github.com/bozso/dotfiles/menu.sh import</command>
+        <command>sh /home/istvan/packages/src/github.com/bozso/dotfiles/menu.sh import</command>
       </action>
     </keybind>
     <keybind key="W-w">
@@ -325,7 +325,7 @@
     </keybind>
     <keybind key="W-m">
       <action name="Execute">
-        <command>sh /home/istvan/packages/github.com/bozso/dotfiles/menu.sh modules</command>
+        <command>sh /home/istvan/packages/src/github.com/bozso/dotfiles/menu.sh modules</command>
       </action>
     </keybind>
     <keybind key="W-n">
@@ -340,7 +340,7 @@
     </keybind>
     <keybind key="C-space">
       <action name="Execute">
-        <command>sh /home/istvan/packages/github.com/bozso/dotfiles/menu.sh programs</command>
+        <command>sh /home/istvan/packages/src/github.com/bozso/dotfiles/menu.sh programs</command>
       </action>
     </keybind>
     <keybind key="W-t">
