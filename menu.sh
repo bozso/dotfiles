@@ -1,5 +1,7 @@
 #! /usr/bin/env sh
 
+miniconda="${HOME}/miniconda3"
+py="${miniconda}/bin/python"
 music_player="audacious"
 progs="${HOME}/progs"
 dotfiles="${HOME}/packages/src/github.com/bozso/dotfiles"
@@ -78,12 +80,11 @@ last_field() {
     awk -F '/' '{print $NF}'
 }
 
-
 playlists() {
     local path="/home/istvan/Zenék/playlists"
     
     local sel=$(ls -1 $path/* | last_field | \
-                mymenu -p "Select music:")
+                mymenu -p "Select playlist:")
     
     if [ -n "$sel" ]; then
         local path="$path/$sel"
@@ -91,7 +92,6 @@ playlists() {
         ${music_player} $path &
     fi
 }
-
 
 workspace() {
     check_narg $# "2"
@@ -210,7 +210,12 @@ gamma() {
     fi
 }
 
+notebook() {
+    ${miniconda}/bin/jupyter notebook
+}
+
 modules="
+notebook
 playlists
 git
 mc
@@ -243,8 +248,6 @@ Basename() {
       printf '%s\n' "$(basename $line .png)"
     done    
 }
-
-py="${HOME}/miniconda3/bin/python"
 
 import() {
     ${py} ${dotfiles}/bin/import.py

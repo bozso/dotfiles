@@ -7,6 +7,10 @@ __pycache__/
 session
 session_term
 
+# Ninja files
+.ninja_deps
+.ninja_log
+build.ninja
 
 # Pylatex files
 .images

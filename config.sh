@@ -67,6 +67,7 @@ ${gh}/insar_meteo
 ${gh}/pygomma
 ${gh}/utils
 ${src}/bitbucket.org/ibozso/stmpy
+${src}/bitbucket.org/ibozso/stm-bi
 "
 
 for path in ${paths}; do
