@@ -78,6 +78,7 @@ for path in ${paths}; do
     fi
 done
 
+
 # Disable ascii coloring as geany's compiler message panel can not
 # handle them at the moment
 export NO_COLOR=1
@@ -87,3 +88,5 @@ export PATH="${PATH}:${pkgs}/usr/bin:${pkgs}/bin:${HOME}/.nimble/bin:${dotfiles}
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${pkgs}/usr/lib/x86_64-linux-gnu"
 
 export OMP_NUM_THREADS=8
+
+eval "$(starship init bash)"
