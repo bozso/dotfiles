@@ -1,0 +1,25 @@
+scan_timeout = 15
+
+[directory]
+style = "bold #000000"
+
+[cmd_duration]
+min_time = 500
+style = "bold #269900"
+show_milliseconds = true
+
+[git_branch]
+symbol = "branch: "
+style = "bold #cc0066"
+
+[golang]
+symbol = "Go "
+style = "bold #3333ff"
+
+[rust]
+symbol = "Rust "
+style = "bold #cc0000"
+
+[python]
+symbol = "Python "
+style = "bold #008060"

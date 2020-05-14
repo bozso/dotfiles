@@ -89,4 +89,10 @@ export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${pkgs}/usr/lib/x86_64-linux-gnu"
 
 export OMP_NUM_THREADS=8
 
+simple_ps() {
+    PS1="\u@\H\n"
+}
+
 eval "$(starship init bash)"
+export PS1="\u@\H\n"
+
