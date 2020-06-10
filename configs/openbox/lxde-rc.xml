@@ -320,7 +320,7 @@
     </keybind>
     <keybind key="W-w">
       <action name="Execute">
-        <command>brave-browser</command>
+        <command>firefox</command>
       </action>
     </keybind>
     <keybind key="W-m">
