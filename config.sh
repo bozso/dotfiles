@@ -55,6 +55,7 @@ pkgs="${HOME}/packages"
 
 src="${pkgs}/src"
 gh="${src}/github.com/bozso"
+bb="${src}/bitbucket.org/ibozso"
 
 dotfiles="${gh}/dotfiles"
 
@@ -66,8 +67,8 @@ paths=\
 ${gh}/insar_meteo
 ${gh}/pygomma
 ${gh}/utils
-${src}/bitbucket.org/ibozso/stmpy
-${src}/bitbucket.org/ibozso/stm-bi
+${bb}/stmpy
+${bb}/stm-bi
 "
 
 for path in ${paths}; do
@@ -84,7 +85,8 @@ done
 export NO_COLOR=1
 
 export GOPATH="${pkgs}"
-export PATH="${PATH}:${pkgs}/usr/bin:${pkgs}/bin:${HOME}/.nimble/bin:${dotfiles}/bin"
+export PATH="${PATH}:${pkgs}/usr/bin:${pkgs}/bin:${HOME}/.nimble/bin"
+export PATH="${PATH}:${dotfiles}/bin:/opt/cisco/anyconnect/bin"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${pkgs}/usr/lib/x86_64-linux-gnu"
 
 export OMP_NUM_THREADS=8
@@ -94,5 +96,3 @@ simple_ps() {
 }
 
 eval "$(starship init bash)"
-export PS1="\u@\H\n"
-

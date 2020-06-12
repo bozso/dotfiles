@@ -190,7 +190,7 @@ mount() {
     manage_ssh "mount"
 }
 
-shutdown_now() {
+poweroff() {
     notify-send "Did you push all git repositories?" \
     "Check git repositories!" -u "critical" -i "$icons/warning.png"
     dprompt "Shutdown?" "shutdown -h now"
@@ -216,6 +216,7 @@ notebook() {
 
 modules="
 notebook
+poweroff
 playlists
 git
 mc
@@ -228,13 +229,11 @@ mount
 "
 
 select_module() {
-    local log="$HOME/menu.log"
     local sel=$(printf "%s\n" ${modules} | mymenu -p "Select from modules:")
     
     for module in $(printf "%s\n" $modules); do
         case $sel in
             $module)
-                #$module > $log
                 $module
                 ;;
             *)
@@ -266,9 +265,6 @@ main() {
             ;;
         "modules")
             select_module
-            ;;
-        "shutdown")
-            shutdown_now
             ;;
         "import")
             import
