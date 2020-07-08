@@ -1,0 +1,20 @@
+{
+    "max-concurrent-indexers" : 2,
+    "dbpath" : "data",
+    "title" : "Hound",
+    "health-check-uri" : "/healthz",
+    "repos" : {
+        "gotoolbox" : {
+            "url" : "file:///home/istvan/packages/src/github.com/bozso/gotoolbox/.git",
+            "exclude-dot-files": true
+        },
+        "gomma" : {
+            "url" : "file:///home/istvan/packages/src/github.com/bozso/gomma/.git",
+            "exclude-dot-files": true
+        },
+        "stmpy" : {
+            "url" : "file:///home/istvan/packages/src/bitbucket.org/ibozso/stmpy/.git",
+            "exclude-dot-files": true
+        }
+    }
+}
