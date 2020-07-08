@@ -214,6 +214,10 @@ notebook() {
     ${miniconda}/bin/jupyter notebook
 }
 
+dog() {
+    houndd -conf="/home/istvan/packages/src/github.com/bozso/dotfiles/configs/repos.json"
+}
+
 modules="
 notebook
 poweroff
@@ -226,6 +230,7 @@ extract_music
 work
 gamma
 mount
+dog
 "
 
 select_module() {
