@@ -15,6 +15,10 @@
         "stmpy" : {
             "url" : "file:///home/istvan/packages/src/bitbucket.org/ibozso/stmpy/.git",
             "exclude-dot-files": true
+        },
+        "stm-manage" : {
+            "url" : "file:///home/istvan/packages/src/bitbucket.org/ibozso/stm-manage/.git",
+            "exclude-dot-files": true
         }
     }
 }

@@ -5,3 +5,10 @@
 	user = bozso
 [credential]
 	helper = cache --timeout=300
+[alias]
+    co = checkout
+    ct = commit
+    st = status
+    br = branch
+    pso = push origin
+    plo = pull origin
