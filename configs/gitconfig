@@ -6,9 +6,13 @@
 [credential]
 	helper = cache --timeout=300
 [alias]
+    d = diff
     co = checkout
     ct = commit
+    cam = commit -am
     st = status
     br = branch
-    pso = push origin
-    plo = pull origin
+    po = push origin
+    po = push origin master
+    go = pull origin
+    gom = pull origin master
