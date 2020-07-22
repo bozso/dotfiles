@@ -13,6 +13,6 @@
     st = status
     br = branch
     po = push origin
-    po = push origin master
+    pom = push origin master
     go = pull origin
     gom = pull origin master
