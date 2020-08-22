@@ -320,7 +320,7 @@
     </keybind>
     <keybind key="W-w">
       <action name="Execute">
-        <command>firefox</command>
+        <command>chromium-browser</command>
       </action>
     </keybind>
     <keybind key="W-m">

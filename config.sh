@@ -99,3 +99,4 @@ simple_ps() {
 }
 
 eval "$(starship init bash)"
+. /home/istvan/.nix-profile/etc/profile.d/nix.sh
