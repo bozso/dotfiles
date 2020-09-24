@@ -96,7 +96,6 @@ simple_ps() {
     PS1="\u@\H\n"
 }
 
-<<<<<<< HEAD
 eval_if() {
     if [ -f "$1" ]; then
         eval "$2"
@@ -123,10 +122,7 @@ if [ -d "${clang}" ]; then
     export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${clang}"
 fi
 
-#. /home/istvan/.nix-profile/etc/profile.d/nix.sh
-=======
 eval "$(starship init bash)"
 . /home/istvan/.nix-profile/etc/profile.d/nix.sh
 
 export $(~/bake/bake env)
->>>>>>> 932d8f024c2d15a267923b00a5ae8315faccbf5c
