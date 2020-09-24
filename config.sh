@@ -103,12 +103,13 @@ eval_if() {
 }
 
 eval_if "starship" "$(starship init bash)"
+eval_if "${HOME}/bake/bake" "${HOME}/bake/bake env"
 
 # source a file if it exists
 source_if() {
     if [ -f "$1" ]; then
         . "$1"
-    fi    
+    fi
 }
 
 source_if "${HOME}/.nix-profile/etc/profile.d/nix.sh"
@@ -122,7 +123,3 @@ if [ -d "${clang}" ]; then
     export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${clang}"
 fi
 
-eval "$(starship init bash)"
-. /home/istvan/.nix-profile/etc/profile.d/nix.sh
-
-export $(~/bake/bake env)
