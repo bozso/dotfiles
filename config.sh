@@ -91,12 +91,35 @@ export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${pkgs}/usr/lib/x86_64-linux-gnu"
 
 export OMP_NUM_THREADS=8
 
-. "${HOME}/.cargo/env"
-. "${HOME}/.xmake/profile"
 
 simple_ps() {
     PS1="\u@\H\n"
 }
 
-eval "$(starship init bash)"
-. /home/istvan/.nix-profile/etc/profile.d/nix.sh
+eval_if() {
+    if [ -f "$1" ]; then
+        eval "$2"
+    fi        
+}
+
+eval_if "starship" "$(starship init bash)"
+
+# source a file if it exists
+source_if() {
+    if [ -f "$1" ]; then
+        . "$1"
+    fi    
+}
+
+source_if "${HOME}/.nix-profile/etc/profile.d/nix.sh"
+source_if "${HOME}/.cargo/env"
+source_if "${HOME}/.xmake/profile"
+
+down="${pkgs}/downloaded"
+clang="${down}/clang/lib"
+
+if [ -d "${clang}" ]; then
+    export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${clang}"
+fi
+
+#. /home/istvan/.nix-profile/etc/profile.d/nix.sh
