@@ -96,14 +96,21 @@ simple_ps() {
     PS1="\u@\H\n"
 }
 
-eval_if() {
+eval_if_dir() {
+    if [ -d "$1" ]; then
+        eval "$2"
+    fi        
+}
+
+eval_if_file() {
     if [ -f "$1" ]; then
+        echo "$2"
         eval "$2"
     fi        
 }
 
 eval_if "starship" "$(starship init bash)"
-eval_if "${HOME}/bake/bake" "$(${HOME}/bake/bake env)"
+eval_if_dir "${HOME}/bake/bake" "${HOME}/bake/bake env"
 
 # source a file if it exists
 source_if() {
