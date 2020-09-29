@@ -109,7 +109,7 @@ eval_if_file() {
     fi        
 }
 
-eval_if "starship" "$(starship init bash)"
+eval_if_file "starship" "$(starship init bash)"
 eval_if_dir "${HOME}/bake/bake" "${HOME}/bake/bake env"
 
 # source a file if it exists
