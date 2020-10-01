@@ -1,5 +1,5 @@
 export temu=lxterminal
-export BROWSER="brave-browser-stable"
+export BROWSER="chromium-browser"
 
 local_install() {
     if [ "$#" != "1" ]; then
@@ -91,7 +91,6 @@ export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${pkgs}/usr/lib/x86_64-linux-gnu"
 
 export OMP_NUM_THREADS=8
 
-
 simple_ps() {
     PS1="\u@\H\n"
 }
@@ -128,5 +127,12 @@ clang="${down}/clang/lib"
 
 if [ -d "${clang}" ]; then
     export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${clang}"
+fi
+
+conda="${HOME}/miniconda3"
+conda_lib="${conda}/lib"
+
+if [ -d "${conda_lib}" ]; then
+    export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${conda_lib}"
 fi
 
