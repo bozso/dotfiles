@@ -130,9 +130,4 @@ if [ -d "${clang}" ]; then
 fi
 
 conda="${HOME}/miniconda3"
-conda_lib="${conda}/lib"
-
-if [ -d "${conda_lib}" ]; then
-    export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${conda_lib}"
-fi
-
+export conda_lib="${conda}/lib"
