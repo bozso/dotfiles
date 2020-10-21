@@ -103,10 +103,11 @@ eval_if_dir() {
 
 eval_if_file() {
     if [ -f "$1" ]; then
-        echo "$2"
         eval "$2"
     fi        
 }
+
+eval "$(starship init bash)"
 
 eval_if_file "starship" "$(starship init bash)"
 eval_if_dir "${HOME}/bake/bake" "${HOME}/bake/bake env"
