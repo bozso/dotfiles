@@ -23,3 +23,7 @@ style = "bold #cc0000"
 [python]
 symbol = "Python "
 style = "bold #008060"
+
+[zig]
+symbol = "Zig "
+style = "bold #af921a"
