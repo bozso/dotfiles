@@ -1,0 +1,9 @@
+{
+    "patterns": [
+        {
+            "path": "/home/istvan/packages/src/github.com/bozso/",
+            "pattern": "*",
+            "select": "dirs"
+        }
+    ]
+}

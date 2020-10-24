@@ -19,6 +19,7 @@ latex.out
 # C extensions and object files
 *.so
 *.o
+main
 
 # Distribution / packaging
 .Python

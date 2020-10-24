@@ -1,6 +1,14 @@
 export temu=lxterminal
 export BROWSER="chromium-browser"
 
+gen_repos() {
+    go build bin/main.go
+    
+    ./main genrepos \
+        -config "configs/repository_settings.json" \
+        -out "configs/local_repos.json"
+}
+
 local_install() {
     if [ "$#" != "1" ]; then
         printf "error: local_install: One argument (package name) is required!\n" >&2

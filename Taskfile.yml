@@ -1,0 +1,14 @@
+# https://taskfile.dev
+
+version: '2'
+
+tasks:
+  build:
+    cmds:
+      - go build bin/main.go
+  run:
+    cmds:
+      - go run bin/main.go
+  defualt:
+    cmds:
+      - task: run
