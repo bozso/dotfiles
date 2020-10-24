@@ -9,6 +9,6 @@ tasks:
   run:
     cmds:
       - go run bin/main.go
-  defualt:
+  default:
     cmds:
       - task: run

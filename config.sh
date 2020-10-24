@@ -9,6 +9,13 @@ gen_repos() {
         -out "configs/local_repos.json"
 }
 
+report() {
+    gotoolbox repositories \
+        -command status \
+        -html -out "/tmp/git_report.html" \
+        -config "${gh}/dotfiles/configs/local_repos.json"
+}
+
 local_install() {
     if [ "$#" != "1" ]; then
         printf "error: local_install: One argument (package name) is required!\n" >&2
