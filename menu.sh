@@ -32,11 +32,9 @@ check_narg() {
     fi
 }
 
-
 dprompt() {
     [ "$(printf 'No\nYes' | mymenu -p "$1")" = "Yes" ] && $2
 }
-
 
 notify() {
     return
@@ -47,7 +45,6 @@ notify() {
     fi
 }
 
-
 extract_music() {
     for zipfile in /tmp/*.zip; do
         local outpath="/home/istvan/Zenék/$(basename "$zipfile" .zip)"
@@ -57,7 +54,6 @@ extract_music() {
         unzip "$zipfile" -d "$outpath"
     done
 }
-
 
 update_clean() {
     notify "Updating..."
@@ -74,7 +70,6 @@ update_clean() {
     notify "Cleaning..."
     notify "Cleaning  complete." "$o1\n$o2"
 }
-
 
 last_field() {
     awk -F '/' '{print $NF}'
@@ -141,41 +136,52 @@ mc() {
 }
 
 
-
 servers="\
 robosztus : robosztus.ggki.hu
 zafir     : zafir.ggki.hu
 eejit     : eejit.geo.uu.nl
 "
 
-manage_ssh() {
-    local mode="$1"
-    
-    server=$(printf '%s\n' "${servers}" | \
-             mymenu -p "Select server" -l 3)
-    
-    
-    local addr="$(printf '%s' "${server}" \
+_ssh_select() {
+    echo "$(printf '%s\n' "${servers}" | \
+            mymenu -p "Select server" -l 3)"
+}
+
+_ssh_calc_address() {
+    local addr="$(printf '%s' "$1" \
                   | cut -d ':' -f 2 \
                   | tr -d ' ')"
     
-    local addr="$(printf 'istvan@%s' "${addr}")"
+    echo "$(printf 'istvan@%s' "${addr}")"
+}
+
+_ssh_mount() {
+    local name="$(printf '%s' "$1" \
+                  | cut -d ':' -f 1 \
+                  | tr -d ' ')"
+    
+    local path="${HOME}/mount/${name}"
+    local cmd="$(printf 'sshfs %s: %s' "$2" "${path}")"
+    $cmd
+}
+
+_ssh_join() {
+    local cmd="$(printf 'ssh -Y %s' "$1")"
+    $cmd
+}
+
+manage_ssh() {
+    local mode="$1"
+    
+    local server="$(_ssh_select)"
+    local addr="$(_ssh_calc_address "${server}")"
     
     case "${mode}" in
         "mount")
-            local name="$(printf '%s' "${server}" \
-                          | cut -d ':' -f 1 \
-                          | tr -d ' ')"
-            
-            local path="${HOME}/mount/${name}"
-            local cmd="$(printf 'sshfs %s: %s' "${addr}" "${path}")"
-            #local cmd="${temu} --command=\"${cmd}\""
-            $cmd
-            # >&2 "${HOME}/menu.log"
+            _ssh_mount "${server}" "${addr}"
             ;;
         "join")
-            local cmd="$(printf 'ssh -Y %s' "${addr}")"
-            $cmd
+            _ssh_join "${addr}"
             ;;
         *)
             printf 'Unknown option: %s!\n' "{mode}"
@@ -188,6 +194,14 @@ connect() {
 
 mount() {
     manage_ssh "mount"
+}
+
+mcon() {
+    local server="$(_ssh_select)"
+    local addr="$(_ssh_calc_address "${server}")"
+
+    _ssh_mount "${server}" "${addr}"
+    _ssh_join "${addr}"
 }
 
 poweroff() {
@@ -231,6 +245,7 @@ work
 gamma
 mount
 dog
+mcon
 "
 
 select_module() {
