@@ -37,7 +37,8 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_completion_enabled = 1
 
 " Disable continuous linting to save CPU cycles
-let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_insert_leave = 0
 let g:ale_completion_autoimport = 1
 
 set omnifunc=ale#completion#OmniFunc
@@ -51,6 +52,7 @@ nn <silent> <M-a> :ALESymbolSearch<cr>
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
+let g:ale_go_langserver_executable = 'gopls'
 
 "{ UI-related settings
 "{{ General settings about colors

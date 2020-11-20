@@ -69,8 +69,8 @@ alias nbrc="nano -u ~/.bashrc"
 pkgs="${HOME}/packages"
 
 src="${pkgs}/src"
-gh="${src}/github.com/bozso"
-bb="${src}/bitbucket.org/ibozso"
+export github="${src}/github.com/bozso"
+export bitbucket="${src}/bitbucket.org/ibozso"
 
 dotfiles="${gh}/dotfiles"
 
@@ -79,11 +79,11 @@ alias menu='sh ${dotfiles}/menu.sh modules'
 
 paths=\
 "
-${gh}/insar_meteo
-${gh}/pygomma
-${gh}/utils
-${bb}/stmpy
-${bb}/stm-bi
+${github}/insar_meteo
+${github}/pygomma
+${github}/utils
+${bitbucket}/stmpy
+${bitbucket}/stm-bi
 "
 
 for path in ${paths}; do
