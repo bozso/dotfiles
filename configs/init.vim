@@ -25,8 +25,7 @@ let mapleader = ','
 nnoremap <S-l> :w<C-j>:bNext<C-j>
 nnoremap <S-h> :w<C-j>:bprevious<C-j>
 nnoremap <leader>w :w<C-j>
-
-let g:airline#extensions#tabline#enabled = 1
+nnoremap <leader>b :buffer 
 
 let g:airline#extensions#ale#enabled = 1
 
@@ -36,8 +35,16 @@ let g:airline#extensions#ale#enabled = 1
 " You should not turn this setting on if you wish to use ALE as a completion
 " source for other completion plugins, like Deoplete.
 let g:ale_completion_enabled = 1
-set omnifunc=ale#completion#OmniFunc
+
+" Disable continuous linting to save CPU cycles
+let g:ale_lint_on_text_changed = 'never'
 let g:ale_completion_autoimport = 1
+
+set omnifunc=ale#completion#OmniFunc
+
+nn <silent> <M-d> :ALEGoToDefinition<cr>
+nn <silent> <M-r> :ALEFindReferences<cr>
+nn <silent> <M-a> :ALESymbolSearch<cr>
 
 
 " navigate between errors with Ctrl-k and Ctrl-j
