@@ -10,10 +10,12 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'vim-airline/vim-airline'
 Plug 'dense-analysis/ale'
+Plug 'flazz/vim-colorschemes'
 
 " Initialize plugin system
 call plug#end()
 
+colorscheme github
 imap <C-e> <esc>$i<right>
 imap <C-a> <esc>0i
 
