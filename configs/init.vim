@@ -19,8 +19,12 @@ colorscheme github
 imap <C-e> <esc>$i<right>
 imap <C-a> <esc>0i
 
-nmap <S-l> :bNext<C-j>
-nmap <S-h> :bprevious<C-j>
+" Custom mapping <leader> (see `:h mapleader` for more info)
+let mapleader = ','
+
+nnoremap <S-l> :w<C-j>:bNext<C-j>
+nnoremap <S-h> :w<C-j>:bprevious<C-j>
+nnoremap <leader>w :w<C-j>
 
 let g:airline#extensions#tabline#enabled = 1
 
@@ -40,8 +44,6 @@ let g:ale_completion_autoimport = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-" Custom mapping <leader> (see `:h mapleader` for more info)
-let mapleader = ','
 
 "{ UI-related settings
 "{{ General settings about colors
