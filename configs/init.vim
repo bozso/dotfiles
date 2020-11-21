@@ -73,9 +73,6 @@ set softtabstop=4   " number of spaces in tab when editing
 set shiftwidth=4    " number of spaces to use for autoindent
 set expandtab       " expand tab to spaces so that tabs are spaces
 
-" Set matching pairs of characters and highlight matching brackets
-" set matchpairs+=<:>,「:」,『:』,【:】,“:”,‘:’,《:》
-
 set number relativenumber  " Show line number and relative line number
 
 " Ignore case in general, but become case-sensitive when uppercase is present
@@ -92,6 +89,13 @@ set linebreak
 set scrolloff=3
 
 set fileformats=unix,dos  " Fileformats to use for new files
+
+function CallBuild()
+    ! gotoolbox task build
+endfunction
+
+" Build commands
+command! -bar Build :call CallBuild()
 
 " Ignore certain files and folders when globbing
 set wildignore+=*.o,*.obj,*.bin,*.dll,*.exe
