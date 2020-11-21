@@ -67,12 +67,11 @@ alias nano="nano -u"
 alias nbrc="nano -u ~/.bashrc"
 
 pkgs="${HOME}/packages"
-
 src="${pkgs}/src"
 export github="${src}/github.com/bozso"
 export bitbucket="${src}/bitbucket.org/ibozso"
 
-dotfiles="${gh}/dotfiles"
+export dotfiles="${github}/dotfiles"
 
 alias reload='. ${dotfiles}/config.sh'
 alias menu='sh ${dotfiles}/menu.sh modules'
@@ -90,7 +89,7 @@ for path in ${paths}; do
     p="${path}/init.sh"
     
     if [ -f "${p}" ]; then
-        source "${p}" "${path}"
+        sh "${p}" "${path}"
     fi
 done
 
@@ -106,23 +105,28 @@ export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${pkgs}/usr/lib/x86_64-linux-gnu"
 
 export OMP_NUM_THREADS=8
 
+evaluate() {
+    # printf "%s" "$*"
+    eval "$*"
+}
+
 simple_ps() {
     PS1="\u@\H\n"
 }
 
 eval_if_dir() {
     if [ -d "$1" ]; then
-        eval "$2"
+        evaluate "$2"
     fi        
 }
 
 eval_if_file() {
     if [ -f "$1" ]; then
-        eval "$2"
+        evaluate "$2"
     fi        
 }
 
-eval "$(starship init bash)"
+evaluate "$(starship init bash)"
 
 eval_if_file "starship" "$(starship init bash)"
 eval_if_dir "${HOME}/bake/bake" "${HOME}/bake/bake env"
