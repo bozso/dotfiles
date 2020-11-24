@@ -25,7 +25,7 @@ let mapleader = ','
 nnoremap <S-l> :w<C-j>:bNext<C-j>
 nnoremap <S-h> :w<C-j>:bprevious<C-j>
 nnoremap <leader>w :w<C-j>
-nnoremap <leader>b :buffer 
+nnoremap <leader>b :w<C-j>:buffer 
 
 let g:airline#extensions#ale#enabled = 1
 
@@ -40,6 +40,10 @@ let g:ale_completion_enabled = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 0
 let g:ale_completion_autoimport = 1
+
+let g:ale_linters = {
+\   'go': ['gofmt', 'golint', 'govet', 'gobuild'],
+\}
 
 set omnifunc=ale#completion#OmniFunc
 
