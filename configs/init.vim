@@ -11,6 +11,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'dense-analysis/ale'
 Plug 'flazz/vim-colorschemes'
+Plug 'mattn/emmet-vim'
 
 " Initialize plugin system
 call plug#end()
@@ -41,6 +42,7 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 0
 let g:ale_completion_autoimport = 1
 
+let g:ale_go_langserver_executable = 'gopls'
 let g:ale_linters = {
 \   'go': ['gofmt', 'golint', 'govet', 'gobuild'],
 \}
@@ -56,7 +58,7 @@ nn <silent> <M-a> :ALESymbolSearch<cr>
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-let g:ale_go_langserver_executable = 'gopls'
+let g:user_emmet_leader_key=','
 
 "{ UI-related settings
 "{{ General settings about colors
