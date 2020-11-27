@@ -2,9 +2,7 @@ export temu=lxterminal
 export BROWSER="chromium-browser"
 
 gen_repos() {
-    go build bin/main.go
-    
-    ./main genrepos \
+    gotoolbox genrepos \
         -config "configs/repository_settings.json" \
         -out "configs/local_repos.json"
 }
