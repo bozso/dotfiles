@@ -12,6 +12,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'dense-analysis/ale'
 Plug 'flazz/vim-colorschemes'
 Plug 'mattn/emmet-vim'
+Plug 'earthly/earthly.vim', { 'branch': 'main' }
 
 " Initialize plugin system
 call plug#end()
