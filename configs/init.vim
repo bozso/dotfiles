@@ -74,6 +74,9 @@ endif
 " Disable creating swapfiles, see https://stackoverflow.com/q/821902/6064933
 set noswapfile
 
+" Highlight long lines
+set colorcolumn=79
+
 " General tab settings
 set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " number of spaces in tab when editing
