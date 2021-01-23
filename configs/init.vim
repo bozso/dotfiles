@@ -28,6 +28,7 @@ nnoremap <S-l> :w<C-j>:bNext<C-j>
 nnoremap <S-h> :w<C-j>:bprevious<C-j>
 nnoremap <leader>w :w<C-j>
 nnoremap <leader>b :w<C-j>:buffer 
+nnoremap <leader>d :ALEDetail<C-j>
 
 let g:airline#extensions#ale#enabled = 1
 
