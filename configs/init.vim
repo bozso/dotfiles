@@ -13,6 +13,7 @@ Plug 'dense-analysis/ale'
 Plug 'flazz/vim-colorschemes'
 Plug 'mattn/emmet-vim'
 Plug 'earthly/earthly.vim', { 'branch': 'main' }
+Plug 'zah/nim.vim'
 
 " Initialize plugin system
 call plug#end()

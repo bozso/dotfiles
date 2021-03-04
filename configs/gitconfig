@@ -1,3 +1,5 @@
+[core]
+    editor = nvim
 [user]
 	name = István Bozsó
 	email = bozso.istvan@csfk.mta.hu
@@ -9,6 +11,7 @@
     d = diff
     co = checkout
     ct = commit
+    ca = commit -a
     cam = commit -am
     st = status
     br = branch

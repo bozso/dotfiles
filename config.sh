@@ -73,6 +73,7 @@ export dotfiles="${github}/dotfiles"
 
 alias reload='. ${dotfiles}/config.sh'
 alias menu='sh ${dotfiles}/menu.sh modules'
+alias import='sh ${dotfiles}/menu.sh import'
 
 paths=\
 "

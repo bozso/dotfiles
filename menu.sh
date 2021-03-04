@@ -246,7 +246,10 @@ gamma
 mount
 dog
 mcon
+wincap
+selcap
 "
+
 
 select_module() {
     local sel=$(printf "%s\n" ${modules} | mymenu -p "Select from modules:")
@@ -269,8 +272,17 @@ Basename() {
 }
 
 import() {
-    ${py} ${dotfiles}/bin/import.py
+    ${py} ${dotfiles}/bin/import.py $*
 }
+
+wincap() {
+    import screen
+}
+
+selcap() {
+    import select
+}
+
 
 programs() {
     PATH="${PATH}:${HOME}/packages/usr/bin"; dmenu_run $opt
@@ -287,7 +299,10 @@ main() {
             select_module
             ;;
         "import")
-            import
+            import select
+            ;;
+        "screen")
+            import screen
             ;;
         *)
             printf "Unrecognized option %s!\n" $1 >&2
