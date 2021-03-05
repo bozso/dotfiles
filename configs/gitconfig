@@ -1,5 +1,6 @@
 [core]
     pager = delta --light
+    editor = nvim
 [delta]
     features = unobtrusive-line-numbers decorations
     whitespace-error-style = 22 reverse
@@ -22,7 +23,7 @@
 
 [user]
 	name = István Bozsó
-	email = bozso.istvan@csfk.mta.hu
+	email = bozso.istvan@epss.hu
 
 [github]
 	user = bozso
@@ -34,6 +35,7 @@
     d = diff
     co = checkout
     ct = commit
+    ca = commit -a
     cam = commit -am
     s = status
     br = branch
