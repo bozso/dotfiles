@@ -63,6 +63,8 @@ proton() {
 
 alias nano="nano -u"
 alias nbrc="nano -u ~/.bashrc"
+alias tb="gotoolbox"
+alias mage="tb mage"
 
 pkgs="${HOME}/packages"
 src="${pkgs}/src"
