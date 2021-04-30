@@ -14,11 +14,12 @@ Plug 'flazz/vim-colorschemes'
 Plug 'mattn/emmet-vim'
 Plug 'earthly/earthly.vim', { 'branch': 'main' }
 Plug 'zah/nim.vim'
+Plug 'ziglang/zig.vim'
 
 " Initialize plugin system
 call plug#end()
 
-colorscheme github
+" colorscheme github
 imap <C-e> <esc>$i<right>
 imap <C-a> <esc>0i
 
