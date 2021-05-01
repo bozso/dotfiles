@@ -3,6 +3,33 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
+
+" Enable completion where available.
+" This setting must be set before ALE is loaded.
+"
+" You should not turn this setting on if you wish to use ALE as a completion
+" source for other completion plugins, like Deoplete.
+let g:ale_completion_enabled = 1
+let g:ale_fix_on_save = 1
+let g:airline#extensions#ale#enabled = 1
+
+" Disable continuous linting to save CPU cycles
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_insert_leave = 0
+let g:ale_completion_autoimport = 1
+
+let g:ale_go_langserver_executable = 'gopls'
+let g:ale_go_golangci_lint_executable = 'golangci-lint'
+
+let g:ale_linters = {
+\   'go': ['gofmt', 'golint', 'govet', 'gobuild', 'golangci-lint'],
+\}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'rust': ['rustfmt'],
+\}
+
+
 " Make sure you use single quotes
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
@@ -29,27 +56,8 @@ let mapleader = ','
 nnoremap <S-l> :w<C-j>:bNext<C-j>
 nnoremap <S-h> :w<C-j>:bprevious<C-j>
 nnoremap <leader>w :w<C-j>
-nnoremap <leader>b :w<C-j>:buffer 
+nnoremap <leader>b :w<C-j>:buffer
 nnoremap <leader>d :ALEDetail<C-j>
-
-let g:airline#extensions#ale#enabled = 1
-
-" Enable completion where available.
-" This setting must be set before ALE is loaded.
-"
-" You should not turn this setting on if you wish to use ALE as a completion
-" source for other completion plugins, like Deoplete.
-let g:ale_completion_enabled = 1
-
-" Disable continuous linting to save CPU cycles
-let g:ale_lint_on_text_changed = 0
-let g:ale_lint_on_insert_leave = 0
-let g:ale_completion_autoimport = 1
-
-let g:ale_go_langserver_executable = 'gopls'
-let g:ale_linters = {
-\   'go': ['gofmt', 'golint', 'govet', 'gobuild'],
-\}
 
 set omnifunc=ale#completion#OmniFunc
 
