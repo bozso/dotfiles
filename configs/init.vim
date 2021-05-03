@@ -56,7 +56,7 @@ let mapleader = ','
 nnoremap <S-l> :w<C-j>:bNext<C-j>
 nnoremap <S-h> :w<C-j>:bprevious<C-j>
 nnoremap <leader>w :w<C-j>
-nnoremap <leader>b :w<C-j>:buffer
+nnoremap <leader>b :w<C-j>:buffer<space>
 nnoremap <leader>d :ALEDetail<C-j>
 
 set omnifunc=ale#completion#OmniFunc
