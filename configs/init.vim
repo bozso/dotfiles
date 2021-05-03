@@ -18,7 +18,7 @@ Plug 'zah/nim.vim'
 " Initialize plugin system
 call plug#end()
 
-colorscheme github
+" colorscheme github
 imap <C-e> <esc>$i<right>
 imap <C-a> <esc>0i
 

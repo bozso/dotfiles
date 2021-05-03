@@ -166,7 +166,7 @@ _ssh_mount() {
 }
 
 _ssh_join() {
-    local cmd="$(printf 'ssh -Y %s' "$1")"
+    local cmd="$(printf 'ssh %s' "$1")"
     $cmd
 }
 

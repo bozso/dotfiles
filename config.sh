@@ -63,6 +63,7 @@ proton() {
 
 alias nano="nano -u"
 alias nbrc="nano -u ~/.bashrc"
+alias fm="nnn -d -D -R"
 
 pkgs="${HOME}/packages"
 src="${pkgs}/src"
