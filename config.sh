@@ -19,14 +19,14 @@ local_install() {
         printf "error: local_install: One argument (package name) is required!\n" >&2
         return 1
     fi
-    
+
     rm *.deb
-    
+
     apt download $1
     mkdir -p "${pkgs}"
 
     dpkg -x *.deb "${pkgs}"
-    
+
     rm *.deb
 }
 
@@ -43,27 +43,28 @@ gm() {
     sh ${dotfiles}/git.sh $*
 }
 
-
 proton() {
     check_narg $# 1
-    
+
     local p_sapps="/home/istvan/.steam/steam/steamapps"
     local p_compat="$p_sapps/compatdata/eofs"
     local e_proton="$p_sapps/common/Proton 3.16/proton"
     local p_freetype="/usr/lib/x86_64-linux-gnu/libfreetype.so.6"
-    
-    # STEAM_COMPAT_DATA_PATH="/home/istvan/.proton/" python "$e_proton" run $1 LD_PRELOAD=$p_freetype 
+
+    # STEAM_COMPAT_DATA_PATH="/home/istvan/.proton/" python "$e_proton" run $1 LD_PRELOAD=$p_freetype
     # PROTON_USE_WINED3D11=1 \
     # PROTON_NO_ESYNC=1 \
     STEAM_COMPAT_DATA_PATH=$p_compat \
     DXVK_LOG_LEVEL=debug \
     python "$e_proton" run $1
-    
+
 }
 
 alias nano="nano -u"
 alias nbrc="nano -u ~/.bashrc"
 alias fm="nnn -d -D -R"
+alias tb="gotoolbox"
+alias mage="tb mage"
 
 pkgs="${HOME}/packages"
 src="${pkgs}/src"
@@ -87,7 +88,7 @@ ${bitbucket}/stm-bi
 
 for path in ${paths}; do
     p="${path}/init.sh"
-    
+
     if [ -f "${p}" ]; then
         sh "${p}" "${path}"
     fi
@@ -117,13 +118,13 @@ simple_ps() {
 eval_if_dir() {
     if [ -d "$1" ]; then
         evaluate "$2"
-    fi        
+    fi
 }
 
 eval_if_file() {
     if [ -f "$1" ]; then
         evaluate "$2"
-    fi        
+    fi
 }
 
 evaluate "$(starship init bash)"
