@@ -21,6 +21,7 @@ let g:ale_completion_autoimport = 1
 let g:ale_go_langserver_executable = 'gopls'
 let g:ale_go_golangci_lint_executable = 'golangci-lint'
 
+
 let g:ale_linters = {
 \   'go': ['gofmt', 'golint', 'govet', 'gobuild', 'golangci-lint'],
 \}
@@ -28,6 +29,7 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'rust': ['rustfmt'],
 \}
+
 
 
 " Make sure you use single quotes
