@@ -9,46 +9,51 @@ call plug#begin('~/.vim/plugged')
 "
 " You should not turn this setting on if you wish to use ALE as a completion
 " source for other completion plugins, like Deoplete.
-let g:ale_completion_enabled = 1
-let g:ale_fix_on_save = 1
-let g:airline#extensions#ale#enabled = 1
-
-" Disable continuous linting to save CPU cycles
-let g:ale_lint_on_text_changed = 0
-let g:ale_lint_on_insert_leave = 0
-let g:ale_completion_autoimport = 1
-
-let g:ale_go_langserver_executable = 'gopls'
-let g:ale_go_golangci_lint_executable = 'golangci-lint'
-
-
-let g:ale_linters = {
-\   'go': ['gofmt', 'golint', 'govet', 'gobuild', 'golangci-lint'],
-\   'c': ['clangd'],
-\}
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'rust': ['rustfmt'],
-\   'c': ['clangtidy', 'clang-format'],
-\}
-
-
+" let g:ale_completion_enabled = 1
+" let g:ale_fix_on_save = 1
+" let g:airline#extensions#ale#enabled = 1
+"
+" " Disable continuous linting to save CPU cycles
+" let g:ale_lint_on_text_changed = 0
+" let g:ale_lint_on_insert_leave = 0
+" let g:ale_completion_autoimport = 1
+"
+" let g:ale_go_langserver_executable = 'gopls'
+" let g:ale_go_golangci_lint_executable = 'golangci-lint'
+"
+"
+" let g:ale_linters = {
+" \   'go': ['gofmt', 'golint', 'govet', 'gobuild', 'golangci-lint'],
+" \   'c': ['clangd'],
+" \}
+" let g:ale_fixers = {
+" \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+" \   'rust': ['rustfmt'],
+" \   'c': ['clangtidy', 'clang-format'],
+" \}
 
 " Make sure you use single quotes
+"
+let g:neomake_open_list = 2
+let g:neomake_c_enabled_makers = ['clangtidy']
+let g:neomake_cpp_enabled_makers = ['clangtidy']
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 " Plug 'junegunn/vim-easy-align'
 
 Plug 'vim-airline/vim-airline'
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 Plug 'flazz/vim-colorschemes'
 Plug 'mattn/emmet-vim'
 Plug 'earthly/earthly.vim', { 'branch': 'main' }
 Plug 'zah/nim.vim'
 Plug 'ziglang/zig.vim'
+Plug 'neomake/neomake'
 
 " Initialize plugin system
 call plug#end()
+
+call neomake#configure#automake('w')
 
 " colorscheme github
 imap <C-e> <esc>$i<right>
@@ -57,22 +62,22 @@ imap <C-a> <esc>0i
 " Custom mapping <leader> (see `:h mapleader` for more info)
 let mapleader = ','
 
-nnoremap <S-l> :w<C-j>:bNext<C-j>
-nnoremap <S-h> :w<C-j>:bprevious<C-j>
+" nnoremap <S-l> :w<C-j>:bNext<C-j>
+" nnoremap <S-h> :w<C-j>:bprevious<C-j>
 nnoremap <leader>w :w<C-j>
 nnoremap <leader>b :w<C-j>:buffer<space>
-nnoremap <leader>d :ALEDetail<C-j>
+" nnoremap <leader>d :ALEDetail<C-j>
 
-set omnifunc=ale#completion#OmniFunc
+" set omnifunc=ale#completion#OmniFunc
 
-nn <silent> <M-d> :ALEGoToDefinition<cr>
-nn <silent> <M-r> :ALEFindReferences<cr>
-nn <silent> <M-a> :ALESymbolSearch<cr>
+" nn <silent> <M-d> :ALEGoToDefinition<cr>
+" nn <silent> <M-r> :ALEFindReferences<cr>
+" nn <silent> <M-a> :ALESymbolSearch<cr>
 
 
 " navigate between errors with Ctrl-k and Ctrl-j
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-j> :lnext<C-j>
+nmap <silent> <C-k> :lprev<C-j>
 
 let g:user_emmet_leader_key=','
 
