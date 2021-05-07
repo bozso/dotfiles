@@ -2,15 +2,22 @@
 " autocmd BufRead,BufWrite *.go !gofmt <abuf> && gci <abuf>
 "
 
+function! FormatReload(cmd)
+     :w
+     :call Format(a:cmd)
+     :e! <afile>
+endfunction
+
 function! Format(cmd)
      let save_pos = getpos(".")
-     execute(a:cmd)
+     execute('silent! ' . a:cmd)
      call setpos(".", save_pos)
 endfunction
 
-autocmd BufRead,BufWrite *.go :call Format("%!gofmt")
-autocmd BufRead,BufWrite *.go :call Format("silent! !gci -w <afile>")
+autocmd BufRead,BufWrite *.go :call FormatReload("!gofmt -w <afile>")
+autocmd BufRead,BufWrite *.go :call FormatReload("!gci -w <afile>")
 
+" autocmd BufRead,BufWrite *.rs :call Format("%!rustfmt")
 autocmd BufRead,BufWrite *.rs :call Format("%!rustfmt")
 
 " autocmd BufRead,BufWrite *.rs %!rustfmt
