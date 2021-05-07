@@ -1,3 +1,21 @@
+" autocmd BufRead,BufWrite *.go silent! !gofmt -w <afile> && gci -w <afile>
+" autocmd BufRead,BufWrite *.go !gofmt <abuf> && gci <abuf>
+"
+
+function! Format(cmd)
+     let save_pos = getpos(".")
+     execute(a:cmd)
+     call setpos(".", save_pos)
+endfunction
+
+autocmd BufRead,BufWrite *.go :call Format("%!gofmt")
+autocmd BufRead,BufWrite *.go :call Format("silent! !gci -w <afile>")
+
+autocmd BufRead,BufWrite *.rs :call Format("%!rustfmt")
+
+" autocmd BufRead,BufWrite *.rs %!rustfmt
+set autoread
+
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
@@ -32,8 +50,6 @@ let g:ale_fixers = {
 \   'c': ['clangtidy', 'clang-format'],
 \}
 
-
-
 " Make sure you use single quotes
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
@@ -46,11 +62,15 @@ Plug 'mattn/emmet-vim'
 Plug 'earthly/earthly.vim', { 'branch': 'main' }
 Plug 'zah/nim.vim'
 Plug 'ziglang/zig.vim'
+Plug 'neomake/neomake'
 
 " Initialize plugin system
 call plug#end()
 
-" colorscheme github
+
+let g:neomake_open_list = 2
+
+colorscheme github
 imap <C-e> <esc>$i<right>
 imap <C-a> <esc>0i
 
@@ -62,6 +82,7 @@ nnoremap <S-h> :w<C-j>:bprevious<C-j>
 nnoremap <leader>w :w<C-j>
 nnoremap <leader>b :w<C-j>:buffer<space>
 nnoremap <leader>d :ALEDetail<C-j>
+nnoremap <leader>m :Neomake<C-j>
 
 set omnifunc=ale#completion#OmniFunc
 
@@ -71,8 +92,8 @@ nn <silent> <M-a> :ALESymbolSearch<cr>
 
 
 " navigate between errors with Ctrl-k and Ctrl-j
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-k> :lprev<C-j>
+nmap <silent> <C-j> :lnext<C-j>
 
 let g:user_emmet_leader_key=','
 
