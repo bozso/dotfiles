@@ -9,9 +9,9 @@ function! FormatReload(cmd)
 endfunction
 
 function! Format(cmd)
-     let save_pos = getpos(".")
-     execute('silent! ' . a:cmd)
-     call setpos(".", save_pos)
+    let save_pos = getpos('.')
+    execute('silent! ' . a:cmd)
+    call setpos(".", save_pos)
 endfunction
 
 autocmd BufRead,BufWrite *.go :call FormatReload("!gofmt -w <afile>")
