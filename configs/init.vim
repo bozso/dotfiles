@@ -1,3 +1,27 @@
+" autocmd BufRead,BufWrite *.go silent! !gofmt -w <afile> && gci -w <afile>
+" autocmd BufRead,BufWrite *.go !gofmt <abuf> && gci <abuf>
+
+function! FormatReload(cmd)
+     :w
+     :call Format(a:cmd)
+     :e! <afile>
+endfunction
+
+function! Format(cmd)
+    let save_pos = getpos('.')
+    execute('silent! ' . a:cmd)
+    call setpos(".", save_pos)
+endfunction
+
+autocmd BufRead,BufWrite *.go :call FormatReload("!gofmt -w <afile>")
+" autocmd BufRead,BufWrite *.go :call FormatReload("!gci -w <afile>")
+
+" autocmd BufRead,BufWrite *.rs :call Format("%!rustfmt")
+autocmd BufRead,BufWrite *.rs :call Format("!rustfmt --emit files <afile>")
+
+" autocmd BufRead,BufWrite *.rs %!rustfmt
+set autoread
+
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
@@ -9,28 +33,6 @@ call plug#begin('~/.vim/plugged')
 "
 " You should not turn this setting on if you wish to use ALE as a completion
 " source for other completion plugins, like Deoplete.
-" let g:ale_completion_enabled = 1
-" let g:ale_fix_on_save = 1
-" let g:airline#extensions#ale#enabled = 1
-"
-" " Disable continuous linting to save CPU cycles
-" let g:ale_lint_on_text_changed = 0
-" let g:ale_lint_on_insert_leave = 0
-" let g:ale_completion_autoimport = 1
-"
-" let g:ale_go_langserver_executable = 'gopls'
-" let g:ale_go_golangci_lint_executable = 'golangci-lint'
-"
-"
-" let g:ale_linters = {
-" \   'go': ['gofmt', 'golint', 'govet', 'gobuild', 'golangci-lint'],
-" \   'c': ['clangd'],
-" \}
-" let g:ale_fixers = {
-" \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-" \   'rust': ['rustfmt'],
-" \   'c': ['clangtidy', 'clang-format'],
-" \}
 
 " Make sure you use single quotes
 "
@@ -53,31 +55,22 @@ Plug 'neomake/neomake'
 " Initialize plugin system
 call plug#end()
 
-call neomake#configure#automake('w')
+colorscheme github
 
-" colorscheme github
 imap <C-e> <esc>$i<right>
 imap <C-a> <esc>0i
 
 " Custom mapping <leader> (see `:h mapleader` for more info)
 let mapleader = ','
+call neomake#configure#automake('w')
 
-" nnoremap <S-l> :w<C-j>:bNext<C-j>
-" nnoremap <S-h> :w<C-j>:bprevious<C-j>
 nnoremap <leader>w :w<C-j>
 nnoremap <leader>b :w<C-j>:buffer<space>
-" nnoremap <leader>d :ALEDetail<C-j>
-
-" set omnifunc=ale#completion#OmniFunc
-
-" nn <silent> <M-d> :ALEGoToDefinition<cr>
-" nn <silent> <M-r> :ALEFindReferences<cr>
-" nn <silent> <M-a> :ALESymbolSearch<cr>
-
+nnoremap <leader>m :Neomake<C-j>
 
 " navigate between errors with Ctrl-k and Ctrl-j
-nmap <silent> <C-j> :lnext<C-j>
 nmap <silent> <C-k> :lprev<C-j>
+nmap <silent> <C-j> :lnext<C-j>
 
 let g:user_emmet_leader_key=','
 
