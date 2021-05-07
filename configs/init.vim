@@ -13,11 +13,13 @@ function! Format(cmd)
     call setpos(".", save_pos)
 endfunction
 
-autocmd BufRead,BufWrite *.go :call FormatReload("!gofmt -w <afile>")
+autocmd BufRead,BufWrite *.go :call FormatReload('!gofmt -w <afile>')
 " autocmd BufRead,BufWrite *.go :call FormatReload("!gci -w <afile>")
 
 " autocmd BufRead,BufWrite *.rs :call Format("%!rustfmt")
-autocmd BufRead,BufWrite *.rs :call Format("!rustfmt --emit files <afile>")
+autocmd BufRead,BufWrite *.rs :call FormatReload('!rustfmt --emit files <afile>')
+
+autocmd BufRead,BufWrite *.c,*.cpp,*.h,*.hpp :call Format('%!clang-format')
 
 " autocmd BufRead,BufWrite *.rs %!rustfmt
 set autoread
