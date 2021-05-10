@@ -13,12 +13,6 @@ function! Format(cmd)
     call setpos(".", save_pos)
 endfunction
 
-autocmd BufRead,BufWrite *.go :call FormatReload('!gofmt -w <afile>')
-" autocmd BufRead,BufWrite *.go :call FormatReload("!gci -w <afile>")
-
-" autocmd BufRead,BufWrite *.rs :call Format("%!rustfmt")
-autocmd BufRead,BufWrite *.rs :call FormatReload('!rustfmt --emit files <afile>')
-
 autocmd BufRead,BufWrite *.c,*.cpp,*.h,*.hpp :call FormatReload('!clang-format -i <afile>')
 
 " autocmd BufRead,BufWrite *.rs %!rustfmt
@@ -27,32 +21,48 @@ set autoread
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.vim/plugged')
-
-
 " Enable completion where available.
 " This setting must be set before ALE is loaded.
 "
 " You should not turn this setting on if you wish to use ALE as a completion
 " source for other completion plugins, like Deoplete.
 
-" Make sure you use single quotes
-"
-let g:neomake_open_list = 2
-let g:neomake_c_enabled_makers = ['clangtidy']
-let g:neomake_cpp_enabled_makers = ['clangtidy']
+let g:ale_completion_enabled = 1
+let g:ale_fix_on_save = 1
+let g:airline#extensions#ale#enabled = 1
+
+" Disable continuous linting to save CPU cycles
+
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_insert_leave = 0
+let g:ale_completion_autoimport = 1
+
+let g:ale_go_golangci_lint_executable = 'golangci-lint'
+
+let g:ale_linters = {
+\   'go': ['gofmt', 'golint', 'govet', 'gobuild', 'golangci-lint'],
+\}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'rust': ['rustfmt'],
+\   'go': ['gofmt'],
+\   'c': ['clang-format', 'clangtidy'],
+\   'cpp': ['clang-format', 'clangtidy'],
+\}
+
+call plug#begin('~/.vim/plugged')
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 " Plug 'junegunn/vim-easy-align'
 
 Plug 'vim-airline/vim-airline'
-" Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 Plug 'flazz/vim-colorschemes'
 Plug 'mattn/emmet-vim'
 Plug 'earthly/earthly.vim', { 'branch': 'main' }
 Plug 'zah/nim.vim'
 Plug 'ziglang/zig.vim'
-Plug 'neomake/neomake'
+" Plug 'neomake/neomake'
 
 " Initialize plugin system
 call plug#end()
@@ -64,15 +74,26 @@ imap <C-a> <esc>0i
 
 " Custom mapping <leader> (see `:h mapleader` for more info)
 let mapleader = ','
-call neomake#configure#automake('w')
 
 nnoremap <leader>w :w<C-j>
 nnoremap <leader>b :w<C-j>:buffer<space>
-nnoremap <leader>m :Neomake<C-j>
+
+" call neomake#configure#automake('w')
+" nnoremap <leader>m :Neomake<C-j>
+" nmap <silent> <C-k> :lprev<C-j>
+" nmap <silent> <C-j> :lnext<C-j>
+
+nnoremap <leader>d :ALEDetail<C-j>
+
+set omnifunc=ale#completion#OmniFunc
+
+nn <silent> <M-d> :ALEGoToDefinition<cr>
+nn <silent> <M-r> :ALEFindReferences<cr>
+nn <silent> <M-a> :ALESymbolSearch<cr>
 
 " navigate between errors with Ctrl-k and Ctrl-j
-nmap <silent> <C-k> :lprev<C-j>
-nmap <silent> <C-j> :lnext<C-j>
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 let g:user_emmet_leader_key=','
 
