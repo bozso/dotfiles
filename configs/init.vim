@@ -1,21 +1,3 @@
-" autocmd BufRead,BufWrite *.go silent! !gofmt -w <afile> && gci -w <afile>
-" autocmd BufRead,BufWrite *.go !gofmt <abuf> && gci <abuf>
-
-function! FormatReload(cmd)
-     :w
-     :call Format(a:cmd)
-     :e! <afile>
-endfunction
-
-function! Format(cmd)
-    let save_pos = getpos('.')
-    execute('silent! ' . a:cmd)
-    call setpos(".", save_pos)
-endfunction
-
-autocmd BufRead,BufWrite *.c,*.cpp,*.h,*.hpp :call FormatReload('!clang-format -i <afile>')
-
-" autocmd BufRead,BufWrite *.rs %!rustfmt
 set autoread
 
 " Specify a directory for plugins
