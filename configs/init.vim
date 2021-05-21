@@ -66,6 +66,7 @@ nnoremap <leader>b :w<C-j>:buffer<space>
 " nmap <silent> <C-j> :lnext<C-j>
 
 nnoremap <leader>d :ALEDetail<C-j>
+nnoremap <leader>h :ALEHover<C-j>
 
 set omnifunc=ale#completion#OmniFunc
 

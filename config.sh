@@ -70,6 +70,7 @@ pkgs="${HOME}/packages"
 src="${pkgs}/src"
 export github="${src}/github.com/bozso"
 export bitbucket="${src}/bitbucket.org/ibozso"
+export srht="${src}/sr.ht"
 
 export dotfiles="${github}/dotfiles"
 
@@ -102,7 +103,7 @@ export NO_COLOR=1
 export GOPATH="${pkgs}"
 export PATH="${PATH}:${pkgs}/usr/bin:${pkgs}/bin:${HOME}/.nimble/bin"
 export PATH="${PATH}:${dotfiles}/bin:/opt/cisco/anyconnect/bin"
-export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${pkgs}/usr/lib/x86_64-linux-gnu"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${pkgs}/usr/lib"
 
 export OMP_NUM_THREADS=8
 

@@ -1,5 +1,8 @@
 scan_timeout = 15
 
+[directory]
+style = "bold #000000"
+
 [cmd_duration]
 min_time = 500
 style = "bold #269900"
