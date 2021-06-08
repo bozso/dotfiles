@@ -1,7 +1,6 @@
 #! /usr/bin/env sh
 
-miniconda="${HOME}/miniconda3"
-py="${miniconda}/bin/python"
+py="python3.6"
 music_player="audacious"
 progs="${HOME}/progs"
 dotfiles="${HOME}/packages/src/github.com/bozso/dotfiles"
@@ -50,23 +49,23 @@ extract_music() {
         local outpath="/home/istvan/Zenék/$(basename "$zipfile" .zip)"
         # mkdir -p "$outpath"
         notify "Extracting file" "$zipfile"
-        
+
         unzip "$zipfile" -d "$outpath"
     done
 }
 
 update_clean() {
     notify "Updating..."
-    
+
     local o1=$(sudo apt-get update)
     local o2=$(sudo apt-get upgrade)
     local o3=$(sudo apt-get dist-update)
-    
+
     # notify "Update complete." "$o1\n$o2\n$3"
-    
+
     local o1="$(sudo apt-get clean)"
     local o2="$(sudo apt-get autoremove)"
-    
+
     notify "Cleaning..."
     notify "Cleaning  complete." "$o1\n$o2"
 }
@@ -77,10 +76,10 @@ last_field() {
 
 playlists() {
     local path="/home/istvan/Zenék/playlists"
-    
+
     local sel=$(ls -1 $path/* | last_field | \
                 mymenu -p "Select playlist:")
-    
+
     if [ -n "$sel" ]; then
         local path="$path/$sel"
         notify "Playing music" "$sel" "music_note.png"
@@ -90,16 +89,16 @@ playlists() {
 
 workspace() {
     check_narg $# "2"
-    
+
     local name="$1"
     local path="$2"
-    
+
     tmux start-server
-    
+
     echo "$name $(tmux ls)"
     local bool="$(in_str "$name" "$(tmux ls)")"
     echo "$bool"
-    
+
     if [ "$bool" = "false" ]; then
         notify "tmux" "Starting session $name"
         tmux new-session -d -t "$name"
@@ -110,7 +109,7 @@ workspace() {
         tmux split-window -v -c "$path"
         tmux select-pane -t 1
     fi
-    
+
     $temu -e "tmux attach-session -d -t \"$name\""
 
 }
@@ -118,7 +117,7 @@ workspace() {
 work() {
     local sel="$(dselect "$repos" "Select repo:")"
     local path="$(mget "$sel" "$repos")"
-    
+
     workspace "$sel" "$path"
 }
 
@@ -127,7 +126,7 @@ mc() {
     local sel="$(ls -d -1 $HOME/*/ | \
                  awk -F '/' '{print $(NF - 1)}' | \
                  mymenu -p "Select directory:")"
-    
+
     if [ -n "$sel" ]; then
         local path="$HOME/$sel"
         notify "Started Midnight Commander." "$path" "mc.png"
@@ -151,7 +150,7 @@ _ssh_calc_address() {
     local addr="$(printf '%s' "$1" \
                   | cut -d ':' -f 2 \
                   | tr -d ' ')"
-    
+
     echo "$(printf 'istvan@%s' "${addr}")"
 }
 
@@ -159,7 +158,7 @@ _ssh_mount() {
     local name="$(printf '%s' "$1" \
                   | cut -d ':' -f 1 \
                   | tr -d ' ')"
-    
+
     local path="${HOME}/mount/${name}"
     local cmd="$(printf 'sshfs %s: %s' "$2" "${path}")"
     $cmd
@@ -172,10 +171,10 @@ _ssh_join() {
 
 manage_ssh() {
     local mode="$1"
-    
+
     local server="$(_ssh_select)"
     local addr="$(_ssh_calc_address "${server}")"
-    
+
     case "${mode}" in
         "mount")
             _ssh_mount "${server}" "${addr}"
@@ -213,10 +212,10 @@ poweroff() {
 
 gamma() {
     local path="/home/istvan/Dokumentumok/gamma_doc"
-    
+
     local sel=$(ls -1 $path/*.html | last_field | \
                 mymenu -p "Select program:" -l 10)
-    
+
     if [ -n "$sel" ]; then
         local path="$path/$sel"
         notify "Opening documentation" "${sel}" "music_note.png"
@@ -253,7 +252,7 @@ selcap
 
 select_module() {
     local sel=$(printf "%s\n" ${modules} | mymenu -p "Select from modules:")
-    
+
     for module in $(printf "%s\n" $modules); do
         case $sel in
             $module)
@@ -268,7 +267,7 @@ select_module() {
 Basename() {
     while IFS= read -r line; do
       printf '%s\n' "$(basename $line .png)"
-    done    
+    done
 }
 
 import() {
@@ -290,7 +289,7 @@ programs() {
 
 main() {
     check_narg $# 1
-        
+
     case $1 in
         "programs")
             programs
