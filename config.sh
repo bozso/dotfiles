@@ -112,6 +112,14 @@ evaluate() {
     eval "$*"
 }
 
+mount_storage() {
+    local storage=/home/istvan/mount/storage
+    mkdir -p "${storage}"
+
+    sudo mount //storage/bozsoi "${storage}" \
+        -o user=bozsoi,dir_mode=0777,file_mode=0666
+}
+
 simple_ps() {
     PS1="\u@\H\n"
 }
