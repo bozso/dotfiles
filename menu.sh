@@ -121,6 +121,11 @@ work() {
     workspace "$sel" "$path"
 }
 
+bitwarden() {
+    local sel="$(rbw list | mymenu -p "Select password:")"
+    rbw get "${sel}" | xclip -i -selection clipboard
+}
+
 
 mc() {
     local sel="$(ls -d -1 $HOME/*/ | \
@@ -232,6 +237,7 @@ dog() {
 }
 
 modules="
+bitwarden
 notebook
 poweroff
 playlists

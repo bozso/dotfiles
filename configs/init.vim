@@ -9,7 +9,7 @@ set autoread
 " You should not turn this setting on if you wish to use ALE as a completion
 " source for other completion plugins, like Deoplete.
 
-let g:ale_completion_enabled = 1
+" let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
 let g:airline#extensions#ale#enabled = 1
 
@@ -19,10 +19,13 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 0
 let g:ale_completion_autoimport = 1
 
+let g:ale_python_pyre_executable = 'poetry run pyre'
 let g:ale_go_golangci_lint_executable = 'golangci-lint'
 
 let g:ale_linters = {
 \   'go': ['gofmt', 'golint', 'govet', 'gobuild', 'golangci-lint'],
+\   'd': ['dmd'],
+\   'python': ['pyre'],
 \}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -44,7 +47,6 @@ Plug 'mattn/emmet-vim'
 Plug 'earthly/earthly.vim', { 'branch': 'main' }
 Plug 'zah/nim.vim'
 Plug 'ziglang/zig.vim'
-" Plug 'neomake/neomake'
 
 " Initialize plugin system
 call plug#end()
@@ -68,7 +70,7 @@ nnoremap <leader>b :w<C-j>:buffer<space>
 nnoremap <leader>d :ALEDetail<C-j>
 nnoremap <leader>h :ALEHover<C-j>
 
-set omnifunc=ale#completion#OmniFunc
+" set omnifunc=ale#completion#OmniFunc
 
 nn <silent> <M-d> :ALEGoToDefinition<cr>
 nn <silent> <M-r> :ALEFindReferences<cr>
