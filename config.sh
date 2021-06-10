@@ -5,6 +5,7 @@ bw_impl() {
     local target="$1"
 
     local sel="$(rbw list | fzf)"
+    [ -z "${sel}" ] && return
     rbw get "${sel}" | xclip -i -selection "${target}"
 }
 
@@ -17,8 +18,6 @@ alias bw="bw_p"
 bw_c() {
     bw_impl "clipboard"
 }
-
-
 
 gen_repos() {
     gotoolbox genrepos \
