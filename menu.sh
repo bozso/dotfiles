@@ -123,7 +123,7 @@ work() {
 
 bitwarden() {
     local sel="$(rbw list | mymenu -p "Select password:")"
-    rbw get "${sel}" | xclip -i -selection clipboard
+    rbw get "${sel}" | xclip -i -selection clipboard,primary
 }
 
 
