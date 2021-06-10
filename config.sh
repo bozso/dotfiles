@@ -9,7 +9,7 @@ bw_impl() {
     rbw get "${sel}" | xclip -i -selection "${target}"
 }
 
-bw_p() {
+bwp() {
     bw_impl "primary"
 }
 
