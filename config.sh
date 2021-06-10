@@ -1,6 +1,25 @@
 export temu=lxterminal
 export BROWSER="chromium-browser"
 
+bw_impl() {
+    local target="$1"
+
+    local sel="$(rbw list | fzf)"
+    rbw get "${sel}" | xclip -i -selection "${target}"
+}
+
+bw_p() {
+    bw_impl "primary"
+}
+
+alias bw="bw_p"
+
+bw_c() {
+    bw_impl "clipboard"
+}
+
+
+
 gen_repos() {
     gotoolbox genrepos \
         -config "configs/repository_settings.json" \
