@@ -363,7 +363,7 @@
       </action>
     </keybind>
     <!-- Snapping windows -->
-    <keybind key="W-1">        # Lower Left 
+    <keybind key="W-1">        # Lower Left
         <action name="UnmaximizeFull"/>
         <action name="MoveResizeTo"><x>0</x><y>-0</y><height>50%</height><width>50%</width></action>
     </keybind>
@@ -781,7 +781,7 @@
   # order that they appear in this list
 
 
-    # each rule element can be left out or set to 'default' to specify to not 
+    # each rule element can be left out or set to 'default' to specify to not
     # change that attribute of the window
 
     <decor>yes</decor>
