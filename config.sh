@@ -13,7 +13,7 @@ bwp() {
     bw_impl "primary"
 }
 
-alias bw="bw_p"
+alias bw="bwp"
 
 bw_c() {
     bw_impl "clipboard"
