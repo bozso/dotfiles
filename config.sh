@@ -80,7 +80,7 @@ proton() {
 
 alias nano="nano -u"
 alias nbrc="nano -u ~/.bashrc"
-alias fm="nnn -d -D -R"
+alias fm="nnn -d -R"
 alias tb="gotoolbox"
 alias mage="tb mage"
 
