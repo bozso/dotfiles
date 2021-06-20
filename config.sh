@@ -1,6 +1,10 @@
 export temu=lxterminal
 export BROWSER="chromium-browser"
 
+pkgs="${HOME}/packages"
+src="${pkgs}/src"
+pkgs_bin="${pkgs}/usr/bin"
+
 bw_impl() {
     local target="$1"
 
@@ -56,7 +60,6 @@ tar_ext() {
     tar -xzvf $1.tar.gz $1
 }
 
-
 gm() {
     sh ${dotfiles}/git.sh $*
 }
@@ -83,9 +86,8 @@ alias nbrc="nano -u ~/.bashrc"
 alias fm="nnn -d -R"
 alias tb="gotoolbox"
 alias mage="tb mage"
+alias light="sudo ${pkgs_bin}/xbacklight -set"
 
-pkgs="${HOME}/packages"
-src="${pkgs}/src"
 export github="${src}/github.com/bozso"
 export bitbucket="${src}/bitbucket.org/ibozso"
 export srht="${src}/sr.ht"
