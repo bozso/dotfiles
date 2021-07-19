@@ -1,6 +1,7 @@
 export temu=lxterminal
 export BROWSER="chromium-browser"
 
+
 pkgs="${HOME}/packages"
 src="${pkgs}/src"
 pkgs_bin="${pkgs}/usr/bin"
@@ -15,6 +16,10 @@ bw_impl() {
 
 bwp() {
     bw_impl "primary"
+}
+
+tmws() {
+    workspace $*
 }
 
 alias bw="bwp"
@@ -178,6 +183,8 @@ clang="${down}/clang/lib"
 if [ -d "${clang}" ]; then
     export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${clang}"
 fi
+
+source_if "${dotfiles}/tmux_workspace.sh"
 
 conda="${HOME}/miniconda3"
 export conda_lib="${conda}/lib"
