@@ -49,6 +49,9 @@ call plug#begin('~/.vim/plugged')
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 " Plug 'junegunn/vim-easy-align'
 
+Plug 'JuliaEditorSupport/julia-vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'  " Fuzzy finder vim support
 Plug 'vim-airline/vim-airline'
 Plug 'dense-analysis/ale'
 Plug 'flazz/vim-colorschemes'
