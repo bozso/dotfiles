@@ -72,6 +72,7 @@ imap <C-a> <esc>0i
 " Custom mapping <leader> (see `:h mapleader` for more info)
 let mapleader = ','
 
+nnoremap <leader>f :w<C-j>:FZF<C-j>
 nnoremap <leader>w :w<C-j>
 nnoremap <leader>b :w<C-j>:buffer<space>
 
