@@ -5,21 +5,44 @@ shutil:$srht/shutil
 "
 
 workspace() {
-    local selector="fzf"
-    local selected=$(echo "${workspaces}" | "${selector}")
-
-    local name=$(echo "${selected}" |  cut -d ":" -f 1)
-    local path=$(echo "${selected}" |  cut -d ":" -f 2)
+    local path="$1"
 
     # detach from a tmux session if in one
+    tmws_start_server
     tmws_detach
 
-    [ -n $(tmux list-sessions -F "#{session_name}" | \
-           grep -q "${name}") ] && tmws_attach "${name}" && return
+    echo $path
+
+    if [ -z "${path}" ]; then
+        path=$(tmws_select_ws)
+    fi
+
+    local name="$(basename ${path})"
+
+    echo $name $path
+
+    tmux has-session -t "${name}" && tmws_attach "${name}" && return
 
     tmws_create_session "${name}" "${path}"
     tmws_setup_session
     tmws_attach "${name}"
+}
+
+tmws_start_server() {
+    tmux start-server
+}
+
+tmws_select_ws() {
+    local paths="${github}:${bitbucket}:${srht}"
+    local buf=""
+
+    IFS=":"
+    for line in ${paths}; do
+        buf="${buf}$(ls -1 -d ${line}/*)"
+    done
+
+    local selector="fzf"
+    echo "$(echo ${buf} | ${selector})"
 }
 
 tmws_attach() {
