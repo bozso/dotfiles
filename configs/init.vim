@@ -28,20 +28,21 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 0
 let g:ale_completion_autoimport = 1
 
-let g:ale_python_pyre_executable = 'poetry run pyre'
 let g:ale_go_golangci_lint_executable = 'golangci-lint'
 
 let g:ale_linters = {
 \   'go': ['gofmt', 'golint', 'govet', 'gobuild', 'golangci-lint'],
 \   'd': ['dmd'],
-\   'python': ['pyre'],
+\   'python': ['flake8', 'pylint', 'pyre'],
 \}
+
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'rust': ['rustfmt'],
 \   'go': ['gofmt'],
 \   'c': ['clang-format', 'clangtidy'],
 \   'cpp': ['clang-format', 'clangtidy'],
+\   'python': ['black'],
 \}
 
 call plug#begin('~/.vim/plugged')

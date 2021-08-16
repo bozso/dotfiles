@@ -33,15 +33,15 @@ tmws_start_server() {
 }
 
 tmws_select_ws() {
+    local selector="fzf"
     local paths="${github}:${bitbucket}:${srht}"
     local buf=""
 
     IFS=":"
     for line in ${paths}; do
-        buf="${buf}$(ls -1 -d ${line}/*)"
+        buf="$(printf "%s\n%s" ${buf} $(ls -1 -d ${line}/*))"
     done
 
-    local selector="fzf"
     echo "$(echo ${buf} | ${selector})"
 }
 
