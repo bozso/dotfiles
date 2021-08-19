@@ -47,28 +47,62 @@ def proc_flags(tpl: str, flags):
             yield tpl.format(key=key, val=val)
 
 
-class Eget(namedtuple("Eget", ("executable", "extra_flags"))):
+def parse_flags(flags) -> str:
+    return " ".join((
+        flag for flag in proc_flags("--{key} {val}", flags)
+    ))
+
+
+def parse_flags_join_path(options: Options) -> str:
+    flags = {
+        "asset": options.asset,
+        "tag": options.tag,
+    }
+
+    flags = parse_flags(flags)
+    return "%s --to %s" % (flags, options.filename())
+
+
+def parse_flags_with_rename(options: Options) -> str:
+    flags = {
+        "rename": options.rename,
+        "to": options.to,
+        "asset": options.asset,
+        "tag": options.tag,
+    }
+
+    return parse_flags(flags)
+
+
+class Eget(namedtuple("Eget", ("executable", "extra_flags", "flag_parser"))):
     @classmethod
     def default(cls) -> "Eget":
         return cls(
             executable="eget",
             extra_flags=None,
+            flags_parser=parse_flags_with_rename,
+        )
+
+    @classmethod
+    def detect_version(cls, executable: str, extra_flags: str) -> "Eget":
+        version = sub.check_output([executable, "--version"]).decode().split()
+
+        if version[-1] == "0.1.3":
+            fn = parse_flags_join_path
+        else:
+            fn = parse_flags_with_rename
+
+        return cls(
+            executable=executable,
+            extra_flags=extra_flags,
+            flag_parser=fn,
         )
 
     def download(self, project: str, options: Options):
-        flags = {
-            "asset": options.asset,
-            "tag": options.tag,
-        }
-
-        flags = " ".join((
-            flag for flag in proc_flags("--{key} {val}", flags)
-        ))
+        flags = self.flag_parser(options)
 
         if options.force_exec:
             flags = "%s -x" % flags
-
-        flags = "%s --to %s" % (flags, options.filename())
 
         extra_flags = self.extra_flags
         if extra_flags is not None:
@@ -111,7 +145,7 @@ AssetManager.register(NoOverwrite)
 def main():
     target_dir = "/home/istvan/packages/usr/bin"
 
-    asset_manager = NoOverwrite(Eget.default())
+    asset_manager = NoOverwrite(Eget.detect_version("eget", None))
 
     opt = Options(
         rename=None,
