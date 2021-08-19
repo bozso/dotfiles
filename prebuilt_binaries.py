@@ -13,9 +13,15 @@ __options = namedtuple(
 
 class Options(__options):
     def with_tag(self, tpl: str, tag: str, **kwargs) -> "Options":
+        strip = kwargs.pop("strip", None)
+
+        tpl_tag = tag
+        if strip is not None:
+            tpl_tag = tag.strip(strip)
+
         return self._replace(
             tag=tag,
-            asset=tpl.format(tag=tag),
+            asset=tpl.format(tag=tpl_tag),
             **kwargs
         )
 
@@ -155,6 +161,44 @@ def main():
             rename="starship",
             tpl="starship-x86_64-unknown-linux-gnu.tar.gz",
             tag="v0.56.0",
+        ),
+
+        "sharkdp/bat": opt.with_tag(
+            rename="bat",
+            tpl="bat-{tag}-x86_64-unknown-linux-gnu.tar.gz",
+            tag="v0.18.2",
+        ),
+
+        "ogham/exa": opt.with_tag(
+            rename="exa",
+            tpl="exa-linux-x86_64-{tag}.zip",
+            tag="v0.10.1",
+        ),
+
+        "BurntSushi/ripgrep": opt.with_tag(
+            rename="rigrep",
+            tpl="ripgrep-{tag}-x86_64-unknown-linux-musl.tar.gz",
+            tag="13.0.0",
+        ),
+
+        "leighmcculloch/tldr": opt.with_tag(
+            rename="tldr",
+            tpl="tldr_{tag}_linux_x64.tar.gz",
+            tag="v1.1.2",
+            strip="v",
+        ),
+
+        "sharkdp/hyperfine": opt.with_tag(
+            rename="hpf",
+            tpl="hyperfine-{tag}-x86_64-unknown-linux-gnu.tar.gz",
+            tag="v1.11.0",
+        ),
+
+        "rs/curlie": opt.with_tag(
+            rename="crl",
+            tpl="curlie_{tag}_linux_amd64.tar.gz",
+            tag="v1.6.0",
+            strip="v"
         ),
 
         "https://cancel.fm/dl/Ripcord-0.4.29-x86_64.AppImage": opt._replace(
