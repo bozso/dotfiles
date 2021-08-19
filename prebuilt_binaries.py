@@ -1,11 +1,12 @@
 import subprocess as sub
+import os.path as path
 
 from collections import namedtuple
 from abc import ABC, abstractmethod
 from shlex import split
 
 __options = namedtuple(
-    "Options", 
+    "Options",
     ("to", "tag", "rename", "force_exec", "asset")
 )
 
@@ -76,13 +77,34 @@ class Eget(namedtuple("Eget", ("executable", "extra_flags"))):
         proc.wait()
 
 
+class NoOverwrite(namedtuple("NoOverwrite", ("manager"))):
+    def download(self, project: str, options: Options):
+        asset, rename = options.asset, options.rename,
+
+        if (asset, rename) == (None, None):
+            raise ValueError("expected options to define either 'asset' "
+                             "or 'rename' fields for checking "
+                             "output filename")
+
+        filename = rename if rename is not None else asset
+
+        to = options.to
+
+        outdir = to if to is not None else "."
+        outfile = path.join(outdir, filename)
+
+        if not path.exists(outfile):
+            self.manager.download(project, options)
+
+
 AssetManager.register(Eget)
+AssetManager.register(NoOverwrite)
 
 
 def main():
     target_dir = "/home/istvan/packages/usr/bin"
 
-    asset_manager = Eget.default()
+    asset_manager = NoOverwrite(Eget.default())
 
     opt = Options(
         rename=None,
@@ -98,6 +120,7 @@ def main():
         #     force_exec=True,
         #     asset="nvim.appimage"
         # ),
+
         "jarun/nnn": opt.with_tag(
             rename="nnn",
             tpl="nnn-static-4.2.x86_64.tar.gz",
@@ -109,6 +132,34 @@ def main():
             tpl="delta-{tag}-x86_64-unknown-linux-gnu.tar.gz",
             tag="0.8.3",
         ),
+
+        "denoland/deno": opt.with_tag(
+            rename="deno",
+            tpl="deno-x86_64-unknown-linux-gnu.zip",
+            tag="v1.13.1",
+        ),
+
+        "junegunn/fzf": opt.with_tag(
+            rename="fzf",
+            tpl="fzf-{tag}-linux_amd64.tar.gz",
+            tag="0.27.2",
+        ),
+
+        "jgm/pandoc": opt.with_tag(
+            rename="pandoc",
+            tpl="pandoc-{tag}-linux-amd64.tar.gz",
+            tag="2.14.1",
+        ),
+
+        "starship/starship": opt.with_tag(
+            rename="starship",
+            tpl="starship-x86_64-unknown-linux-gnu.tar.gz",
+            tag="v0.56.0",
+        ),
+
+        "https://cancel.fm/dl/Ripcord-0.4.29-x86_64.AppImage": opt._replace(
+            rename="ripcord",
+        )
     }
 
     for project, options in projects.items():
