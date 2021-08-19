@@ -14,7 +14,7 @@ bw_impl() {
 }
 
 preb() {
-    local py="python"
+    local py="python3"
     local file="${dotfiles}/prebuilt_binaries.py"
 
     ${py} ${file} $*

@@ -25,6 +25,15 @@ class Options(__options):
             **kwargs
         )
 
+    def filename(self) -> str:
+        rename, asset = self.rename, self.asset
+        filename = rename if rename is not None else asset
+
+        to = self.to
+        outdir = to if to is not None else "."
+
+        return path.join(outdir, filename)
+
 
 class AssetManager(ABC):
     @abstractmethod
@@ -48,10 +57,8 @@ class Eget(namedtuple("Eget", ("executable", "extra_flags"))):
 
     def download(self, project: str, options: Options):
         flags = {
-            "rename": options.rename,
             "asset": options.asset,
             "tag": options.tag,
-            "to": options.to,
         }
 
         flags = " ".join((
@@ -60,6 +67,8 @@ class Eget(namedtuple("Eget", ("executable", "extra_flags"))):
 
         if options.force_exec:
             flags = "%s -x" % flags
+
+        flags = "%s --to %s" % (flags, options.filename())
 
         extra_flags = self.extra_flags
         if extra_flags is not None:
@@ -85,21 +94,13 @@ class Eget(namedtuple("Eget", ("executable", "extra_flags"))):
 
 class NoOverwrite(namedtuple("NoOverwrite", ("manager"))):
     def download(self, project: str, options: Options):
-        asset, rename = options.asset, options.rename,
-
-        if (asset, rename) == (None, None):
+        if (options.asset, options.rename) == (None, None):
             raise ValueError("expected options to define either 'asset' "
                              "or 'rename' fields for checking "
                              "output filename")
 
-        filename = rename if rename is not None else asset
 
-        to = options.to
-
-        outdir = to if to is not None else "."
-        outfile = path.join(outdir, filename)
-
-        if not path.exists(outfile):
+        if not path.exists(options.filename()):
             self.manager.download(project, options)
 
 

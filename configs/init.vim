@@ -33,7 +33,7 @@ let g:ale_go_golangci_lint_executable = 'golangci-lint'
 let g:ale_linters = {
 \   'go': ['gofmt', 'golint', 'govet', 'gobuild', 'golangci-lint'],
 \   'd': ['dmd'],
-\   'python': ['flake8', 'pylint', 'pyre'],
+\   'python': ['flake8', 'pylint', 'pyre', 'mypy'],
 \}
 
 let g:ale_fixers = {
