@@ -143,7 +143,9 @@ AssetManager.register(NoOverwrite)
 
 
 def main():
-    target_dir = "/home/istvan/packages/usr/bin"
+    target_dir = path.expanduser(
+        path.join("~", "packages", "usr", "bin")
+    )
 
     asset_manager = NoOverwrite(Eget.detect_version("eget", None))
 
@@ -238,7 +240,13 @@ def main():
 
         "https://cancel.fm/dl/Ripcord-0.4.29-x86_64.AppImage": opt._replace(
             rename="ripcord",
-        )
+        ),
+
+        "bootandy/dust": opt.with_tag(
+            rename="dust",
+            tpl="dust-{tag}-x86_64-unknown-linux-musl.tar.gz",
+            tag="v0.6.2",
+        ),
     }
 
     for project, options in projects.items():
