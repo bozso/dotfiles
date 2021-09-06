@@ -45,6 +45,8 @@ let g:ale_fixers = {
 \   'python': ['black'],
 \}
 
+let g:vimtex_compiler_method = 'tectonic'
+
 call plug#begin('~/.vim/plugged')
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
@@ -61,6 +63,7 @@ Plug 'earthly/earthly.vim', { 'branch': 'main' }
 Plug 'zah/nim.vim'
 Plug 'ziglang/zig.vim'
 Plug 'preservim/nerdtree'
+Plug 'lervag/vimtex'
 
 " Initialize plugin system
 call plug#end()

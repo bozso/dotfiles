@@ -247,6 +247,13 @@ def main():
             tpl="dust-{tag}-x86_64-unknown-linux-musl.tar.gz",
             tag="v0.6.2",
         ),
+
+        "tectonic-typesetting/tectonic": opt.with_tag(
+            rename="tectonic",
+            tpl="tectonic-{tag}-x86_64-unknown-linux-musl.tar.gz",
+            tag="tectonic@0.7.1",
+            strip="textonic@",
+        ),
     }
 
     for project, options in projects.items():
