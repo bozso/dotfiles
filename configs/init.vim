@@ -32,8 +32,9 @@ let g:ale_go_golangci_lint_executable = 'golangci-lint'
 
 let g:ale_linters = {
 \   'go': ['gofmt', 'golint', 'govet', 'gobuild', 'golangci-lint'],
-\   'd': ['dmd'],
+\   'd': ['dls'],
 \   'python': ['flake8', 'pylint', 'pyre', 'mypy'],
+\   'typescript': ['deno'],
 \}
 
 let g:ale_fixers = {
@@ -43,6 +44,7 @@ let g:ale_fixers = {
 \   'c': ['clang-format', 'clangtidy'],
 \   'cpp': ['clang-format', 'clangtidy'],
 \   'python': ['black'],
+\   'typescript': ['deno'],
 \}
 
 call plug#begin('~/.vim/plugged')
