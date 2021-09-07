@@ -25,6 +25,15 @@ class Options(__options):
             **kwargs
         )
 
+    def filename(self) -> str:
+        rename, asset = self.rename, self.asset
+        filename = rename if rename is not None else asset
+
+        to = self.to
+        outdir = to if to is not None else "."
+
+        return path.join(outdir, filename)
+
 
 class AssetManager(ABC):
     @abstractmethod
@@ -38,25 +47,59 @@ def proc_flags(tpl: str, flags):
             yield tpl.format(key=key, val=val)
 
 
-class Eget(namedtuple("Eget", ("executable", "extra_flags"))):
+def parse_flags(flags) -> str:
+    return " ".join((
+        flag for flag in proc_flags("--{key} {val}", flags)
+    ))
+
+
+def parse_flags_join_path(options: Options) -> str:
+    flags = {
+        "asset": options.asset,
+        "tag": options.tag,
+    }
+
+    flags = parse_flags(flags)
+    return "%s --to %s" % (flags, options.filename())
+
+
+def parse_flags_with_rename(options: Options) -> str:
+    flags = {
+        "rename": options.rename,
+        "to": options.to,
+        "asset": options.asset,
+        "tag": options.tag,
+    }
+
+    return parse_flags(flags)
+
+
+class Eget(namedtuple("Eget", ("executable", "extra_flags", "flag_parser"))):
     @classmethod
     def default(cls) -> "Eget":
         return cls(
             executable="eget",
             extra_flags=None,
+            flags_parser=parse_flags_with_rename,
+        )
+
+    @classmethod
+    def detect_version(cls, executable: str, extra_flags: str) -> "Eget":
+        version = sub.check_output([executable, "--version"]).decode().split()
+
+        if version[-1] == "0.1.3":
+            fn = parse_flags_join_path
+        else:
+            fn = parse_flags_with_rename
+
+        return cls(
+            executable=executable,
+            extra_flags=extra_flags,
+            flag_parser=fn,
         )
 
     def download(self, project: str, options: Options):
-        flags = {
-            "rename": options.rename,
-            "asset": options.asset,
-            "tag": options.tag,
-            "to": options.to,
-        }
-
-        flags = " ".join((
-            flag for flag in proc_flags("--{key} {val}", flags)
-        ))
+        flags = self.flag_parser(options)
 
         if options.force_exec:
             flags = "%s -x" % flags
@@ -85,21 +128,13 @@ class Eget(namedtuple("Eget", ("executable", "extra_flags"))):
 
 class NoOverwrite(namedtuple("NoOverwrite", ("manager"))):
     def download(self, project: str, options: Options):
-        asset, rename = options.asset, options.rename,
-
-        if (asset, rename) == (None, None):
+        if (options.asset, options.rename) == (None, None):
             raise ValueError("expected options to define either 'asset' "
                              "or 'rename' fields for checking "
                              "output filename")
 
-        filename = rename if rename is not None else asset
 
-        to = options.to
-
-        outdir = to if to is not None else "."
-        outfile = path.join(outdir, filename)
-
-        if not path.exists(outfile):
+        if not path.exists(options.filename()):
             self.manager.download(project, options)
 
 
@@ -108,9 +143,11 @@ AssetManager.register(NoOverwrite)
 
 
 def main():
-    target_dir = "/home/istvan/packages/usr/bin"
+    target_dir = path.expanduser(
+        path.join("~", "packages", "usr", "bin")
+    )
 
-    asset_manager = NoOverwrite(Eget.default())
+    asset_manager = NoOverwrite(Eget.detect_version("eget", None))
 
     opt = Options(
         rename=None,
@@ -207,7 +244,20 @@ def main():
 
         "https://libreoffice.soluzioniopen.com/stable/full/LibreOffice-still.full-x86_64.AppImage": opt._replace(
             rename="libreoffice",
-        )
+        ),
+
+        "bootandy/dust": opt.with_tag(
+            rename="dust",
+            tpl="dust-{tag}-x86_64-unknown-linux-musl.tar.gz",
+            tag="v0.6.2",
+        ),
+
+        "tectonic-typesetting/tectonic": opt.with_tag(
+            rename="tectonic",
+            tpl="tectonic-{tag}-x86_64-unknown-linux-musl.tar.gz",
+            tag="tectonic@0.7.1",
+            strip="textonic@",
+        ),
     }
 
     for project, options in projects.items():

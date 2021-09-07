@@ -33,7 +33,7 @@ let g:ale_go_golangci_lint_executable = 'golangci-lint'
 let g:ale_linters = {
 \   'go': ['gofmt', 'golint', 'govet', 'gobuild', 'golangci-lint'],
 \   'd': ['dmd'],
-\   'python': ['flake8', 'pylint', 'pyre'],
+\   'python': ['flake8', 'pylint', 'pyre', 'mypy'],
 \}
 
 let g:ale_fixers = {
@@ -44,6 +44,8 @@ let g:ale_fixers = {
 \   'cpp': ['clang-format', 'clangtidy'],
 \   'python': ['black'],
 \}
+
+let g:vimtex_compiler_method = 'tectonic'
 
 call plug#begin('~/.vim/plugged')
 
@@ -61,6 +63,7 @@ Plug 'earthly/earthly.vim', { 'branch': 'main' }
 Plug 'zah/nim.vim'
 Plug 'ziglang/zig.vim'
 Plug 'preservim/nerdtree'
+Plug 'lervag/vimtex'
 
 " Initialize plugin system
 call plug#end()
