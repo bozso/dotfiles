@@ -203,6 +203,10 @@ def main():
 
         "https://cancel.fm/dl/Ripcord-0.4.29-x86_64.AppImage": opt._replace(
             rename="ripcord",
+        ),
+
+        "https://libreoffice.soluzioniopen.com/stable/full/LibreOffice-still.full-x86_64.AppImage": opt._replace(
+            rename="libreoffice",
         )
     }
 
