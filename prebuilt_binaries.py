@@ -258,6 +258,17 @@ def main():
             tag="tectonic@0.7.1",
             strip="textonic@",
         ),
+
+        "d-language-server/dls": opt.with_tag(
+            rename="dls",
+            tpl="dls-{tag}.linux.x86_64.zip",
+            tag="v0.26.2",
+        ),
+
+        "clibs/clib": opt.with_tag(
+            tpl="clib-linux-{tag}.zip",
+            tag="2.7.0",
+        ),
     }
 
     for project, options in projects.items():
