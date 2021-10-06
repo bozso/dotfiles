@@ -194,3 +194,12 @@ source_if "${dotfiles}/tmux_workspace.sh"
 
 conda="${HOME}/miniconda3"
 export conda_lib="${conda}/lib"
+
+node_path="${down}/node/v14.18.0"
+node_bin="${node_path}/bin"
+
+export PATH="${PATH}:${node_bin}"
+
+if [ -f "${node_bin}" ]; then
+    export PATH="${PATH}:${node_bin}"
+fi
