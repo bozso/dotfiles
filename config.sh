@@ -151,6 +151,15 @@ mount_storage() {
         -o user=bozsoi,dir_mode=0777,file_mode=0666
 }
 
+compress_pdf() {
+    local in="$1"
+    local out="$2"
+
+    gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dNOPAUSE -dQUIET \
+        -dBATCH -dPrinted=false \
+        -sOutputFile="${out}" "${in}"
+}
+
 simple_ps() {
     PS1="\u@\H\n"
 }
