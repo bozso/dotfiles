@@ -242,9 +242,6 @@ def main():
             rename="ripcord",
         ),
 
-        "https://libreoffice.soluzioniopen.com/stable/full/LibreOffice-still.full-x86_64.AppImage": opt._replace(
-            rename="libreoffice",
-        ),
 
         "bootandy/dust": opt.with_tag(
             rename="dust",
@@ -265,9 +262,10 @@ def main():
             tag="v0.26.2",
         ),
 
-        "clibs/clib": opt.with_tag(
-            tpl="clib-linux-{tag}.zip",
-            tag="2.7.0",
+        "https://github.com/premake/premake-core/"\
+        "releases/download/v5.0.0-alpha16/"\
+        "premake-5.0.0-alpha16-linux.tar.gz": opt._replace(
+            rename="premake5",
         ),
     }
 
@@ -277,3 +275,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+"""
+"https://libreoffice.soluzioniopen.com/stable/full/LibreOffice-still.full-x86_64.AppImage": opt._replace(
+    rename="libreoffice",
+),
+"""
