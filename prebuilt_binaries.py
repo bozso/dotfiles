@@ -242,7 +242,6 @@ def main():
             rename="ripcord",
         ),
 
-
         "bootandy/dust": opt.with_tag(
             rename="dust",
             tpl="dust-{tag}-x86_64-unknown-linux-musl.tar.gz",
@@ -266,6 +265,12 @@ def main():
         "releases/download/v5.0.0-alpha16/"\
         "premake-5.0.0-alpha16-linux.tar.gz": opt._replace(
             rename="premake5",
+        ),
+
+        "GitJournal/GitJournal": opt.with_tag(
+            rename="gj",
+            tpl="GitJournal-linux-x86_64.AppImage",
+            tag="v1.80.0",
         ),
     }
 
