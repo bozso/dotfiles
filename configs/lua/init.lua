@@ -18,27 +18,27 @@ local o = vim.o
 apply_dict(vim.o, options)
 
 local ale_linters = {
-   go={'gofmt', 'golint', 'govet', 'gobuild', 'golangci-lint'},
-   d={'dls', 'dmd'},
-   python={'flake8', 'pylint', 'pyre', 'mypy', 'pyright'},
-   typescript={'deno'},
-   nim={'nimcheck', 'nimlsp'},
+   go = {'gofmt', 'golint', 'govet', 'gobuild', 'golangci-lint'},
+   d = {'dls', 'dmd'},
+   python = {'flake8', 'pylint', 'pyre', 'mypy', 'pyright'},
+   typescript = {'deno'},
+   nim = {'nimcheck', 'nimlsp'},
 }
 
 
 local ale_fixers = {
-    ['*']= {'remove_trailing_lines', 'trim_whitespace'},
-    rust={'rustfmt'},
-    go={'gofmt'},
-    c={'clang-format', 'clangtidy'},
-    cpp={'clang-format', 'clangtidy'},
-    python={'black'},
-    typescript={'deno'},
+    ['*'] = {'remove_trailing_lines', 'trim_whitespace'},
+    rust = {'rustfmt'},
+    go = {'gofmt'},
+    c = {'clang-format', 'clangtidy'},
+    cpp = {'clang-format', 'clangtidy'},
+    python = {'black'},
+    typescript = {'deno'},
 }
 
 
 local globals = {
-    noswapfile=true,
+    noswapfile = true,
     colorscheme = "delek",
     mapleader = " ",
     ale_fix_on_save = 1,
@@ -46,9 +46,9 @@ local globals = {
     ale_lint_on_insert_leave = 0,
     ale_completion_autoimport = 1,
     ale_go_golangci_lint_executable = 'golangci-lint',
-    ["airline#extensions#ale#enabled"] = 1,
     ale_fixers = ale_fixers,
     ale_linters = ale_linters,
+    ["airline#extensions#ale#enabled"] = 1,
     user_emmet_leader_key = ','
 }
 
@@ -56,11 +56,11 @@ apply_dict(vim.g, globals)
 
 
 local opts = {
-    tabstop=4,
-    softtabstop=4,
-    shiftwidth=4,
-    expandtab=true,
-    number=true,
+    tabstop = 4,
+    softtabstop = 4,
+    shiftwidth = 4,
+    expandtab = true,
+    number = true,
 }
 
 apply_dict(vim.opt, opts)
@@ -77,7 +77,7 @@ vim.call('plug#begin', '~/.config/nvim/plugged')
 Plug('earthly/earthly.vim', {branch="main"})
 Plug('junegunn/fzf', {
     ['do'] = function()
-	vim.call("fzf#install")
+        vim.call("fzf#install")
     end
 })
 
@@ -101,18 +101,18 @@ local function apply_keys(mode, keybinds, extra_opts)
 end
 
 nnoremaps = {
-    ["<leader>f"]=":w<C-j>:FZF<C-j>",
-    ["<leader>w"]=":w<C-j>",
-    ["<leader>b"]=":w<C-j>:buffer<space>",
-    ["<leader>d"]=":ALEDetail<C-j>",
-    ["<leader>h"]=":ALEHover<C-j>",
+    ["<leader>f"] = ":w<C-j>:FZF<C-j>",
+    ["<leader>w"] = ":w<C-j>",
+    ["<leader>b"] = ":w<C-j>:buffer<space>",
+    ["<leader>d"] = ":ALEDetail<C-j>",
+    ["<leader>h"] = ":ALEHover<C-j>",
 }
 
 apply_keys("n", nnoremaps, {noremap = true})
 
 nmaps = {
-    ["<C-k>"]="<Plug>(ale_previous_wrap)",
-    ["<C-j>"]="<Plug>(ale_next_wrap)",
+    ["<C-k>"] = "<Plug>(ale_previous_wrap)",
+    ["<C-j>"] = "<Plug>(ale_next_wrap)",
 }
 
 apply_keys("n", nmaps, {silent = true})
