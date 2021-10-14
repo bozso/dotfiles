@@ -121,7 +121,7 @@ class Eget(namedtuple("Eget", ("executable", "extra_flags", "flag_parser"))):
         proc = sub.Popen(split(cmd), stdout=sub.PIPE)
 
         for line in proc.stdout:
-            print(line.decode(), end="")
+            print(line.decode(), end="\r")
 
         proc.wait()
 
