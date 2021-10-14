@@ -49,6 +49,7 @@ local globals = {
     ["airline#extensions#ale#enabled"] = 1,
     ale_fixers = ale_fixers,
     ale_linters = ale_linters,
+    user_emmet_leader_key = ','
 }
 
 apply_dict(vim.g, globals)
@@ -75,7 +76,7 @@ vim.call('plug#begin', '~/.config/nvim/plugged')
 
 Plug('earthly/earthly.vim', {branch="main"})
 Plug('junegunn/fzf', {
-    ['do'] = function() 
+    ['do'] = function()
 	vim.call("fzf#install")
     end
 })
@@ -115,3 +116,37 @@ nmaps = {
 }
 
 apply_keys("n", nmaps, {silent = true})
+
+--[[
+TODO: port the following commands
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+" Break line at predefined characters
+set linebreak
+
+set fileformats=unix,dos  " Fileformats to use for new files
+
+" Ignore certain files and folders when globbing
+set wildignore+=*.o,*.obj,*.bin,*.dll,*.exe
+set wildignore+=*/.git/*,*/.svn/*,*/__pycache__/*,*/build/**
+set wildignore+=*.jpg,*.png,*.jpeg,*.bmp,*.gif,*.tiff,*.svg,*.ico
+set wildignore+=*.pyc
+set wildignore+=*.DS_Store
+set wildignore+=*.aux,*.bbl,*.blg,*.brf,*.fls,*.fdb_latexmk,*.synctex.gz
+set wildignorecase  " ignore file and dir name cases in cmd-completion
+
+set visualbell noerrorbells  " Do not use visual and errorbells
+set history=500  " The number of command and search history to keep
+
+TODO: figure out how to port this to lua
+"{ UI-related settings
+"{{ General settings about colors
+" Enable true colors support. Do not set this option if your terminal does not
+" support true colors! For a comprehensive list of terminals supporting true
+" colors, see https://github.com/termstandard/colors and
+" https://gist.github.com/XVilka/8346728.
+if match($TERM, '^xterm.*') != -1 || exists('g:started_by_firenvim')
+  set termguicolors
+endif
+
+--]]
