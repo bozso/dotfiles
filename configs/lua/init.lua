@@ -1,5 +1,8 @@
 vim.wo.colorcolumn = "79"
 
+-- TODO: figure out how to change colorscheme properly
+vim.cmd("colorscheme delek")
+
 local function apply_dict(dict, options)
     for key, opt in pairs(options) do
         dict[key] = opt
@@ -61,6 +64,11 @@ local opts = {
 
 apply_dict(vim.opt, opts)
 
+--[[
+    Plugin management with plug.
+    TODO: replace plugin management with paq or packer
+--]]
+
 local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', '~/.config/nvim/plugged')
@@ -83,8 +91,9 @@ Plug 'ziglang/zig.vim'
 
 vim.call('plug#end')
 
+local key_fn = vim.api.nvim_set_keymap
+
 local function apply_keys(mode, keybinds, extra_opts)
-    local key_fn = vim.api.nvim_set_keymap
     for key, val in pairs(keybinds) do
 	key_fn(mode, key, val, extra_opts)
     end
