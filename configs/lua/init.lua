@@ -1,3 +1,5 @@
+local fmt = string:format
+
 vim.wo.colorcolumn = "79"
 
 -- TODO: figure out how to change colorscheme properly
@@ -37,11 +39,41 @@ local ale_fixers = {
 }
 
 
+local function add_pattern(tpl, iter, to)
+    for _, ext in pairs(iter) do
+        to:append(fmt(tpl, ext))
+    end
+end
+
+-- Ignore certain files and folders when globbing
+local ignored_extensions = {
+    "o", "obj", "bin", "dll", "exe", "jpg", "png", "jpeg",
+    "bmp", "gif", "tiff", "svg", "ico", "pyc", "DS_store",
+    "aux", "bbl", "blg", "brf", "fls", "fdb_latexmk", 
+    "synctex.gz"
+}
+
+local wildignore = {}
+
+add_patterns("*.%s", ignored_extensions, wildignore)
+
+local ignored_dirs = {
+    ".git", ".svn", "__pycache__"
+}
+
+add_patterns("*/%s/", ignored_dirs, wildignore)
+
+local ignored_recursice = {"build",}
+
+add_patterns("*/%s/**", ignored_recursice, wildignore)
+
 local globals = {
     fileencodings = {
         "utf-8", "ucs-bom", "cp936", "gb18030", "big5", 
         "euc-jp", "euc-kr", "latin1"
     },
+    -- ignore file and dir name cases in cmd-completion
+    wildignorecase = true,
 
     -- Break line at predefined characters
     linebreak = true,
@@ -129,14 +161,6 @@ TODO: port the following commands
 
 set fileformats=unix,dos  " Fileformats to use for new files
 
-" Ignore certain files and folders when globbing
-set wildignore+=*.o,*.obj,*.bin,*.dll,*.exe
-set wildignore+=*/.git/*,*/.svn/*,*/__pycache__/*,*/build/**
-set wildignore+=*.jpg,*.png,*.jpeg,*.bmp,*.gif,*.tiff,*.svg,*.ico
-set wildignore+=*.pyc
-set wildignore+=*.DS_Store
-set wildignore+=*.aux,*.bbl,*.blg,*.brf,*.fls,*.fdb_latexmk,*.synctex.gz
-set wildignorecase  " ignore file and dir name cases in cmd-completion
 
 set visualbell noerrorbells  " Do not use visual and errorbells
 set history=500  " The number of command and search history to keep
