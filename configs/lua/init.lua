@@ -72,10 +72,14 @@ local globals = {
         "utf-8", "ucs-bom", "cp936", "gb18030", "big5", 
         "euc-jp", "euc-kr", "latin1"
     },
+
     -- ignore file and dir name cases in cmd-completion
     wildignorecase = true,
 
-    -- Break line at predefined characters
+    -- fileformats to use for new files
+    fileformats = {"unix", "dos"},
+
+    -- break line at predefined characters
     linebreak = true,
     noswapfile = true,
     colorscheme = "delek",
@@ -159,7 +163,6 @@ apply_keys("n", nmaps, {silent = true})
 --[[
 TODO: port the following commands
 
-set fileformats=unix,dos  " Fileformats to use for new files
 
 
 set visualbell noerrorbells  " Do not use visual and errorbells
