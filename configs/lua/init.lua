@@ -38,6 +38,13 @@ local ale_fixers = {
 
 
 local globals = {
+    fileencodings = {
+        "utf-8", "ucs-bom", "cp936", "gb18030", "big5", 
+        "euc-jp", "euc-kr", "latin1"
+    },
+
+    -- Break line at predefined characters
+    linebreak = true,
     noswapfile = true,
     colorscheme = "delek",
     mapleader = " ",
@@ -119,10 +126,6 @@ apply_keys("n", nmaps, {silent = true})
 
 --[[
 TODO: port the following commands
-set fileencoding=utf-8
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-" Break line at predefined characters
-set linebreak
 
 set fileformats=unix,dos  " Fileformats to use for new files
 
