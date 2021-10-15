@@ -1,4 +1,4 @@
-local fmt = string:format
+local fmt = string.format
 
 vim.wo.colorcolumn = "79"
 
@@ -39,9 +39,9 @@ local ale_fixers = {
 }
 
 
-local function add_pattern(tpl, iter, to)
+local function add_patterns(tpl, iter, to)
     for _, ext in pairs(iter) do
-        to:append(fmt(tpl, ext))
+        table.insert(to, fmt(tpl, ext))
     end
 end
 
@@ -63,7 +63,7 @@ local ignored_dirs = {
 
 add_patterns("*/%s/", ignored_dirs, wildignore)
 
-local ignored_recursice = {"build",}
+local ignored_recursice = {"build"}
 
 add_patterns("*/%s/**", ignored_recursice, wildignore)
 
