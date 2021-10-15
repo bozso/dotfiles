@@ -38,34 +38,31 @@ local ale_fixers = {
     typescript = {'deno'},
 }
 
-
 local function add_patterns(tpl, iter, to)
     for _, ext in pairs(iter) do
         table.insert(to, fmt(tpl, ext))
     end
 end
 
+local function ignored_patterns(opts)
+    local ignores = {}
+    for tpl, iter in pairs(opts) do
+        add_patterns(tpl, iter, ignores)
+    end 
+end
+
 -- Ignore certain files and folders when globbing
-local ignored_extensions = {
-    "o", "obj", "bin", "dll", "exe", "jpg", "png", "jpeg",
-    "bmp", "gif", "tiff", "svg", "ico", "pyc", "DS_store",
-    "aux", "bbl", "blg", "brf", "fls", "fdb_latexmk", 
-    "synctex.gz"
+local wildignore = ignored_patterns {
+    ["*.%s"] = {
+        "o", "obj", "bin", "dll", "exe", "jpg", "png", "jpeg",
+        "bmp", "gif", "tiff", "svg", "ico", "pyc", "DS_store",
+        "aux", "bbl", "blg", "brf", "fls", "fdb_latexmk", 
+        "synctex.gz"
+    },
+    ["*/%s/"] = {".git", ".svn", "__pycache__"},
+    ["*/%s/**"] = {"build",},
 }
 
-local wildignore = {}
-
-add_patterns("*.%s", ignored_extensions, wildignore)
-
-local ignored_dirs = {
-    ".git", ".svn", "__pycache__"
-}
-
-add_patterns("*/%s/", ignored_dirs, wildignore)
-
-local ignored_recursice = {"build"}
-
-add_patterns("*/%s/**", ignored_recursice, wildignore)
 
 local globals = {
     fileencodings = {
@@ -92,7 +89,8 @@ local globals = {
     ale_fixers = ale_fixers,
     ale_linters = ale_linters,
     ["airline#extensions#ale#enabled"] = 1,
-    user_emmet_leader_key = ','
+    user_emmet_leader_key = ',',
+    wildignore = wildignore
 }
 
 apply_dict(vim.g, globals)
