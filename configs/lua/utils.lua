@@ -13,7 +13,7 @@ local function update_table(opts)
         end
     end
 
-    if optsion ~= nil then
+    if options ~= nil then
         for key, opt in pairs(options) do
             to[key] = opt
         end

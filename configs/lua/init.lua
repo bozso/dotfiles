@@ -1,7 +1,6 @@
 local ut = require("utils")
 require("plugins")
 
-
 require('lualine').setup {
     options = {
         icons_enabled = false,
@@ -64,9 +63,10 @@ ut.update_table {
             lint_on_text_changed = 0,
             lint_on_insert_leave = 0,
             completion_autoimport = 1,
-            go_golangci_lint_executable = 'golangci-lint',
-            fixers = {
 
+            go_golangci_lint_executable = 'golangci-lint',
+
+            fixers = {
                 ['*'] = {
                     'remove_trailing_lines', 'trim_whitespace'
                 },
