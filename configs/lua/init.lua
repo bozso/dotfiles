@@ -48,7 +48,8 @@ local function ignored_patterns(opts)
     local ignores = {}
     for tpl, iter in pairs(opts) do
         add_patterns(tpl, iter, ignores)
-    end 
+    end
+    return ignores
 end
 
 -- Ignore certain files and folders when globbing
@@ -56,7 +57,7 @@ local wildignore = ignored_patterns {
     ["*.%s"] = {
         "o", "obj", "bin", "dll", "exe", "jpg", "png", "jpeg",
         "bmp", "gif", "tiff", "svg", "ico", "pyc", "DS_store",
-        "aux", "bbl", "blg", "brf", "fls", "fdb_latexmk", 
+        "aux", "bbl", "blg", "brf", "fls", "fdb_latexmk",
         "synctex.gz"
     },
     ["*/%s/"] = {".git", ".svn", "__pycache__"},
@@ -66,9 +67,14 @@ local wildignore = ignored_patterns {
 
 local globals = {
     fileencodings = {
-        "utf-8", "ucs-bom", "cp936", "gb18030", "big5", 
+        "utf-8", "ucs-bom", "cp936", "gb18030", "big5",
         "euc-jp", "euc-kr", "latin1"
     },
+
+    -- do not use visual and errorbells
+    visualbell = "noerrorbells",
+    -- the number of command and search history to keep
+    history = 500,
 
     -- ignore file and dir name cases in cmd-completion
     wildignorecase = true,
@@ -163,8 +169,6 @@ TODO: port the following commands
 
 
 
-set visualbell noerrorbells  " Do not use visual and errorbells
-set history=500  " The number of command and search history to keep
 
 TODO: figure out how to port this to lua
 "{ UI-related settings
