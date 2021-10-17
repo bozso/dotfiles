@@ -1,4 +1,6 @@
+local ut = require("utils")
 require("plugins")
+
 
 require('lualine').setup {
     options = {
@@ -76,6 +78,44 @@ local wildignore = ignored_patterns {
     ["*/%s/**"] = {"build",},
 }
 
+ut.update_table {
+    to = vim.g,
+    groups = {
+        ale_ = {
+            fix_on_save = 1,
+            lint_on_text_changed = 0,
+            lint_on_insert_leave = 0,
+            completion_autoimport = 1,
+            go_golangci_lint_executable = 'golangci-lint',
+            fixers = {
+
+                ['*'] = {
+                    'remove_trailing_lines', 'trim_whitespace'
+                },
+                rust = {'rustfmt'},
+                go = {'gofmt'},
+                c = {'clang-format', 'clangtidy'},
+                cpp = {'clang-format', 'clangtidy'},
+                python = {'black'},
+                typescript = {'deno'},
+            },
+            linters = {
+                go = {
+                    'gofmt', 'golint', 'govet', 'gobuild',
+                    'golangci-lint'
+                },
+                d = {'dls', 'dmd'},
+                python = {
+                    'flake8', 'pylint', 'pyre', 'mypy',
+                    'pyright'
+                },
+                typescript = {'deno'},
+                nim = {'nimcheck', 'nimlsp'},
+            }
+        }
+    }
+}
+
 
 local globals = {
     fileencodings = {
@@ -99,13 +139,6 @@ local globals = {
     noswapfile = true,
     colorscheme = "delek",
     mapleader = " ",
-    ale_fix_on_save = 1,
-    ale_lint_on_text_changed = 0,
-    ale_lint_on_insert_leave = 0,
-    ale_completion_autoimport = 1,
-    ale_go_golangci_lint_executable = 'golangci-lint',
-    ale_fixers = ale_fixers,
-    ale_linters = ale_linters,
     ["airline#extensions#ale#enabled"] = 1,
     user_emmet_leader_key = ',',
     wildignore = wildignore
