@@ -165,20 +165,17 @@ nmaps = {
 apply_keys("n", nmaps, {silent = true})
 
 --[[
-TODO: port the following commands
-
-
-
-
 TODO: figure out how to port this to lua
-"{ UI-related settings
-"{{ General settings about colors
-" Enable true colors support. Do not set this option if your terminal does not
-" support true colors! For a comprehensive list of terminals supporting true
-" colors, see https://github.com/termstandard/colors and
-" https://gist.github.com/XVilka/8346728.
-if match($TERM, '^xterm.*') != -1 || exists('g:started_by_firenvim')
-  set termguicolors
-endif
-
+UI-related settings
+General settings about colors
+Enable true colors support. Do not set this option if your terminal does not
+support true colors! For a comprehensive list of terminals supporting true
+colors, see https://github.com/termstandard/colors and
+https://gist.github.com/XVilka/8346728.
 --]]
+
+vim.cmd[[
+    if match($TERM, '^xterm.*') != -1 || exists('g:started_by_firenvim')
+      set termguicolors
+    endif
+]]
