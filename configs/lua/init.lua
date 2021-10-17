@@ -12,9 +12,9 @@ require('lualine').setup {
 }
 
 require('lint').linters_by_ft = {
-    c = {"clangtidy"},
-    cpp = {"clangtidy"},
-    go = {"gloangcilint"},
+    c = {"clangtidy",},
+    cpp = {"clangtidy",},
+    go = {"golangcilint",},
 }
 
 
