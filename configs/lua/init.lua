@@ -25,33 +25,6 @@ local function apply_dict(dict, options)
     end
 end
 
-local options = {
-    wildignore = "*.o",
-}
-
-local o = vim.o
-
-apply_dict(vim.o, options)
-
-local ale_linters = {
-   go = {'gofmt', 'golint', 'govet', 'gobuild', 'golangci-lint'},
-   d = {'dls', 'dmd'},
-   python = {'flake8', 'pylint', 'pyre', 'mypy', 'pyright'},
-   typescript = {'deno'},
-   nim = {'nimcheck', 'nimlsp'},
-}
-
-
-local ale_fixers = {
-    ['*'] = {'remove_trailing_lines', 'trim_whitespace'},
-    rust = {'rustfmt'},
-    go = {'gofmt'},
-    c = {'clang-format', 'clangtidy'},
-    cpp = {'clang-format', 'clangtidy'},
-    python = {'black'},
-    typescript = {'deno'},
-}
-
 local function add_patterns(tpl, iter, to)
     for _, ext in pairs(iter) do
         table.insert(to, fmt(tpl, ext))
@@ -140,45 +113,14 @@ ut.update_table {
     }
 }
 
-
-local opts = {
+ut.update_table {
+    to = vim.opts,
     tabstop = 4,
     softtabstop = 4,
     shiftwidth = 4,
     expandtab = true,
     number = true,
 }
-
-apply_dict(vim.opt, opts)
-
---[[
-    Plugin management with plug.
-    TODO: replace plugin management with paq or packer
---]]
-
---[[
-local Plug = vim.fn['plug#']
-
-vim.call('plug#begin', '~/.config/nvim/plugged')
-
-Plug('earthly/earthly.vim', {branch="main"})
-Plug('junegunn/fzf', {
-    ['do'] = function()
-        vim.call("fzf#install")
-    end
-})
-
--- Fuzzy finder vim support
-Plug 'junegunn/fzf.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'dense-analysis/ale'
-Plug 'flazz/vim-colorschemes'
-Plug 'mattn/emmet-vim'
-Plug 'zah/nim.vim'
-Plug 'ziglang/zig.vim'
-
-vim.call('plug#end')
---]]
 
 local key_fn = vim.api.nvim_set_keymap
 
