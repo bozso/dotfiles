@@ -12,35 +12,14 @@ require('lualine').setup {
     },
 }
 
-local fmt = string.format
-
 vim.wo.colorcolumn = "79"
 
 -- TODO: figure out how to change colorscheme properly
 vim.cmd("colorscheme delek")
 
-local function apply_dict(dict, options)
-    for key, opt in pairs(options) do
-        dict[key] = opt
-    end
-end
-
-local function add_patterns(tpl, iter, to)
-    for _, ext in pairs(iter) do
-        table.insert(to, fmt(tpl, ext))
-    end
-end
-
-local function ignored_patterns(opts)
-    local ignores = {}
-    for tpl, iter in pairs(opts) do
-        add_patterns(tpl, iter, ignores)
-    end
-    return ignores
-end
 
 -- Ignore certain files and folders when globbing
-local wildignore = ignored_patterns {
+local wildignore = ut.ignored_patterns {
     ["*.%s"] = {
         "o", "obj", "bin", "dll", "exe", "jpg", "png", "jpeg",
         "bmp", "gif", "tiff", "svg", "ico", "pyc", "DS_store",
@@ -114,7 +93,7 @@ ut.update_table {
 }
 
 ut.update_table {
-    to = vim.opts,
+    to = vim.opt,
     tabstop = 4,
     softtabstop = 4,
     shiftwidth = 4,
