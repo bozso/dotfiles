@@ -1,3 +1,7 @@
+require("plugins")
+
+require('lualine').setup()
+
 local fmt = string.format
 
 vim.wo.colorcolumn = "79"
@@ -117,6 +121,7 @@ apply_dict(vim.opt, opts)
     TODO: replace plugin management with paq or packer
 --]]
 
+--[[
 local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', '~/.config/nvim/plugged')
@@ -138,6 +143,7 @@ Plug 'zah/nim.vim'
 Plug 'ziglang/zig.vim'
 
 vim.call('plug#end')
+--]]
 
 local key_fn = vim.api.nvim_set_keymap
 

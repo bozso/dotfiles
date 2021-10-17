@@ -75,6 +75,28 @@ gm() {
     sh ${dotfiles}/git.sh $*
 }
 
+dm_packer() {
+    git clone --depth 1 \
+        https://github.com/wbthomason/packer.nvim \
+     ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+}
+
+dm() {
+    if [ "$#" != "1" ]; then
+        printf "error: dm: one argument, subcommand, is required!\n" >&2
+        return 1
+    fi
+
+    case "$1" in
+        "packer")
+            dm_packer
+            ;;
+        *)
+            printf "unrecognized option %s" "$1"
+            return 1
+    esac
+}
+
 proton() {
     check_narg $# 1
 
