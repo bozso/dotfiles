@@ -6,16 +6,11 @@
 -- vim._update_package_paths()
 
 return require('packer').startup(function()
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+    -- Packer can manage itself
+    use 'wbthomason/packer.nvim'
 
-  -- Load on a combination of conditions: specific filetypes or commands
-  -- Also run code after load (see the "config" key)
-    use {
-        "dense-analysis/ale",
-        cmd = "ALEEnable",
-        config = "vim.cmd[[ALEEnable]]"
-    }
+    use "mfussenegger/nvim-lint"
+    use "dense-analysis/ale"
 
     use {
         'hoob3rt/lualine.nvim',
@@ -34,8 +29,8 @@ return require('packer').startup(function()
         end
     }
 
-    use { "junegunn/fzf.vim" }
-    use { "mattn/emmet-vim" }
-    use { "zah/nim.vim" }
-    use { "ziglang/zig.vim" }
+    use "junegunn/fzf.vim"
+    use "mattn/emmet-vim"
+    use "zah/nim.vim"
+    use "ziglang/zig.vim"
 end)
