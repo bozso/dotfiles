@@ -3,6 +3,7 @@ local fmt = string.format
 local function update_table(opts)
     local to = opts.to
     local groups = opts.groups
+    local options = opts.options
 
     if groups ~= nil then
         for name, opts in pairs(groups) do
@@ -12,8 +13,8 @@ local function update_table(opts)
         end
     end
 
-    for key, opt in pairs(opts) do
-        if key ~= "groups" and key ~= "to" then
+    if optsion ~= nil then
+        for key, opt in pairs(options) do
             to[key] = opt
         end
     end

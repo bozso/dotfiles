@@ -32,29 +32,31 @@ local wildignore = ut.ignored_patterns {
 
 ut.update_table {
     to = vim.g,
-    fileencodings = {
-        "utf-8", "ucs-bom", "cp936", "gb18030", "big5",
-        "euc-jp", "euc-kr", "latin1"
+    options = {
+        fileencodings = {
+            "utf-8", "ucs-bom", "cp936", "gb18030", "big5",
+            "euc-jp", "euc-kr", "latin1"
+        },
+
+        -- do not use visual and errorbells
+        visualbell = "noerrorbells",
+        -- the number of command and search history to keep
+        history = 500,
+
+        -- ignore file and dir name cases in cmd-completion
+        wildignorecase = true,
+
+        -- fileformats to use for new files
+        fileformats = {"unix", "dos"},
+
+        -- break line at predefined characters
+        linebreak = true,
+        noswapfile = true,
+        colorscheme = "delek",
+        mapleader = " ",
+        user_emmet_leader_key = ',',
+        wildignore = wildignore,
     },
-
-    -- do not use visual and errorbells
-    visualbell = "noerrorbells",
-    -- the number of command and search history to keep
-    history = 500,
-
-    -- ignore file and dir name cases in cmd-completion
-    wildignorecase = true,
-
-    -- fileformats to use for new files
-    fileformats = {"unix", "dos"},
-
-    -- break line at predefined characters
-    linebreak = true,
-    noswapfile = true,
-    colorscheme = "delek",
-    mapleader = " ",
-    user_emmet_leader_key = ',',
-    wildignore = wildignore,
 
     groups = {
         ale_ = {
@@ -94,11 +96,13 @@ ut.update_table {
 
 ut.update_table {
     to = vim.opt,
-    tabstop = 4,
-    softtabstop = 4,
-    shiftwidth = 4,
-    expandtab = true,
-    number = true,
+    options = {
+        tabstop = 4,
+        softtabstop = 4,
+        shiftwidth = 4,
+        expandtab = true,
+        number = true,
+    }
 }
 
 local key_fn = vim.api.nvim_set_keymap
