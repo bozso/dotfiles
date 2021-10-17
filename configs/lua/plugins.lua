@@ -12,13 +12,30 @@ return require('packer').startup(function()
   -- Load on a combination of conditions: specific filetypes or commands
   -- Also run code after load (see the "config" key)
     use {
-        'w0rp/ale',
-        cmd = 'ALEEnable',
-        config = 'vim.cmd[[ALEEnable]]'
+        "dense-analysis/ale",
+        cmd = "ALEEnable",
+        config = "vim.cmd[[ALEEnable]]"
     }
 
     use {
         'hoob3rt/lualine.nvim',
         requires = {'kyazdani42/nvim-web-devicons', opt = true}
     }
+
+    use {
+        "earthly/earthly.vim",
+        branch="main"
+    }
+
+    -- fuzzy finder vim support
+    use {
+        "junegunn/fzf", run = function()
+            vim.call("fzf#install")
+        end
+    }
+
+    use { "junegunn/fzf.vim" }
+    use { "mattn/emmet-vim" }
+    use { "zah/nim.vim" }
+    use { "ziglang/zig.vim" }
 end)
