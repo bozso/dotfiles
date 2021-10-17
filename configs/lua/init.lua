@@ -80,6 +80,30 @@ local wildignore = ignored_patterns {
 
 ut.update_table {
     to = vim.g,
+    fileencodings = {
+        "utf-8", "ucs-bom", "cp936", "gb18030", "big5",
+        "euc-jp", "euc-kr", "latin1"
+    },
+
+    -- do not use visual and errorbells
+    visualbell = "noerrorbells",
+    -- the number of command and search history to keep
+    history = 500,
+
+    -- ignore file and dir name cases in cmd-completion
+    wildignorecase = true,
+
+    -- fileformats to use for new files
+    fileformats = {"unix", "dos"},
+
+    -- break line at predefined characters
+    linebreak = true,
+    noswapfile = true,
+    colorscheme = "delek",
+    mapleader = " ",
+    user_emmet_leader_key = ',',
+    wildignore = wildignore,
+
     groups = {
         ale_ = {
             fix_on_save = 1,
@@ -115,36 +139,6 @@ ut.update_table {
         }
     }
 }
-
-
-local globals = {
-    fileencodings = {
-        "utf-8", "ucs-bom", "cp936", "gb18030", "big5",
-        "euc-jp", "euc-kr", "latin1"
-    },
-
-    -- do not use visual and errorbells
-    visualbell = "noerrorbells",
-    -- the number of command and search history to keep
-    history = 500,
-
-    -- ignore file and dir name cases in cmd-completion
-    wildignorecase = true,
-
-    -- fileformats to use for new files
-    fileformats = {"unix", "dos"},
-
-    -- break line at predefined characters
-    linebreak = true,
-    noswapfile = true,
-    colorscheme = "delek",
-    mapleader = " ",
-    ["airline#extensions#ale#enabled"] = 1,
-    user_emmet_leader_key = ',',
-    wildignore = wildignore
-}
-
-apply_dict(vim.g, globals)
 
 
 local opts = {
