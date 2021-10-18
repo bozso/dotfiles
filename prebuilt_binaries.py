@@ -158,12 +158,6 @@ def main():
     )
 
     projects = {
-        # "neovim/neovim": Options(
-        #     rename=None,
-        #     force_exec=True,
-        #     asset="nvim.appimage"
-        # ),
-
         "jarun/nnn": opt.with_tag(
             rename="nnn",
             tpl="nnn-static-4.2.x86_64.tar.gz",

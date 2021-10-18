@@ -121,9 +121,10 @@ local function apply_keys(mode, keybinds, extra_opts)
 end
 
 nnoremaps = {
-    ["<leader>f"] = ":w<C-j>:FZF<C-j>",
+    ["<leader>f"] = ":w<C-j><cmd>Telescope find_files<cr>",
+    ["<leader>b"] = ":w<C-j><cmd>Telescope buffers<cr>",
+    ["<leader>g"] = ":w<C-j><cmd>Telescope live_grep<cr>",
     ["<leader>w"] = ":w<C-j>",
-    ["<leader>b"] = ":w<C-j>:buffer<space>",
     ["<leader>d"] = ":ALEDetail<C-j>",
     ["<leader>h"] = ":ALEHover<C-j>",
 }

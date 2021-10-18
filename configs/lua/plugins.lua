@@ -22,14 +22,11 @@ return require('packer').startup(function()
         branch="main"
     }
 
-    -- fuzzy finder vim support
     use {
-        "junegunn/fzf", run = function()
-            vim.call("fzf#install")
-        end
+        "nvim-telescope/telescope.nvim",
+        requires = { {"nvim-lua/plenary.nvim"} }
     }
 
-    use "junegunn/fzf.vim"
     use "mattn/emmet-vim"
     use "zah/nim.vim"
     use "ziglang/zig.vim"
