@@ -27,6 +27,13 @@ return require('packer').startup(function()
         requires = { {"nvim-lua/plenary.nvim"} }
     }
 
+    use {
+        "numToStr/Comment.nvim",
+        config = function()
+            require("Comment").setup()
+        end
+    }
+
     use "mattn/emmet-vim"
     use "zah/nim.vim"
     use "ziglang/zig.vim"
