@@ -158,12 +158,6 @@ def main():
     )
 
     projects = {
-        # "neovim/neovim": Options(
-        #     rename=None,
-        #     force_exec=True,
-        #     asset="nvim.appimage"
-        # ),
-
         "jarun/nnn": opt.with_tag(
             rename="nnn",
             tpl="nnn-static-4.2.x86_64.tar.gz",
@@ -242,10 +236,6 @@ def main():
             rename="ripcord",
         ),
 
-        "https://libreoffice.soluzioniopen.com/stable/full/LibreOffice-still.full-x86_64.AppImage": opt._replace(
-            rename="libreoffice",
-        ),
-
         "bootandy/dust": opt.with_tag(
             rename="dust",
             tpl="dust-{tag}-x86_64-unknown-linux-musl.tar.gz",
@@ -265,9 +255,16 @@ def main():
             tag="v0.26.2",
         ),
 
-        "clibs/clib": opt.with_tag(
-            tpl="clib-linux-{tag}.zip",
-            tag="2.7.0",
+        "https://github.com/premake/premake-core/"\
+        "releases/download/v5.0.0-alpha16/"\
+        "premake-5.0.0-alpha16-linux.tar.gz": opt._replace(
+            rename="premake5",
+        ),
+
+        "GitJournal/GitJournal": opt.with_tag(
+            rename="gj",
+            tpl="GitJournal-linux-x86_64.AppImage",
+            tag="v1.80.0",
         ),
     }
 
@@ -277,3 +274,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+"""
+"https://libreoffice.soluzioniopen.com/stable/full/LibreOffice-still.full-x86_64.AppImage": opt._replace(
+    rename="libreoffice",
+),
+"""
