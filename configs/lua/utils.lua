@@ -1,6 +1,7 @@
+local M = {}
 local fmt = string.format
 
-local function update_table(opts)
+function M.update_table(opts)
     local to = opts.to
     local groups = opts.groups
     local options = opts.options
@@ -33,7 +34,7 @@ local function add_patterns(tpl, iter, to)
     end
 end
 
-local function ignored_patterns(opts)
+function M.ignored_patterns(opts)
     local ignores = {}
     for tpl, iter in pairs(opts) do
         add_patterns(tpl, iter, ignores)
@@ -41,7 +42,4 @@ local function ignored_patterns(opts)
     return ignores
 end
 
-return {
-    update_table = update_table,
-    ignored_patterns = ignored_patterns,
-}
+return M
