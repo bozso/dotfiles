@@ -1,6 +1,12 @@
 export temu=lxterminal
 export BROWSER="chromium-browser"
 
+export github="${src}/github.com/bozso"
+export bitbucket="${src}/bitbucket.org/ibozso"
+export srht="${src}/sr.ht"
+
+export dotfiles="${github}/dotfiles"
+
 pkgs="${HOME}/packages"
 src="${pkgs}/src"
 pkgs_bin="${pkgs}/usr/bin"
@@ -81,6 +87,10 @@ dm_packer() {
      ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 }
 
+dm_symlinks() {
+    ln -s "${dotfiles}/configs/lua" ~/.config/nvim/lua
+}
+
 dm() {
     if [ "$#" != "1" ]; then
         printf "error: dm: one argument, subcommand, is required!\n" >&2
@@ -90,6 +100,9 @@ dm() {
     case "$1" in
         "packer")
             dm_packer
+            ;;
+        "symlinks")
+            dm_symlinks
             ;;
         *)
             printf "unrecognized option %s" "$1"
@@ -121,11 +134,6 @@ alias tb="gotoolbox"
 alias mage="tb mage"
 alias light="sudo ${pkgs_bin}/xbacklight -set"
 
-export github="${src}/github.com/bozso"
-export bitbucket="${src}/bitbucket.org/ibozso"
-export srht="${src}/sr.ht"
-
-export dotfiles="${github}/dotfiles"
 
 alias reload='. ${dotfiles}/config.sh'
 alias menu='sh ${dotfiles}/menu.sh modules'
