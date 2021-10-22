@@ -1,15 +1,15 @@
 export temu=lxterminal
 export BROWSER="chromium-browser"
 
+pkgs="${HOME}/packages"
+src="${pkgs}/src"
+pkgs_bin="${pkgs}/usr/bin"
+
 export github="${src}/github.com/bozso"
 export bitbucket="${src}/bitbucket.org/ibozso"
 export srht="${src}/sr.ht"
 
 export dotfiles="${github}/dotfiles"
-
-pkgs="${HOME}/packages"
-src="${pkgs}/src"
-pkgs_bin="${pkgs}/usr/bin"
 
 bw_impl() {
     local target="$1"
@@ -242,3 +242,5 @@ export PATH="${PATH}:${node_bin}"
 if [ -f "${node_bin}" ]; then
     export PATH="${PATH}:${node_bin}"
 fi
+
+source_if "/home/istvan/.sdkman/bin/sdkman-init.sh"
