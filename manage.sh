@@ -22,8 +22,8 @@ dm_flutter() {
     local here="$(pwd)"
 
     cd /tmp
-    # wget "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/${flutter_tarfile}"
-    # tar -xvf "${flutter_tarfile}"
+    wget "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/${flutter_tarfile}"
+    tar -xvf "${flutter_tarfile}"
     mkdir -p "${flutter_to}"
     mv flutter/{.,}* "${flutter_to}"
     cd "${here}"
