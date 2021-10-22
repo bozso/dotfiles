@@ -81,34 +81,6 @@ gm() {
     sh ${dotfiles}/git.sh $*
 }
 
-dm_packer() {
-    git clone --depth 1 \
-        https://github.com/wbthomason/packer.nvim \
-     ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-}
-
-dm_symlinks() {
-    ln -s "${dotfiles}/configs/lua" ~/.config/nvim/lua
-}
-
-dm() {
-    if [ "$#" != "1" ]; then
-        printf "error: dm: one argument, subcommand, is required!\n" >&2
-        return 1
-    fi
-
-    case "$1" in
-        "packer")
-            dm_packer
-            ;;
-        "symlinks")
-            dm_symlinks
-            ;;
-        *)
-            printf "unrecognized option %s" "$1"
-            return 1
-    esac
-}
 
 proton() {
     check_narg $# 1
@@ -243,4 +215,5 @@ if [ -f "${node_bin}" ]; then
     export PATH="${PATH}:${node_bin}"
 fi
 
+. "${dotfiles}/manage.sh"
 source_if "/home/istvan/.sdkman/bin/sdkman-init.sh"
