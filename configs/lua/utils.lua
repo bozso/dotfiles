@@ -28,7 +28,7 @@ local function apply_dict(dict, options)
     end
 end
 
-local function add_patterns(tpl, iter, to)
+function M.add_patterns(tpl, iter, to)
     for _, ext in pairs(iter) do
         table.insert(to, fmt(tpl, ext))
     end
@@ -37,7 +37,7 @@ end
 function M.ignored_patterns(opts)
     local ignores = {}
     for tpl, iter in pairs(opts) do
-        add_patterns(tpl, iter, ignores)
+        M.add_patterns(tpl, iter, ignores)
     end
     return ignores
 end
