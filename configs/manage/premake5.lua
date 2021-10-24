@@ -1,0 +1,61 @@
+local pkgs = require("packages")
+local pm = require("premake_manage")
+
+local function get_paths(pkgs)
+    local paths = {}
+    for key, desc in pairs(pkgs) do
+        local pkg = desc()
+        local pth = pkg.bin_path
+        if pth ~= nil then
+            table.insert(paths, pth)
+        end
+    end
+    return paths
+end
+
+local function join_paths(pkgs, sep)
+    local paths = get_paths(pkgs)
+    return table.concat(paths, sep)
+end
+
+local function run(pkgs, ctx)
+    for key, desc in pairs(pkgs) do
+        local pkg = desc()
+        pkg.download(ctx)
+        pkg.unzip(ctx)
+    end
+end
+
+newaction {
+    trigger = "all",
+    description = "Run all steps required for installation.",
+    execute = function()
+        local ctx = pm
+        ctx.overwrite = false
+        if _OPTIONS["overwrite"] then
+            ctx.overwrite = true
+        end
+        run(pkgs, ctx)
+    end
+}
+
+newaction {
+    trigger = "bin_paths",
+    description = "List paths to directories holding binary files.",
+    execute = function()
+        print(join_paths(pkgs, "\n"))
+    end
+}
+
+newaction {
+    trigger = "gen_path",
+    description = "Generate PATH variable.",
+    execute = function()
+        printf("export PATH=${PATH}:%s", join_paths(pkgs, ":"))
+    end
+}
+
+newoption {
+    trigger = "overwrite",
+    description = "Set it to overwrite existing files."
+}
