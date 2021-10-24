@@ -13,9 +13,9 @@ local keymaps = {
     gD = "<cmd>lua vim.lsp.buf.declaration()<CR>",
     gd = "<cmd>lua vim.lsp.buf.defintion()<CR>",
     Gd = "<cmd>lua vim.lsp.buf.type_definition()<CR>",
-    ["<leader>H"] = "<cmd>lua vim.lsp.buf.hover()<CR>",
+    ["<leader>h"] = "<cmd>lua vim.lsp.buf.hover()<CR>",
     ["<leader>d"] = "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>",
-    ["<leader>h"] = "<cmd>lua vim.lsp.buf.signature_help()<CR>",
+    ["<leader>H"] = "<cmd>lua vim.lsp.buf.signature_help()<CR>",
 }
 
 local opts = { noremap=true, silent=true }
