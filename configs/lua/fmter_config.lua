@@ -41,6 +41,7 @@ require('formatter').setup {
             end
         },
         c = clang_format,
+        cc = clang_format,
         cpp = clang_format,
         go = {
             function()
