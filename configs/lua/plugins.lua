@@ -5,37 +5,6 @@
 -- https://github.com/neovim/neovim/pull/12632 merged
 -- vim._update_package_paths()
 
-local ut = require("utils")
-local fmt = string.format
-
-local format_file_extensions = {
-    "c", "cpp", "cc", "cxx", "d", "py", "go", "js", "ts"
-}
-
-local extensions = {}
-ut.add_patterns(".%s", format_file_extensions, extensions)
-
-vim.api.nvim_exec(fmt([[
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost %s FormatWrite
-augroup END
-]], table.concat(extensions, ",")), true)
-
-require('formatter').setup {
-    filetype = {
-        rust = {
-            -- Rustfmt
-            function()
-                return {
-                    exe = "rustfmt",
-                    args = {"--emit=stdout"},
-                    stdin = true
-                }
-            end
-        },
-    }
-}
 
 return require('packer').startup(function()
     -- Packer can manage itself
@@ -44,6 +13,7 @@ return require('packer').startup(function()
     use "mfussenegger/nvim-lint"
     use "mhartington/formatter.nvim"
     use "dense-analysis/ale"
+    use "neovim/nvim-lspconfig"
 
     use {
         'hoob3rt/lualine.nvim',

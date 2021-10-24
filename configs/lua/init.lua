@@ -1,5 +1,8 @@
 local ut = require("utils")
 require("plugins")
+require("fmter_config")
+require("lsp_setup")
+
 
 require('lualine').setup {
     options = {
@@ -125,8 +128,8 @@ nnoremaps = {
     ["<leader>b"] = ":w<C-j><cmd>Telescope buffers<cr>",
     ["<leader>g"] = ":w<C-j><cmd>Telescope live_grep<cr>",
     ["<leader>w"] = ":w<C-j>",
-    ["<leader>d"] = ":ALEDetail<C-j>",
-    ["<leader>h"] = ":ALEHover<C-j>",
+    -- ["<leader>d"] = ":ALEDetail<C-j>",
+    -- ["<leader>h"] = ":ALEHover<C-j>",
 }
 
 apply_keys("n", nnoremaps, {noremap = true})
