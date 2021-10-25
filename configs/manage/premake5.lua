@@ -1,5 +1,6 @@
 local pkgs = require("packages")
 local pm = require("premake_manage")
+local fmt = string.format
 
 local function get_paths(pkgs)
     local paths = {}
@@ -57,8 +58,17 @@ newaction {
     trigger = "gen_path",
     description = "Generate PATH variable.",
     execute = function()
-        printf("export PATH=${PATH}:%s", join_paths(pkgs, ":"))
+        io.writefile(
+            _OPTIONS["path"],
+            fmt("export PATH=${PATH}:%s", join_paths(pkgs, ":"))
+        )
     end
+}
+
+newoption {
+    trigger = "path",
+    description = "Path to generated shell script file.",
+    value = "string",
 }
 
 newoption {
