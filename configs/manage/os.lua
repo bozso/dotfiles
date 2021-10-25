@@ -46,17 +46,10 @@ M.system = Enum {
     xbox360 = 8
 }
 
-print(M.system:join_names("," ))
-print(M.system.linux)
-print(M.system:from_str("linux"))
-error("stop")
-
-
-function str_to_enum_val(str, enum)
-end
-
 function M.get_system_info()
     return {
+        os = M.system:from_str(os.host()),
+        version = os.getversion(),
     }
 end
 
