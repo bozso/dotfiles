@@ -21,7 +21,6 @@ function M.executef(ctx, format, ...)
 end
 
 local function pattern_matched(num)
-    print(num)
     if num ~= nil then
         return num > 0
     end

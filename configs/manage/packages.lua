@@ -148,7 +148,7 @@ function M.deno()
         decompress = function(ctx)
             ctx.unzip(ctx, downloaded, to)
         end,
-        bin_path = path.join(to, "bin")
+        bin_path = to,
     }
 end
 
