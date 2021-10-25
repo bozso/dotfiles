@@ -20,13 +20,22 @@ function M.executef(ctx, format, ...)
     return ctx.execute(str)
 end
 
+local function pattern_matched(num)
+    print(num)
+    if num ~= nil then
+        return num > 0
+    end
+    return false
+end
+
 function M.is_dir_empty(pth)
-    local ret = true
+    local ret = false
 
     nfiles = #os.matchfiles(path.join(pth, "**"))
     ndirs = #os.matchdirs(path.join(pth, "**"))
-    if nfiles > 0 and ndirs > 0 then
-        ret = false
+
+    if pattern_matched(ndirs) or pattern_matched(nfiles) then
+        ret = true
     end
 
     return ret

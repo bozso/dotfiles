@@ -8,13 +8,42 @@ local function progress(total, current)
 end
 
 local function needs_update(ctx, dir)
-    return not ut.is_dir_empty(dst) or ctx.overwrite
+    printf("Checking: '%s'", dir)
+    local needs_update = not ut.is_dir_empty(dir) or ctx.overwrite
+
+    if needs_update then
+        print("Needs update.")
+    else
+        print("No update needed.")
+    end
+
+    return needs_update
 end
 
 local function unzip(ctx, src, dst)
+    os.mkdir(dst)
+    return zip.extract(src, dst)
+end
+
+local function check_before_decompress(ctx, src, dst, decompress)
     if needs_update(ctx, dst) then
-        return zip.extract(src, dst)
+        return decompress(ctx, src, dst)
     end
+end
+
+local function unzip_check(ctx, src, dst)
+    return check_before_decompress(ctx, src, dst, unzip)
+end
+
+local function decompress_log(ctx, src, dst, decompress)
+    printf("Decompressing file: '%s' to '%s'", src, dst)
+    local res = decompress(ctx, src, dst)
+    print("Decompression finished.")
+    return res
+end
+
+local function unzip_debug(ctx, src, dst)
+    return decompress_log(ctx, src, dst, unzip_check)
 end
 
 local function untar(ctx, src, dst, opts)
@@ -84,7 +113,7 @@ end
 local use_debug = true
 
 local debug = {
-    unzip = unzip,
+    unzip = unzip_debug,
     untar = untar,
     download = debug_download,
     execute = debug_execute
