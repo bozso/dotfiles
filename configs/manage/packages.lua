@@ -5,19 +5,6 @@ local down = path.join("/home", "istvan", "packages", "downloaded")
 local tmp = "/tmp"
 local M = {}
 
-
--- dm_flutter() {
---     set -euo pipefail
---     local here="$(pwd)"
---
---     cd /tmp
---     wget "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/${flutter_tarfile}"
---     tar -xvf "${flutter_tarfile}"
---     mkdir -p "${flutter_to}"
---     mv flutter/{.,}* "${flutter_to}"
---     cd "${here}"
--- }
-
 function M.flutter()
     local version = "2.5.3"
     local tarfile = fmt("flutter_linux_%s-stable.tar.xz", version)
