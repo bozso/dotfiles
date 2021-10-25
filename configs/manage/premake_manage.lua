@@ -1,3 +1,5 @@
+local ut = require("utils")
+
 local function progress(total, current)
     local ratio = current / total;
     ratio = math.min(math.max(ratio, 0), 1);
@@ -9,10 +11,23 @@ local function unzip(src, dst)
     zip.extract(src, dst)
 end
 
+local function untar(ctx, src, dst, opts)
+    local strip = opts.strip or 0
+
+    if not ut.is_dir_empty(dst) or ctx.overwrite then
+        os.mkdir(dst)
+        ut.executef(
+            ctx, "tar -xvf %s --strip-components=%d -C %s", src, strip,
+            dst
+        )
+    end
+end
+
 local function raw_download(src, dst)
     local res, code = http.download(src, dst , {
          progress = progress,
     })
+    ut.check_http(res, code)
 
     return res, code
 end
@@ -20,7 +35,7 @@ end
 local function check_download_exists(src, dst, downloader)
     local res, code
 
-    if not os.isfile(dst) then
+    if not ut.file_exists(dst) then
         res, code = downloader(src, dst)
     end
 
@@ -63,14 +78,16 @@ local use_debug = true
 
 local debug = {
     unzip = unzip,
+    untar = untar,
     download = debug_download,
     execute = debug_execute
 }
 
 local normal = {
     unzip = unzip,
+    untar = untar,
     download = checked_down,
-    execute = execute
+    execute = execute,
 }
 
 if use_debug then

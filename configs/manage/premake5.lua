@@ -22,7 +22,7 @@ local function run(pkgs, ctx)
     for key, desc in pairs(pkgs) do
         local pkg = desc()
         pkg.download(ctx)
-        pkg.unzip(ctx)
+        pkg.decompress(ctx)
     end
 end
 
@@ -35,7 +35,13 @@ newaction {
         if _OPTIONS["overwrite"] then
             ctx.overwrite = true
         end
-        run(pkgs, ctx)
+        local res, err = pcall(run, pkgs, ctx)
+        if not res then
+            printf(
+                "Error, while running all installation steps: %s",
+                tostring(err)
+            )
+        end
     end
 }
 
