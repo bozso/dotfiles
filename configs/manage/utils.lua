@@ -21,11 +21,12 @@ function M.executef(ctx, format, ...)
 end
 
 function M.is_dir_empty(pth)
-    local ret = false
+    local ret = true
 
-    nfiles = #os.matchfiles(path.join(pth, "*"))
-    if nfiles > 0 then
-        ret = true
+    nfiles = #os.matchfiles(path.join(pth, "**"))
+    ndirs = #os.matchdirs(path.join(pth, "**"))
+    if nfiles > 0 and ndirs > 0 then
+        ret = false
     end
 
     return ret

@@ -7,14 +7,21 @@ local function progress(total, current)
     print("Download progress (" .. percent .. "%/100%)\r")
 end
 
-local function unzip(src, dst)
-    zip.extract(src, dst)
+local function needs_update(ctx, dir)
+    return not ut.is_dir_empty(dst) or ctx.overwrite
+end
+
+local function unzip(ctx, src, dst)
+    if needs_update(ctx, dst) then
+        return zip.extract(src, dst)
+    end
 end
 
 local function untar(ctx, src, dst, opts)
+    local opts = opts or {}
     local strip = opts.strip or 0
 
-    if not ut.is_dir_empty(dst) or ctx.overwrite then
+    if needs_update(ctx, dst) then
         os.mkdir(dst)
         ut.executef(
             ctx, "tar -xvf %s --strip-components=%d -C %s", src, strip,
