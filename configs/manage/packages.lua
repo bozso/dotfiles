@@ -94,4 +94,39 @@ function M.clang()
     }
 end
 
+function M.go()
+    local version = "13.0.0"
+    -- https://golang.org/dl/go1.17.2.linux-amd64.tar.gz
+
+    -- TODO: make this autodetect
+    local os = {
+        name = "ubuntu",
+        version = "16.04",
+    }
+
+    local tarfile = fmt(
+        "clang+llvm-%s-x86_64-linux-gnu-%s-%s.tar.xz",
+        version, os.name, os.version
+    )
+
+    local downloaded = path.join(tmp, tarfile)
+    local to = path.join(down, "clang", version)
+    local url = fmt(
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-%s/%s",
+        version, tarfile
+    )
+
+    return {
+        version = version,
+        bin = bin,
+        download = function(ctx)
+            ctx.download(url, downloaded)
+        end,
+        decompress = function(ctx)
+            ctx.untar(ctx, downloaded, to, {strip = 1})
+        end,
+        bin_path = path.join(to, "bin")
+    }
+end
+
 return M
