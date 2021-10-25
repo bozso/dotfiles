@@ -1,0 +1,1 @@
+export PATH=${PATH}:/home/istvan/packages/downloaded/clang/13.0.0/bin:/home/istvan/packages/downloaded/flutter/2.5.3/bin:/home/istvan/packages/downloaded/node/14.18.1/bin
