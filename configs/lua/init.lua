@@ -14,6 +14,9 @@ require('lualine').setup {
     },
 }
 
+require("fzf-lua").setup {
+}
+
 require('lint').linters_by_ft = {
     c = {"clangtidy",},
     cpp = {"clangtidy",},
@@ -124,9 +127,10 @@ local function apply_keys(mode, keybinds, extra_opts)
 end
 
 nnoremaps = {
-    ["<leader>f"] = ":w<C-j><cmd>Telescope find_files<cr>",
-    ["<leader>b"] = ":w<C-j><cmd>Telescope buffers<cr>",
-    ["<leader>g"] = ":w<C-j><cmd>Telescope live_grep<cr>",
+    ["<leader>f"] = ":w<C-j><cmd>lua require('fzf-lua').files()<cr>",
+    ["<leader>b"] = ":w<C-j><cmd>lua require('fzf-lua').buffers()<cr>",
+    ["<leader>g"] = ":w<C-j><cmd>lua require('fzf-lua').live_grep()<cr>",
+    ["<leader>s"] = ":w<C-j><cmd>lua require('fzf-lua').lsp_workspace_symbols()<cr>",
     ["<leader>w"] = ":w<C-j>",
     -- ["<leader>d"] = ":ALEDetail<C-j>",
     -- ["<leader>h"] = ":ALEHover<C-j>",

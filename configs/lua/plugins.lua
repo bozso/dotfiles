@@ -26,9 +26,16 @@ return require('packer').startup(function()
     }
 
     use {
-        "nvim-telescope/telescope.nvim",
-        requires = { {"nvim-lua/plenary.nvim"} }
+        'ibhagwan/fzf-lua',
+        requires = {
+            'vijaymarupudi/nvim-fzf',
+        }
     }
+
+    -- use {
+    --     "nvim-telescope/telescope.nvim",
+    --     requires = { {"nvim-lua/plenary.nvim"} }
+    -- }
 
     use {
         "numToStr/Comment.nvim",
