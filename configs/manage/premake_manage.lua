@@ -1,4 +1,5 @@
 local ut = require("utils")
+local fmt = string.format
 
 local function progress(total, current)
     local ratio = current / total;
@@ -7,9 +8,28 @@ local function progress(total, current)
     print("Download progress (" .. percent .. "%/100%)\r")
 end
 
+local function check_call(format, ...)
+    local cmd = fmt(format, ...)
+    print(cmd)
+    local out, code = os.outputof(cmd)
+    if code ~= 0 then
+        errorf("executing cmd: '%s', failed (error code: %d): %s",
+            cmd, code, out)
+    end
+end
+
+local function mkdir(dst)
+    check_call("mkdir -p \"%s\"", dst)
+
+    local res, err = os.mkdir(dst)
+    if not res then
+        ut.errorf("failed to create directory: '%s': %s", dst, err)
+    end
+end
+
 local function needs_update(ctx, dir)
     printf("Checking: '%s'", dir)
-    local needs_update = not ut.is_dir_empty(dir) or ctx.overwrite
+    local needs_update = ut.is_dir_empty(dir) or ctx.overwrite
 
     if needs_update then
         print("Needs update.")
@@ -21,7 +41,7 @@ local function needs_update(ctx, dir)
 end
 
 local function unzip(ctx, src, dst)
-    os.mkdir(dst)
+    mkdir(dst)
     return zip.extract(src, dst)
 end
 
@@ -51,7 +71,7 @@ local function untar(ctx, src, dst, opts)
     local strip = opts.strip or 0
 
     if needs_update(ctx, dst) then
-        os.mkdir(dst)
+        mkdir(dst)
         ut.executef(
             ctx, "tar -xvf %s --strip-components=%d -C %s", src, strip,
             dst
@@ -63,9 +83,27 @@ local function raw_download(src, dst)
     local res, code = http.download(src, dst , {
          progress = progress,
     })
-    ut.check_http(res, code)
-
     return res, code
+end
+
+-- TODO: get http result codes out of wget command
+local function wget(src, dst)
+    local dir = path.getdirectory(dst)
+    local cmd = fmt("wget %s --directory-prefix=%s", src, dir)
+    os.execute(cmd)
+end
+
+local function wget_fallback_wrap(src, dst, downloader)
+    local res, code = downloader(src, dst)
+
+    if not ut.http.is_okay(code) then
+        os.remove(dst)
+        wget(src, dst)
+    end
+end
+
+local function wget_fallback(src, dst)
+    return wget_fallback_wrap(src, dst, raw_download)
 end
 
 local function check_download_exists(src, dst, downloader)
@@ -79,7 +117,7 @@ local function check_download_exists(src, dst, downloader)
 end
 
 local function checked_down(src, dst)
-    return check_download_exists(src, dst, raw_download)
+    return check_download_exists(src, dst, wget_fallback)
 end
 
 local function log_download(src, dst, downloader)

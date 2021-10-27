@@ -1,8 +1,19 @@
 local ut = require("utils")
 local fmt = string.format
 
-local down = path.join("/home", "istvan", "packages", "downloaded")
-local tmp = "/tmp"
+local down
+
+if true then
+    down = path.join(
+        "/quanta1", "home", "istvan", "packages", "downloaded"
+    )
+else
+    down = path.join("/home", "istvan", "packages", "downloaded")
+end
+
+local tmp = path.join("/tmp", "download_cache")
+os.mkdir(tmp)
+
 local M = {}
 
 local function simple_tar(url, downloaded, outdir)
