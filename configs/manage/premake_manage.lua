@@ -73,7 +73,7 @@ local function untar(ctx, src, dst, opts)
     if needs_update(ctx, dst) then
         mkdir(dst)
         ut.executef(
-            ctx, "tar -xvf %s --strip-components=%d -C %s", src, strip,
+            ctx, "tar -xf %s --strip-components=%d -C %s", src, strip,
             dst
         )
     end

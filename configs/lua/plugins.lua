@@ -45,6 +45,5 @@ return require('packer').startup(function()
     }
 
     use "mattn/emmet-vim"
-    use "zah/nim.vim"
     use "ziglang/zig.vim"
 end)

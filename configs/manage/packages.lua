@@ -3,7 +3,7 @@ local fmt = string.format
 
 local down
 
-if true then
+if false then
     down = path.join(
         "/quanta1", "home", "istvan", "packages", "downloaded"
     )
@@ -57,6 +57,7 @@ function M.flutter()
         decompress = function(ctx)
             ctx.untar(ctx, downloaded, to, {strip = 1})
         end,
+        dir = to,
         bin_path = path.join(to, "bin")
     }
 end
@@ -78,6 +79,7 @@ function M.node()
         decompress = function(ctx)
             ctx.untar(ctx, downloaded, to, {strip = 1})
         end,
+        dir = to,
         bin_path = path.join(to, "bin")
     }
 end
@@ -111,6 +113,7 @@ function M.clang()
         decompress = function(ctx)
             ctx.untar(ctx, downloaded, to, {strip = 1})
         end,
+        dir = to,
         bin_path = path.join(to, "bin")
     }
 end
@@ -133,6 +136,7 @@ function M.go()
         decompress = function(ctx)
             ctx.untar(ctx, downloaded, to, {strip = 1})
         end,
+        dir = to,
         bin_path = path.join(to, "bin")
     }
 end
@@ -159,7 +163,55 @@ function M.deno()
         decompress = function(ctx)
             ctx.unzip(ctx, downloaded, to)
         end,
+        dir = to,
         bin_path = to,
+    }
+end
+
+function M.ra()
+    local version = "2021-11-01"
+
+    -- TODO: make this autodetect
+    local tarfile = "rust-analyzer-x86_64-unknown-linux-musl.gz"
+
+    local downloaded = path.join(tmp, tarfile)
+    local to = path.join(down, "rust_analyzer", version)
+    local url = fmt(
+        "https://github.com/rust-analyzer/rust-analyzer/releases/download/%s/%s", version, tarfile)
+
+    return {
+        version = version,
+        download = function(ctx)
+            ctx.download(url, downloaded)
+        end,
+        decompress = function(ctx)
+            ctx.untar(ctx, downloaded, to, {strip = 1})
+        end,
+        dir = to,
+        bin_path = path.join(to, "bin")
+    }
+end
+
+function M.nim()
+    local version = "1.6.0"
+
+    -- TODO: make this autodetect
+    local tarfile = fmt("nim-%s-linux_x64.tar.xz", version)
+
+    local downloaded = path.join(tmp, tarfile)
+    local to = path.join(down, "nim", version)
+    local url = "https://nim-lang.org/download/" .. tarfile
+
+    return {
+        version = version,
+        download = function(ctx)
+            ctx.download(url, downloaded)
+        end,
+        decompress = function(ctx)
+            ctx.untar(ctx, downloaded, to, {strip = 1})
+        end,
+        dir = to,
+        bin_path = path.join(to, "bin")
     }
 end
 
