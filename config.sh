@@ -217,4 +217,4 @@ fi
 
 . "${dotfiles}/manage.sh"
 source_if "/home/istvan/.sdkman/bin/sdkman-init.sh"
-source_if "${dotfiles}/configs/manage/paths.sh"
+source_if "${HOME}/.config/paths_gen.sh"

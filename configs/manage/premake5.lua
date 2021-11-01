@@ -1,5 +1,6 @@
 local pkgs = require("packages")
 local pm = require("premake_manage")
+local ut = require("utils")
 local fmt = string.format
 
 local function get_paths(pkgs)
@@ -22,8 +23,12 @@ end
 local function run(pkgs, ctx)
     for key, desc in pairs(pkgs) do
         local pkg = desc()
-        pkg.download(ctx)
-        pkg.decompress(ctx)
+        local dir = pkg.dir
+        if ut.is_dir_empty(dir) then
+            printf("Installing '%s' at '%s'", key, dir)
+            pkg.download(ctx)
+            pkg.decompress(ctx)
+        end
     end
 end
 

@@ -9,8 +9,12 @@ function M.errorf(format, ...)
     error(fmt(format, ...))
 end
 
-function M.check_http(res, code)
-    if code ~= http.ok then
+function http.is_okay(code)
+    return code == http.ok
+end
+
+function http.check(res, code)
+    if http.is_okay(code) then
         M.errorf("got not okay http status (%d) with message: %s", code, res)
     end
 end
@@ -28,13 +32,13 @@ local function pattern_matched(num)
 end
 
 function M.is_dir_empty(pth)
-    local ret = false
+    local ret = true
 
     nfiles = #os.matchfiles(path.join(pth, "**"))
     ndirs = #os.matchdirs(path.join(pth, "**"))
 
     if pattern_matched(ndirs) or pattern_matched(nfiles) then
-        ret = true
+        ret = false
     end
 
     return ret
@@ -69,5 +73,7 @@ function M.untar(ctx, src, dst, opts)
         )
     end
 end
+
+M.http = http
 
 return M

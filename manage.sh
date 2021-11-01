@@ -1,4 +1,3 @@
-
 down="${pkgs}/downloaded"
 
 dm_packer() {
@@ -7,26 +6,34 @@ dm_packer() {
      ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 }
 
-dm_symlinks() {
-    ln -s "${dotfiles}/configs/lua" ~/.config/nvim/lua
+cache="/tmp/download_cache"
+mkdir -p "${cache}"
+
+premake_version="5.0.0-alpha16"
+premake_bin="${down}/premake/${premake_version}"
+
+download() {
+    [ ! -f "$2" ] && wget "$1"
 }
 
-flutter_version="2.5.3"
-flutter_tarfile="flutter_linux_${flutter_version}-stable.tar.xz"
-flutter_to="${down}/flutter/${flutter_version}"
-flutter_here="$(pwd)"
-flutter_path="${flutter_to}/bin"
-
-dm_flutter() {
+dm_premake() {
     set -euo pipefail
-    local here="$(pwd)"
 
-    cd /tmp
-    wget "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/${flutter_tarfile}"
-    tar -xvf "${flutter_tarfile}"
-    mkdir -p "${flutter_to}"
-    mv flutter/{.,}* "${flutter_to}"
-    cd "${here}"
+    local curr="$(pwd)"
+    local tarfile="premake-${premake_version}-linux.tar.gz"
+    local url="https://github.com/premake/premake-core/releases/download/v${premake_version}/${tarfile}"
+    local tarfile_down="${cache}/${tarfile}"
+    mkdir -p "${premake_bin}"
+
+    cd "${cache}"
+    download "${url}" "${tarfile_down}"
+    tar -xzvf "${tarfile_down}" -C "${premake_bin}"
+
+    cd "${curr}"
+}
+
+dm_symlinks() {
+    ln -s "${dotfiles}/configs/lua" ~/.config/nvim/lua
 }
 
 dm() {
@@ -38,6 +45,9 @@ dm() {
     case "$1" in
         "packer")
             dm_packer
+            ;;
+        "premake")
+            dm_premake
             ;;
         "symlinks")
             dm_symlinks
@@ -51,4 +61,4 @@ dm() {
     esac
 }
 
-PATH="${PATH}:${flutter_path}"
+export PATH="${PATH}:${premake_bin}"

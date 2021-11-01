@@ -1,5 +1,5 @@
 local lspconfig = require("lspconfig")
-local servers = { "pyright", "gopls", "clangd", }
+local servers = { "pyright", "gopls", "clangd", "nimls"}
 
 local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -19,7 +19,6 @@ local keymaps = {
 }
 
 local opts = { noremap=true, silent=true }
-
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
