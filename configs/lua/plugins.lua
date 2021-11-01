@@ -29,6 +29,7 @@ return require('packer').startup(function()
         'ibhagwan/fzf-lua',
         requires = {
             'vijaymarupudi/nvim-fzf',
+            'kyazdani42/nvim-web-devicons'
         }
     }
 

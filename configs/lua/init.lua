@@ -15,6 +15,7 @@ require('lualine').setup {
 }
 
 require("fzf-lua").setup {
+    border = { '+', '─', '+', '│', '+', '─', '+', '│' },
 }
 
 require('lint').linters_by_ft = {
