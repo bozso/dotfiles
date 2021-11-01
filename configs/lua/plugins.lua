@@ -12,7 +12,6 @@ return require('packer').startup(function()
 
     use "mfussenegger/nvim-lint"
     use "mhartington/formatter.nvim"
-    use "dense-analysis/ale"
     use "neovim/nvim-lspconfig"
 
     use {
@@ -32,11 +31,6 @@ return require('packer').startup(function()
             'kyazdani42/nvim-web-devicons'
         }
     }
-
-    -- use {
-    --     "nvim-telescope/telescope.nvim",
-    --     requires = { {"nvim-lua/plenary.nvim"} }
-    -- }
 
     use {
         "numToStr/Comment.nvim",

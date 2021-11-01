@@ -70,42 +70,6 @@ ut.update_table {
         user_emmet_leader_key = ',',
         wildignore = wildignore,
     },
-
-    groups = {
-        ale_ = {
-            fix_on_save = 1,
-            lint_on_text_changed = 0,
-            lint_on_insert_leave = 0,
-            completion_autoimport = 1,
-
-            go_golangci_lint_executable = 'golangci-lint',
-
-            fixers = {
-                ['*'] = {
-                    'remove_trailing_lines', 'trim_whitespace'
-                },
-                rust = {'rustfmt'},
-                go = {'gofmt'},
-                c = {'clang-format', 'clangtidy'},
-                cpp = {'clang-format', 'clangtidy'},
-                python = {'black'},
-                typescript = {'deno'},
-            },
-            linters = {
-                go = {
-                    'gofmt', 'golint', 'govet', 'gobuild',
-                    'golangci-lint'
-                },
-                d = {'dls', 'dmd'},
-                python = {
-                    'flake8', 'pylint', 'pyre', 'mypy',
-                    'pyright'
-                },
-                typescript = {'deno'},
-                nim = {'nimcheck', 'nimlsp'},
-            }
-        }
-    }
 }
 
 ut.update_table {
