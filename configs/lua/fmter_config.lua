@@ -6,7 +6,7 @@ local format_file_extensions = {
 }
 
 local extensions = {}
-ut.add_patterns(".%s", format_file_extensions, extensions)
+ut.add_patterns("*.%s", format_file_extensions, extensions)
 
 vim.api.nvim_exec(fmt([[
 augroup FormatAutogroup
@@ -47,7 +47,6 @@ require('formatter').setup {
             function()
                 return {
                     exe = "gofmt",
-                    args = {"-w"},
                     stdin = true,
                 }
             end
