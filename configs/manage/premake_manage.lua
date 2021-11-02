@@ -40,6 +40,11 @@ local function needs_update(ctx, dir)
     return needs_update
 end
 
+local function gzip(ctx, src, dst)
+    mkdir(dst)
+    check_call("gzip -dk %s", src)
+end
+
 local function unzip(ctx, src, dst)
     mkdir(dst)
     return zip.extract(src, dst)
@@ -153,6 +158,7 @@ local use_debug = true
 local debug = {
     unzip = unzip_debug,
     untar = untar,
+    gzip = gzip,
     download = debug_download,
     execute = debug_execute
 }
@@ -160,6 +166,7 @@ local debug = {
 local normal = {
     unzip = unzip,
     untar = untar,
+    gzip = gzip,
     download = checked_down,
     execute = execute,
 }

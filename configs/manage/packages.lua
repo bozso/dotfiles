@@ -172,7 +172,7 @@ function M.ra()
     local version = "2021-11-01"
 
     -- TODO: make this autodetect
-    local tarfile = "rust-analyzer-x86_64-unknown-linux-musl.gz"
+    local tarfile = "rust-analyzer-x86_64-unknown-linux-gnu.gz"
 
     local downloaded = path.join(tmp, tarfile)
     local to = path.join(down, "rust_analyzer", version)
@@ -185,7 +185,7 @@ function M.ra()
             ctx.download(url, downloaded)
         end,
         decompress = function(ctx)
-            ctx.untar(ctx, downloaded, to, {strip = 1})
+            ctx.gzip(ctx, downloaded, to)
         end,
         dir = to,
         bin_path = path.join(to, "bin")
