@@ -8,6 +8,7 @@ local function get_paths(pkgs)
     for key, desc in pairs(pkgs) do
         local pkg = desc()
         local pth = pkg.bin_path
+        print(pth)
         if pth ~= nil then
             table.insert(paths, pth)
         end
@@ -24,6 +25,7 @@ local function run(pkgs, ctx)
     for key, desc in pairs(pkgs) do
         local pkg = desc()
         local dir = pkg.dir
+        printf("Processing package %s version: %s", key, pkg.version)
         if ut.is_dir_empty(dir) then
             printf("Installing '%s' at '%s'", key, dir)
             pkg.download(ctx)

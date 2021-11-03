@@ -16,16 +16,17 @@ os.mkdir(tmp)
 
 local M = {}
 
-local function simple_tar(url, downloaded, outdir)
+local function simple_tar(opts)
     return {
-        version = version,
+        version = opts.version,
         download = function(ctx)
-            ctx.download(url, downloaded)
+            ctx.download(opts.url, opts.downloaded)
         end,
         decompress = function(ctx)
-            ctx.untar(ctx, downloaded, outdir, {strip = 1})
+            ctx.untar(ctx, opts.downloaded, opts.dir, {strip = 1})
         end,
-        bin_path = path.join(to, "bin")
+        dir = opts.dir,
+        bin_path = opts.bin,
     }
 end
 
@@ -168,29 +169,29 @@ function M.deno()
     }
 end
 
-function M.ra()
-    local version = "2021-11-01"
-
-    -- TODO: make this autodetect
-    local tarfile = "rust-analyzer-x86_64-unknown-linux-gnu.gz"
-
-    local downloaded = path.join(tmp, tarfile)
-    local to = path.join(down, "rust_analyzer", version)
-    local url = fmt(
-        "https://github.com/rust-analyzer/rust-analyzer/releases/download/%s/%s", version, tarfile)
-
-    return {
-        version = version,
-        download = function(ctx)
-            ctx.download(url, downloaded)
-        end,
-        decompress = function(ctx)
-            ctx.gzip(ctx, downloaded, to)
-        end,
-        dir = to,
-        bin_path = path.join(to, "bin")
-    }
-end
+-- function M.ra()
+--     local version = "2021-11-01"
+--
+--     -- TODO: make this autodetect
+--     local tarfile = "rust-analyzer-x86_64-unknown-linux-gnu.gz"
+--
+--     local downloaded = path.join(tmp, tarfile)
+--     local to = path.join(down, "rust_analyzer", version)
+--     local url = fmt(
+--         "https://github.com/rust-analyzer/rust-analyzer/releases/download/%s/%s", version, tarfile)
+--
+--     return {
+--         version = version,
+--         download = function(ctx)
+--             ctx.download(url, downloaded)
+--         end,
+--         decompress = function(ctx)
+--             ctx.gzip(ctx, downloaded, to)
+--         end,
+--         dir = to,
+--         bin_path = path.join(to, "bin")
+--     }
+-- end
 
 function M.nim()
     local version = "1.6.0"
@@ -212,6 +213,28 @@ function M.nim()
         end,
         dir = to,
         bin_path = path.join(to, "bin")
+    }
+end
+
+function M.efm_langserver()
+    local version = "0.0.37"
+
+    -- TODO: make this autodetect
+    local tarfile = fmt("efm-langserver_v%s_linux_amd64.tar.gz", version)
+
+    local downloaded = path.join(tmp, tarfile)
+    local to = path.join(down, "efm_langserver", version)
+    local url = fmt(
+        "https://github.com/mattn/efm-langserver/releases/download/v%s/%s",
+        version, tarfile
+    )
+
+    return simple_tar {
+        version = version,
+        url = url,
+        downloaded = downloaded,
+        dir = to,
+        bin = to,
     }
 end
 
