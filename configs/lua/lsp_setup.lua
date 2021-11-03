@@ -33,3 +33,25 @@ for _, lsp in pairs(servers) do
         on_attach = on_attach,
     }
 end
+
+lspconfig.efm.setup {
+    init_options = {documentFormatting = true},
+    settings = {
+        rootMarkers = {".git/"},
+        languages = {
+            lua = {
+                {formatCommand = "lua-format -i", formatStdin = true}
+            },
+            go = {
+                {
+                    lintCommand = "golangci-lint run",
+                    lintFormats = {
+                        "%f:%l:%c: %rror: %m",
+                        "%f:%l:%c: %arning: %m",
+                    },
+                    lintStdin = true
+                },
+            }
+        }
+    }
+}
