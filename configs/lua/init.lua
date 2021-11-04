@@ -24,13 +24,14 @@ require('lint').linters_by_ft = {
     go = {"golangcilint",},
 }
 
-vim.cmd[[au BufWritePost <buffer> lua require('lint').try_lint()]]
+-- TODO: figure out how to change colorscheme properly
+vim.cmd[[
+    let ayucolor="light"
+    colorscheme ayu
+]]
 
 
 vim.wo.colorcolumn = "79"
-
--- TODO: figure out how to change colorscheme properly
-vim.cmd[[colorscheme delek]]
 
 
 -- Ignore certain files and folders when globbing
