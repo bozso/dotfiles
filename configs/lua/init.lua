@@ -26,8 +26,7 @@ require('lint').linters_by_ft = {
 
 -- TODO: figure out how to change colorscheme properly
 vim.cmd[[
-    let ayucolor="light"
-    colorscheme ayu
+    colorscheme shirotelin
 ]]
 
 
