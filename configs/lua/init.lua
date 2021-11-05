@@ -25,10 +25,12 @@ require('lint').linters_by_ft = {
 }
 
 -- TODO: figure out how to change colorscheme properly
-vim.cmd[[
-    colorscheme shirotelin
-]]
+local status, err = pcall(vim.cmd, "colorscheme shirotelin")
 
+if not status then
+    -- vim.notify()
+    vim.cmd[[colorscheme delek]]
+end
 
 vim.wo.colorcolumn = "79"
 
