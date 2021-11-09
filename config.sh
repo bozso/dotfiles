@@ -35,6 +35,7 @@ tmws() {
 }
 
 alias bw="bwp"
+alias rg="rigrep"
 
 bw_c() {
     bw_impl "clipboard"

@@ -11,7 +11,6 @@ return require('packer').startup(function()
     use 'wbthomason/packer.nvim'
 
     use "yasukotelin/shirotelin"
-    use "mfussenegger/nvim-lint"
     use "mhartington/formatter.nvim"
     use "neovim/nvim-lspconfig"
 

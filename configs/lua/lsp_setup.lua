@@ -1,5 +1,8 @@
 local lspconfig = require("lspconfig")
-local servers = { "pyright", "gopls", "clangd", "nimls"}
+local servers = {
+    "pyright", "gopls", "clangd", "nimls", "rust_analyzer",
+    "serve_d",
+}
 
 local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -62,9 +65,6 @@ lspconfig.efm.setup {
     settings = {
         rootMarkers = {".git/"},
         languages = {
-            lua = {
-                {formatCommand = "lua-format -i", formatStdin = true}
-            },
             go = go,
             rust = rust,
         }
