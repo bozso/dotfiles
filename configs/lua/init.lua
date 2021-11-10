@@ -18,12 +18,6 @@ require("fzf-lua").setup {
     border = { '+', '─', '+', '│', '+', '─', '+', '│' },
 }
 
-require('lint').linters_by_ft = {
-    c = {"clangtidy",},
-    cpp = {"clangtidy",},
-    go = {"golangcilint",},
-}
-
 -- TODO: figure out how to change colorscheme properly
 local status, err = pcall(vim.cmd, "colorscheme shirotelin")
 
@@ -130,6 +124,4 @@ vim.cmd[[
     if match($TERM, '^xterm.*') != -1 || exists('g:started_by_firenvim')
       set termguicolors
     endif
-
-    au BufWritePost <buffer> lua require('lint').try_lint()
 ]]
