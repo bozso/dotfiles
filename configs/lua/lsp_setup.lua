@@ -1,5 +1,8 @@
 local lspconfig = require("lspconfig")
-local servers = { "pyright", "gopls", "clangd", "nimls"}
+local servers = {
+    "pyright", "gopls", "clangd", "nimls", "rust_analyzer",
+    "serve_d",
+}
 
 local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -34,24 +37,36 @@ for _, lsp in pairs(servers) do
     }
 end
 
+go = {
+    {
+        lintCommand = "golangci-lint run",
+        lintFormats = {
+            "%f:%l:%c: %rror: %m",
+            "%f:%l:%c: %arning: %m",
+        },
+        lintStdin = true
+    }
+}
+
+rust = {
+    {
+        -- src/service/string.rs:52:35: error[E0277]: `?` couldn't convert the error to `service::error::Error<database::Error<u64>>`
+        lineCommand = "cargo check --message-format=short",
+        lintFormats = {
+            "%f:%l:%c: %error%m",
+            "%f:%l:%c: %arning%m",
+        },
+        lintStdin = false,
+    }
+}
+
 lspconfig.efm.setup {
     init_options = {documentFormatting = true},
     settings = {
         rootMarkers = {".git/"},
         languages = {
-            lua = {
-                {formatCommand = "lua-format -i", formatStdin = true}
-            },
-            go = {
-                {
-                    lintCommand = "golangci-lint run",
-                    lintFormats = {
-                        "%f:%l:%c: %rror: %m",
-                        "%f:%l:%c: %arning: %m",
-                    },
-                    lintStdin = true
-                },
-            }
+            go = go,
+            rust = rust,
         }
     }
 }
