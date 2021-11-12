@@ -2,7 +2,7 @@ local ut = require("utils")
 local fmt = string.format
 
 local format_file_extensions = {
-    "c", "cpp", "cc", "cxx", "d", "go", "js", "ts", "rs",
+    "c", "cpp", "cc", "cxx", "d", "go", "js", "ts", "rs", "py",
 }
 
 local extensions = {}
