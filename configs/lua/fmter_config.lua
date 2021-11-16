@@ -2,7 +2,7 @@ local ut = require("utils")
 local fmt = string.format
 
 local format_file_extensions = {
-    "c", "cpp", "cc", "cxx", "d", "go", "js", "ts", "rs", "py",
+    "c", "h",  "cpp", "cc", "cxx", "hpp", "hh", "d", "go", "js", "ts", "rs", "py",
 }
 
 local extensions = {}
@@ -43,6 +43,11 @@ require('formatter').setup {
         c = clang_format,
         cc = clang_format,
         cpp = clang_format,
+        cxx = clang_format,
+        h = clang_format,
+        hh = clang_format,
+        hpp = clang_format,
+        hxx = clang_format,
         go = {
             function()
                 return {
