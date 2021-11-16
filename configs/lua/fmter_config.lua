@@ -2,11 +2,13 @@ local ut = require("utils")
 local fmt = string.format
 
 local format_file_extensions = {
-    "c", "h",  "cpp", "cc", "cxx", "hpp", "hh", "d", "go", "js", "ts", "rs", "py",
+    "c", "h",  "cpp", "cc", "cxx", "hpp", "hh", "d", "go", "js", "ts", "rs", 
+    "py",
 }
 
 local extensions = {}
 ut.add_patterns("*.%s", format_file_extensions, extensions)
+table.insert(extensions, "BUILD*")
 
 vim.api.nvim_exec(fmt([[
 augroup FormatAutogroup
@@ -53,6 +55,15 @@ require('formatter').setup {
                 return {
                     exe = "gofmt",
                     stdin = true,
+                }
+            end
+        },
+        bzl = {
+            function() 
+                return {
+                    exe = "please format",
+                    args = {"-w", vim.api.nvim_buf_get_name(0)},
+                    stdin = false,
                 }
             end
         },

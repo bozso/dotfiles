@@ -1,7 +1,19 @@
 local lspconfig = require("lspconfig")
+local configs = require("lspconfig/configs")
+
+configs.please = {
+    default_config = {
+        cmd = { "build_langserver" },
+        filetypes = { "BUILD", },
+        root_dir = function(filename)
+            return util.path.dirname(filename)
+        end,
+    },
+}
+
 local servers = {
     "pyright", "gopls", "clangd", "nimls", "rust_analyzer",
-    "serve_d",
+    "serve_d", "please",
 }
 
 local function buf_set_keymap(...)
@@ -50,10 +62,9 @@ go = {
 
 rust = {
     {
-        -- src/service/string.rs:52:35: error[E0277]: `?` couldn't convert the error to `service::error::Error<database::Error<u64>>`
         lineCommand = "cargo check --message-format=short",
         lintFormats = {
-            "%f:%l:%c: %error%m",
+            "%f:%l:%c: %rror%m",
             "%f:%l:%c: %arning%m",
         },
         lintStdin = false,
