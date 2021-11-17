@@ -70,26 +70,44 @@ def node():
         ),
         "out": "node/v%s" % version,
         "strip_prefix": "node-v%s-%s-x64" % (version, CONFIG.OS),
+        "bin": "node/v%s/bin" % version,
+    }
+
+def zig():
+    version = "0.8.1"
+
+    return {
+        "name": "zig",
+        "exported_files": [],
+        "url": "https://ziglang.org/download/%s/zig-%s-x86_64-%s.tar.xz" % (
+            version,
+            CONFIG.OS,
+            version,
+        ),
+        "out": "zig/v%s" % version,
+        "strip_prefix": "zig-%s-x86_64-%s" % (CONFIG.OS, version),
+        "bin": "zig/v%s" % version,
     }
 
 every = {
     "node": node(),
     "stylua": stylua(),
     "golangci": golangci(),
+    "zig": zig(),
 }
 
 for name, pkg in every.items():
     simple_remote(pkg)
 
-path = "${PATH}"
+paths = ""
 
 for pkg in every.values():
-    out = pkg.get("out")
+    binpath = pkg.get("bin")
 
-    if out is not None:
-        path = "%s:%s/bin" % (path, out)
+    if binpath is not None:
+        paths = "%s:%s" % (paths, binpath)
 
 text_file(
-    name = "paths.sh",
-    content = "export PATH=\"%s\"" % path,
+    name = "paths",
+    content = paths.lstrip(":"),
 )
