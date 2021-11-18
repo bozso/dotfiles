@@ -1,15 +1,13 @@
 .PHONY: install
-premake ?= cd configs/manage && premake5
-paths ?= ${HOME}/.config/paths_gen.sh
+plz ?= please
+
+.PHONY: install
 
 help:
 	$(premake) --help
 
 install:
-	$(premake) all
+	$(plz) build
 
-list_paths:
-	$(premake) bin_paths
-
-gen_path:
-	$(premake) gen_path --path="$(paths)"
+gen_path: install
+	python gen_paths.py
