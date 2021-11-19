@@ -79,8 +79,29 @@ def zig(version):
         "bin": "zig/v%s" % version,
     }
 
+def nvim(version):
+    pre = "nvim-%s64" % CONFIG.OS
+    out = "neovim/%s" % version
+
+    return {
+        "name": "neovim",
+        "exported_files": [],
+        "hashes": [
+            # darwin_amd64
+            "sha256: d736845b8b63e443970ea93636dfbde3e2673a70d2058c057e41b836ac4f6f6c",
+            # linux_amd64
+            "sha256: d4b5b3984f607eaec1cca1df33120adfbaa89cf167d0cac77eb95fd1a9c21e9d",
+        ],
+        "out": out,
+        "bin": "%s/bin" % out,
+        "strip_prefix": pre,
+        "url": "%s/%s.tar.gz" % (
+            github_release(owner = "neovim", repo = "neovim", version = "v" + version),
+            pre,
+        ),
+    }
+
 def dprint(version):
-    # https://github.com/dprint/dprint/releases/download/0.18.2/
     return {
         "name": "dprint",
         "exported_files": ["dprint"],
@@ -106,6 +127,7 @@ packages = {
     "golangci": (golangci, "1.38.0"),
     "zig": (zig, "0.8.1"),
     "dprint": (dprint, "0.18.2"),
+    "nvim": (nvim, "0.5.1"),
 }
 
 every = {
