@@ -1,3 +1,10 @@
+def github_release(owner, repo, version):
+    return "https://github.com/%s/%s/releases/download/%s" % (
+        owner,
+        repo,
+        version,
+    )
+
 def simple_remote(setup):
     return remote_file(
         name = setup["name"],
@@ -10,8 +17,7 @@ def simple_remote(setup):
         url = setup["url"],
     )
 
-def golangci():
-    version = "1.38.0"
+def golangci(version):
     return {
         "name": "golangci-lint",
         "exported_files": ["golangci-lint-%s-${OS}-${ARCH}/golangci-lint" % version],
@@ -33,8 +39,7 @@ def golangci():
         ),
     }
 
-def stylua():
-    version = "0.11.2"
+def stylua(version):
     return {
         "name": "stylua",
         "exported_files": ["stylua"],
@@ -45,20 +50,7 @@ def stylua():
         ),
     }
 
-def stylua():
-    version = "0.11.2"
-    return {
-        "name": "stylua",
-        "exported_files": ["stylua"],
-        "url": "https://github.com/JohnnyMorganz/StyLua/releases/download/v%s/stylua-%s-%s.zip" % (
-            version,
-            version,
-            CONFIG.OS,
-        ),
-    }
-
-def node():
-    version = "14.18.1"
+def node(version):
     return {
         "name": "node",
         # "exported_files": ["bin/", "include/", ""],
@@ -73,9 +65,7 @@ def node():
         "bin": "node/v%s/bin" % version,
     }
 
-def zig():
-    version = "0.8.1"
-
+def zig(version):
     return {
         "name": "zig",
         "exported_files": [],
@@ -89,11 +79,38 @@ def zig():
         "bin": "zig/v%s" % version,
     }
 
+def dprint(version):
+    # https://github.com/dprint/dprint/releases/download/0.18.2/
+    return {
+        "name": "dprint",
+        "exported_files": ["dprint"],
+        "hashes": [
+            # darwin_amd64
+            "sha256: 34a84bc9f40b5325df5bd797b4bcee7da8485b995117bb46d0dce08b855f1e64",
+            # linux_amd64
+            "sha256: aa7ec5bec46142c8d851845ee50032c2f2928960669712cb3b45bfc0d000a3c8",
+        ],
+        "url": "%s/dprint-x86_64-unknown-%s-gnu.zip" % (
+            github_release(owner = "dprint", repo = "dprint", version = version),
+            CONFIG.OS,
+        ),
+    }
+
+package = 0
+
+version = 1
+
+packages = {
+    "node": (node, "14.18.1"),
+    "stylua": (stylua, "0.11.2"),
+    "golangci": (golangci, "1.38.0"),
+    "zig": (zig, "0.8.1"),
+    "dprint": (dprint, "0.18.2"),
+}
+
 every = {
-    "node": node(),
-    "stylua": stylua(),
-    "golangci": golangci(),
-    "zig": zig(),
+    key: val[package](val[version])
+    for key, val in packages.items()
 }
 
 for name, pkg in every.items():
