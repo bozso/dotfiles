@@ -121,6 +121,15 @@ package = 0
 
 version = 1
 
+fns = {
+    "node": node,
+    "stylua": stylua,
+    "golangci": golangci,
+    "zig": zig,
+    "dprint": dprint,
+    "nvim": nvim,
+}
+
 packages = {
     "node": (node, "14.18.1"),
     "stylua": (stylua, "0.11.2"),
@@ -130,10 +139,25 @@ packages = {
     "nvim": (nvim, "0.5.1"),
 }
 
-every = {
-    key: val[package](val[version])
-    for key, val in packages.items()
+def gen_env(fns, versions):
+    out = {}
+    for key, val in fns.items():
+        version = versions.get(key)
+        if version is not None:
+            out[key] = val(version)
+
+    return out
+
+home = {
+    "node": "14.18.1",
+    "stylua": "0.11.2",
+    "golangci": "1.38.0",
+    "zig": "0.8.1",
+    "dprint": "0.18.2",
+    "nvim": "0.5.1",
 }
+
+every = gen_env(fns, home)
 
 for name, pkg in every.items():
     simple_remote(pkg)
