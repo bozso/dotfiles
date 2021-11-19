@@ -70,8 +70,8 @@ require('formatter').setup {
         python = {
             function() 
                 return {
-                    exe = "yapf",
-                    args = {"--in-place", vim.api.nvim_buf_get_name(0)},
+                    exe = "black",
+                    args = {"-q", vim.api.nvim_buf_get_name(0), "2>/dev/null"},
                     stdin = false,
                 }
             end
