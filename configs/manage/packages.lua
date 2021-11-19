@@ -46,7 +46,8 @@ function M.flutter()
     local tarfile = fmt("flutter_linux_%s-stable.tar.xz", version)
     local downloaded = path.join(tmp, tarfile)
     local to = path.join(down, "flutter", version)
-    local url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/%s"
+    local url =
+        "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/%s"
 
     return {
         version = version,
@@ -90,11 +91,20 @@ function M.clang()
         version = "16.04",
     }
 
-    local tarfile = fmt("clang+llvm-%s-x86_64-linux-gnu-%s-%s.tar.xz", version, os.name, os.version)
+    local tarfile = fmt(
+        "clang+llvm-%s-x86_64-linux-gnu-%s-%s.tar.xz",
+        version,
+        os.name,
+        os.version
+    )
 
     local downloaded = path.join(tmp, tarfile)
     local to = path.join(down, "clang", version)
-    local url = fmt("https://github.com/llvm/llvm-project/releases/download/llvmorg-%s/%s", version, tarfile)
+    local url = fmt(
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-%s/%s",
+        version,
+        tarfile
+    )
 
     return {
         version = version,
@@ -140,7 +150,11 @@ function M.deno()
 
     local downloaded = path.join(tmp, zipfile)
     local to = path.join(down, "deno", version)
-    local url = fmt("https://github.com/denoland/deno/releases/download/v%s/%s", version, zipfile)
+    local url = fmt(
+        "https://github.com/denoland/deno/releases/download/v%s/%s",
+        version,
+        zipfile
+    )
 
     return {
         version = version,
@@ -163,7 +177,11 @@ function M.ra()
 
     local downloaded = path.join(tmp, tarfile)
     local to = path.join(down, "rust_analyzer", version)
-    local url = fmt("https://github.com/rust-analyzer/rust-analyzer/releases/download/%s/%s", version, tarfile)
+    local url = fmt(
+        "https://github.com/rust-analyzer/rust-analyzer/releases/download/%s/%s",
+        version,
+        tarfile
+    )
 
     return {
         version = version,
@@ -209,7 +227,11 @@ function M.efm_langserver()
 
     local downloaded = path.join(tmp, tarfile)
     local to = path.join(down, "efm_langserver", version)
-    local url = fmt("https://github.com/mattn/efm-langserver/releases/download/v%s/%s", version, tarfile)
+    local url = fmt(
+        "https://github.com/mattn/efm-langserver/releases/download/v%s/%s",
+        version,
+        tarfile
+    )
 
     return simple_tar {
         version = version,

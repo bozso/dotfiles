@@ -13,7 +13,12 @@ local function check_call(format, ...)
     print(cmd)
     local out, code = os.outputof(cmd)
     if code ~= 0 then
-        errorf("executing cmd: '%s', failed (error code: %d): %s", cmd, code, out)
+        errorf(
+            "executing cmd: '%s', failed (error code: %d): %s",
+            cmd,
+            code,
+            out
+        )
     end
 end
 
@@ -76,7 +81,13 @@ local function untar(ctx, src, dst, opts)
 
     if needs_update(ctx, dst) then
         mkdir(dst)
-        ut.executef(ctx, "tar -xf %s --strip-components=%d -C %s", src, strip, dst)
+        ut.executef(
+            ctx,
+            "tar -xf %s --strip-components=%d -C %s",
+            src,
+            strip,
+            dst
+        )
     end
 end
 

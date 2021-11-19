@@ -45,7 +45,10 @@ newaction {
         end
         local res, err = pcall(run, pkgs, ctx)
         if not res then
-            printf("Error, while running all installation steps: %s", tostring(err))
+            printf(
+                "Error, while running all installation steps: %s",
+                tostring(err)
+            )
         end
     end,
 }
@@ -62,7 +65,10 @@ newaction {
     trigger = "gen_path",
     description = "Generate PATH variable.",
     execute = function()
-        io.writefile(_OPTIONS["path"], fmt("export PATH=${PATH}:%s", join_paths(pkgs, ":")))
+        io.writefile(
+            _OPTIONS["path"],
+            fmt("export PATH=${PATH}:%s", join_paths(pkgs, ":"))
+        )
     end,
 }
 

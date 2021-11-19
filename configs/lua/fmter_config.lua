@@ -3,7 +3,8 @@ local fmt = string.format
 
 -- stylua: ignore
 local format_file_extensions = {
-    "c", "h", "cpp", "cc", "cxx", "hpp", "hh", "d", "go", "js", "ts", "rs", "py", "lua",
+    "c", "h", "cpp", "cc", "cxx", "hpp", "hh", "d", "go", "js", "ts", 
+    "rs", "py", "lua",
 }
 
 local extensions = {}

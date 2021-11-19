@@ -67,7 +67,13 @@ function M.untar(ctx, src, dst, opts)
 
     if not M.is_dir_empty(dst) or ctx.overwrite then
         os.mkdir(dst)
-        M.executef(ctx, "tar -xvf %s --strip-components=%d -C %s", src, strip, dst)
+        M.executef(
+            ctx,
+            "tar -xvf %s --strip-components=%d -C %s",
+            src,
+            strip,
+            dst
+        )
     end
 end
 
