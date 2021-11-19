@@ -47,6 +47,16 @@ local clang_format = {
 	end,
 }
 
+local dprint = {
+	function()
+		return {
+			exe = "dprint",
+			args = { "fmt", vim.api.nvim_buf_get_name(0) },
+			stdin = false,
+		}
+	end,
+}
+
 require("formatter").setup({
 	filetype = {
 		rust = {
@@ -67,12 +77,18 @@ require("formatter").setup({
 		hh = clang_format,
 		hpp = clang_format,
 		hxx = clang_format,
+
+		javascript = dprint,
+		typescript = dprint,
+		markdown = dprint,
+		html = dprint,
+
 		lua = {
 			function()
 				return {
 					exe = "stylua",
-					args = { vim.api.nvim_buf_get_name(0) },
-					stdin = false,
+					args = { "-" },
+					stdin = true,
 				}
 			end,
 		},
@@ -85,6 +101,7 @@ require("formatter").setup({
 				}
 			end,
 		},
+
 		bzl = {
 			function()
 				return {
@@ -98,8 +115,8 @@ require("formatter").setup({
 			function()
 				return {
 					exe = "black",
-					args = { "-q", vim.api.nvim_buf_get_name(0), "2>/dev/null" },
-					stdin = false,
+					args = { "-" },
+					stdin = true,
 				}
 			end,
 		},
