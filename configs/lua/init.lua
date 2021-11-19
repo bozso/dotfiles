@@ -2,6 +2,7 @@ local ut = require "utils"
 require "plugins"
 require "lsp_setup"
 require "fmter_config"
+-- require "null_ls"
 
 require("lualine").setup {
     options = {

@@ -13,7 +13,10 @@ return require("packer").startup(function()
     use "mhartington/formatter.nvim"
     use "neovim/nvim-lspconfig"
 
-    -- require("null-ls").config({})
+    -- use {
+    --     "jose-elias-alvarez/null-ls.nvim",
+    --     requires = { "nvim-lua/plenary.nvim" },
+    -- }
 
     use {
         "hoob3rt/lualine.nvim",
