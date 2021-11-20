@@ -4,7 +4,7 @@ local fmt = string.format
 -- stylua: ignore
 local format_file_extensions = {
     "c", "h", "cpp", "cc", "cxx", "hpp", "hh", "d", "go", "js", "ts", 
-    "rs", "py", "lua",
+    "rs", "py", "lua", "build_defs",
 }
 
 local extensions = {}
@@ -41,6 +41,16 @@ local dprint = {
         return {
             exe = "dprint",
             args = { "fmt", vim.api.nvim_buf_get_name(0) },
+            stdin = false,
+        }
+    end,
+}
+
+local please = {
+    function()
+        return {
+            exe = "please",
+            args = { "format", "-w", vim.api.nvim_buf_get_name(0) },
             stdin = false,
         }
     end,
@@ -91,15 +101,9 @@ require("formatter").setup {
             end,
         },
 
-        bzl = {
-            function()
-                return {
-                    exe = "please format",
-                    args = { "-w", vim.api.nvim_buf_get_name(0) },
-                    stdin = false,
-                }
-            end,
-        },
+        bzl = please,
+        build_defs = please,
+
         python = {
             function()
                 return {

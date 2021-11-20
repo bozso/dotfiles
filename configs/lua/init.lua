@@ -147,4 +147,6 @@ vim.cmd [[
     if match($TERM, '^xterm.*') != -1 || exists('g:started_by_firenvim')
       set termguicolors
     endif
+
+    au BufRead,BufNewFile *.build_defs if &ft == '' | setfiletype bzl | endif
 ]]
