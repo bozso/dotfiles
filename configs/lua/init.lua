@@ -29,47 +29,24 @@ end
 vim.wo.colorcolumn = "79"
 
 -- Ignore certain files and folders when globbing
+-- stylua: ignore
 local wildignore = ut.ignored_patterns {
     ["*.%s"] = {
-        "o",
-        "obj",
-        "bin",
-        "dll",
-        "exe",
-        "jpg",
-        "png",
-        "jpeg",
-        "bmp",
-        "gif",
-        "tiff",
-        "svg",
-        "ico",
-        "pyc",
-        "DS_store",
-        "aux",
-        "bbl",
-        "blg",
-        "brf",
-        "fls",
-        "fdb_latexmk",
-        "synctex.gz",
+        "o", "obj", "bin", "dll", "exe", "jpg", "png", "jpeg", "bmp", "gif",
+        "tiff", "svg", "ico", "pyc", "DS_store", "aux", "bbl", "blg", "brf",
+        "fls", "fdb_latexmk", "synctex.gz",
     },
     ["*/%s/"] = { ".git", ".svn", "__pycache__" },
     ["*/%s/**"] = { "build" },
 }
 
+-- stylua: ignore
 ut.update_table {
     to = vim.g,
     options = {
         fileencodings = {
-            "utf-8",
-            "ucs-bom",
-            "cp936",
-            "gb18030",
-            "big5",
-            "euc-jp",
-            "euc-kr",
-            "latin1",
+            "utf-8", "ucs-bom", "cp936", "gb18030", "big5", "euc-jp",
+            "euc-kr", "latin1",
         },
 
         -- do not use visual and errorbells
