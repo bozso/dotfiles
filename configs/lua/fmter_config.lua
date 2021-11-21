@@ -7,8 +7,165 @@ local format_file_extensions = {
     "rs", "py", "lua", "build_defs",
 }
 
+
+-- stylua: ignore
+local c_fts = {
+    "c", "cc", "cpp", "cxx", "h", "hh", "hpp", "hxx",
+}
+
+local c = {
+    fmters = {
+        ["clang-format"] = function()
+            return {
+                exe = "clang-format",
+                args = { "--assume-filename", vim.api.nvim_buf_get_name(0) },
+                stdin = true,
+                -- Run clang-format in cwd of the file.
+                cwd = vim.fn.expand "%:p:h",
+            }
+        end,
+    },
+    filetypes = c_fts,
+}
+
+local web = {
+    fmters = {
+        dprint = function()
+            return {
+                exe = "dprint",
+                args = { "fmt", vim.api.nvim_buf_get_name(0) },
+                stdin = false,
+            }
+        end,
+    },
+    filetypes = {
+        "javascript",
+        "typescript",
+        "markdown",
+        "html",
+    },
+}
+
+local please = {
+    fmters = {
+        please = function()
+            return {
+                exe = "please",
+                args = { "format", "-w", vim.api.nvim_buf_get_name(0) },
+                stdin = false,
+            }
+        end,
+    },
+    filetypes = { "build_defs", "bzl" },
+}
+
+local rust = {
+    fmters = {
+        rustfmt = function()
+            return {
+                exe = "rustfmt",
+                args = { "--emit=stdout" },
+                stdin = true,
+            }
+        end,
+    },
+    filetypes = { "rust" },
+}
+
+local lua = {
+    fmters = {
+        stylua = function()
+            return {
+                exe = "stylua",
+                args = { "-" },
+                stdin = true,
+            }
+        end,
+    },
+    filetypes = { "lua" },
+}
+
+local go = {
+    fmters = {
+        gofmt = function()
+            return {
+                exe = "gofmt",
+                stdin = true,
+            }
+        end,
+    },
+    filetypes = { "go" },
+}
+
+local python = {
+    fmters = {
+        black = function()
+            return {
+                exe = "black",
+                args = { "-" },
+                stdin = true,
+            }
+        end,
+    },
+    filetypes = { "python" },
+}
+
+local function add_fmter(fmter, fts, to)
+    for _, ft in pairs(fts) do
+        to[ft] = fmter
+    end
+end
+
+local function setup(fmter_setups)
+    local is_exec = vim.fn.executable
+    local filetype = {}
+
+    for _, setup in pairs(fmter_setups) do
+        for key, fmter in pairs(setup.fmters) do
+            local curr = {}
+            if is_exec(key) ~= 0 then
+                table.insert(curr, fmter)
+            end
+            if #curr > 0 then
+                for _, ft in pairs(setup.filetypes) do
+                    filetype[ft] = curr
+                end
+            end
+        end
+    end
+    return filetype
+end
+
+local filetype = setup {
+    c,
+    web,
+    please,
+    rust,
+    lua,
+    go,
+    python,
+}
+
+local ft_to_ext = {
+    javascript = "js",
+    typescript = "ts",
+    markdown = "md",
+    python = "py",
+}
+
+local file_extensions = {}
+
+for ft, _ in pairs(filetype) do
+    local ext = ft
+    local maybe_ext = ft_to_ext[ft]
+    if maybe_ext ~= nil then
+        ext = maybe_ext
+    end
+    table.insert(file_extensions, ext)
+end
+
 local extensions = {}
-ut.add_patterns("*.%s", format_file_extensions, extensions)
+ut.add_patterns("*.%s", file_extensions, extensions)
 table.insert(extensions, "BUILD*")
 
 vim.api.nvim_exec(
@@ -24,94 +181,6 @@ augroup END
     true
 )
 
-local clang_format = {
-    function()
-        return {
-            exe = "clang-format",
-            args = { "--assume-filename", vim.api.nvim_buf_get_name(0) },
-            stdin = true,
-            -- Run clang-format in cwd of the file.
-            cwd = vim.fn.expand "%:p:h",
-        }
-    end,
-}
-
-local dprint = {
-    function()
-        return {
-            exe = "dprint",
-            args = { "fmt", vim.api.nvim_buf_get_name(0) },
-            stdin = false,
-        }
-    end,
-}
-
-local please = {
-    function()
-        return {
-            exe = "please",
-            args = { "format", "-w", vim.api.nvim_buf_get_name(0) },
-            stdin = false,
-        }
-    end,
-}
-
 require("formatter").setup {
-    filetype = {
-        rust = {
-            -- Rustfmt
-            function()
-                return {
-                    exe = "rustfmt",
-                    args = { "--emit=stdout" },
-                    stdin = true,
-                }
-            end,
-        },
-        c = clang_format,
-        cc = clang_format,
-        cpp = clang_format,
-        cxx = clang_format,
-        h = clang_format,
-        hh = clang_format,
-        hpp = clang_format,
-        hxx = clang_format,
-
-        javascript = dprint,
-        typescript = dprint,
-        markdown = dprint,
-        html = dprint,
-
-        lua = {
-            function()
-                return {
-                    exe = "stylua",
-                    args = { "-" },
-                    stdin = true,
-                }
-            end,
-        },
-
-        go = {
-            function()
-                return {
-                    exe = "gofmt",
-                    stdin = true,
-                }
-            end,
-        },
-
-        bzl = please,
-        build_defs = please,
-
-        python = {
-            function()
-                return {
-                    exe = "black",
-                    args = { "-" },
-                    stdin = true,
-                }
-            end,
-        },
-    },
+    filetype = filetype,
 }
