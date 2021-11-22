@@ -117,6 +117,19 @@ def dprint(version):
         ),
     }
 
+def efm(version):
+    name = "efm-langserver_v%s_%s_%s" % (version, CONFIG.OS, CONFIG.ARCH)
+    tar = "%s.tar.gz" % name
+
+    return {
+        "name": "efm-langserver",
+        "exported_files": ["%s/efm-langserver" % name],
+        "url": "%s/%s" % (
+            github_release(owner = "mattn", repo = "efm-langserver", version = "v" + version),
+            tar,
+        ),
+    }
+
 package = 0
 
 version = 1
@@ -128,6 +141,7 @@ fns = {
     "zig": zig,
     "dprint": dprint,
     "nvim": nvim,
+    "efm": efm,
 }
 
 packages = {
@@ -155,6 +169,7 @@ home = {
     "zig": "0.8.1",
     "dprint": "0.18.2",
     "nvim": "0.5.1",
+    "efm": "0.0.38",
 }
 
 every = gen_env(fns, home)
