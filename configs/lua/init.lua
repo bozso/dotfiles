@@ -1,6 +1,6 @@
 local ut = require "utils"
+local lsp = require "lsp_setup"
 require "plugins"
-require "lsp_setup"
 require "fmter_config"
 
 local fmt = string.format
@@ -90,20 +90,14 @@ local function apply_keys(mode, keybinds, extra_opts)
     end
 end
 
-fzf = "<cmd>lua require('fzf-lua').%s()<cr>"
-fzf_w = "<cmd>w<cr><cmd>lua require('fzf-lua').%s()<cr>"
+local fzf_w = lsp.fzf_w
 
 nnoremaps = {
     ["<leader>f"] = fmt(fzf_w, "files"),
     ["<leader>b"] = fmt(fzf_w, "buffers"),
     ["<leader>g"] = fmt(fzf_w, "live_grep"),
 
-    ["<leader>s"] = fmt(fzf_w, "lsp_workspace_symbols"),
-    ["<leader>c"] = fmt(fzf, "lsp_code_actions"),
-    ["<leader>ds"] = fmt(fzf, "lsp_document_symbols"),
-
-    ["<C-k>"] = "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
-    ["<C-j>"] = "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>",
+    ["<leader>c"] = "<cmd>close<cr>",
 
     ["<leader>w"] = "<cmd>w<C-j>",
 }
