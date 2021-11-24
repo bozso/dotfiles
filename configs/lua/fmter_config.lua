@@ -42,7 +42,7 @@ local web = {
         "javascript",
         "typescript",
         "markdown",
-        "html",
+        "toml",
     },
 }
 
