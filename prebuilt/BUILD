@@ -5,7 +5,21 @@ def github_release(owner, repo, version):
         version,
     )
 
+def binary_remote(name, exported_files, url, out = None, strip_prefix = None, hashes = None):
+    return remote_file(
+        name = name,
+        out = out,
+        binary = True,
+        exported_files = exported_files,
+        extract = True,
+        hashes = hashes,
+        strip_prefix = strip_prefix,
+        url = url,
+    )
+
 def simple_remote(setup):
+    log.debug(setup)
+    log.debug(setup["name"])
     return remote_file(
         name = setup["name"],
         out = setup.get("out"),
@@ -40,10 +54,11 @@ def golangci(version):
     }
 
 def stylua(version):
+    url = "https://github.com/JohnnyMorganz/StyLua/releases/download/v%s/stylua-%s-%s.zip"
     return {
         "name": "stylua",
         "exported_files": ["stylua"],
-        "url": "https://github.com/JohnnyMorganz/StyLua/releases/download/v%s/stylua-%s-%s.zip" % (
+        "url": url % (
             version,
             version,
             CONFIG.OS,
@@ -130,9 +145,36 @@ def efm(version):
         ),
     }
 
-package = 0
+def clang(cfg):
+    version = cfg[0]
+    ubuntu_version = cfg[1]
 
-version = 1
+    prefix = "clang+llvm-%s-x86_64-linux-gnu-ubuntu-%s" % (
+        version,
+        ubuntu_version,
+    )
+
+    url = github_release(
+        owner = "llvm",
+        repo = "llvm-project",
+        version = "llvmorg-%s" % version,
+    )
+
+    url = "%s/%s.tar.xz" % (
+        url,
+        prefix,
+    )
+
+    out = "clang/%s" % version
+
+    return {
+        "name": "clang",
+        "exported_files": [],
+        "url": url,
+        "out": out,
+        "strip_prefix": prefix,
+        "bin": "%s/bin" % out,
+    }
 
 fns = {
     "node": node,
@@ -142,15 +184,7 @@ fns = {
     "dprint": dprint,
     "nvim": nvim,
     "efm": efm,
-}
-
-packages = {
-    "node": (node, "14.18.1"),
-    "stylua": (stylua, "0.11.2"),
-    "golangci": (golangci, "1.38.0"),
-    "zig": (zig, "0.8.1"),
-    "dprint": (dprint, "0.18.2"),
-    "nvim": (nvim, "0.5.1"),
+    "clang": clang,
 }
 
 def gen_env(fns, versions):
@@ -170,6 +204,7 @@ home = {
     "dprint": "0.18.2",
     "nvim": "0.5.1",
     "efm": "0.0.38",
+    "clang": ("13.0.0", "20.04"),
 }
 
 every = gen_env(fns, home)
