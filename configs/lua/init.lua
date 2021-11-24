@@ -103,17 +103,13 @@ nnoremaps = {
     ["<leader>c"] = fmt(fzf, "lsp_code_actions"),
     ["<leader>ds"] = fmt(fzf, "lsp_document_symbols"),
 
+    ["<C-k>"] = ":lua vim.lsp.diagnostic.goto_prev()<cr>",
+    ["<C-j>"] = ":lua vim.lsp.diagnostic.goto_next()<cr>",
+
     ["<leader>w"] = ":w<C-j>",
 }
 
 apply_keys("n", nnoremaps, { noremap = true })
-
-nmaps = {
-    ["<C-k>"] = "<Plug>(ale_previous_wrap)",
-    ["<C-j>"] = "<Plug>(ale_next_wrap)",
-}
-
-apply_keys("n", nmaps, { silent = true })
 
 --[[
 TODO: figure out how to port this to lua
