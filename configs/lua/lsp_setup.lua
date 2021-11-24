@@ -93,3 +93,11 @@ lspconfig.efm.setup {
         },
     },
 }
+
+-- local null = require "null-ls"
+--
+-- null.config {
+--     sources = null.builtins.formatting.stylua,
+-- }
+--
+-- require("lspconfig")["null-ls"].setup {}
