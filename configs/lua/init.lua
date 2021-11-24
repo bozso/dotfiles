@@ -4,6 +4,8 @@ require "lsp_setup"
 require "fmter_config"
 -- require "null_ls"
 
+local fmt = string.format
+
 require("lualine").setup {
     options = {
         icons_enabled = false,
@@ -89,16 +91,19 @@ local function apply_keys(mode, keybinds, extra_opts)
     end
 end
 
+fzf = "<cmd>lua require('fzf-lua').%s()<cr>"
+fzf_w = ":w<C-j><cmd>lua require('fzf-lua').%s()<cr>"
+
 nnoremaps = {
-    ["<leader>f"] = ":w<C-j><cmd>lua require('fzf-lua').files()<cr>",
-    ["<leader>b"] = ":w<C-j><cmd>lua require('fzf-lua').buffers()<cr>",
-    ["<leader>g"] = ":w<C-j><cmd>lua require('fzf-lua').live_grep()<cr>",
-    ["<leader>s"] = ":w<C-j><cmd>lua require('fzf-lua').lsp_workspace_symbols()<cr>",
-    ["<leader>c"] = ":w<C-j><cmd>lua require('fzf-lua').lsp_code_actions()<cr>",
-    ["<leader>ds"] = ":w<C-j><cmd>lua require('fzf-lua').lsp_document_symbols()<cr>",
+    ["<leader>f"] = fmt(fzf_w, "files"),
+    ["<leader>b"] = fmt(fzf_w, "buffers"),
+    ["<leader>g"] = fmt(fzf_w, "live_grep"),
+
+    ["<leader>s"] = fmt(fzf_w, "lsp_workspace_symbols"),
+    ["<leader>c"] = fmt(fzf, "lsp_code_actions"),
+    ["<leader>ds"] = fmt(fzf, "lsp_document_symbols"),
+
     ["<leader>w"] = ":w<C-j>",
-    -- ["<leader>d"] = ":ALEDetail<C-j>",
-    -- ["<leader>h"] = ":ALEHover<C-j>",
 }
 
 apply_keys("n", nnoremaps, { noremap = true })
