@@ -92,7 +92,7 @@ local function apply_keys(mode, keybinds, extra_opts)
 end
 
 fzf = "<cmd>lua require('fzf-lua').%s()<cr>"
-fzf_w = ":w<C-j><cmd>lua require('fzf-lua').%s()<cr>"
+fzf_w = "<cmd>w<cr><cmd>lua require('fzf-lua').%s()<cr>"
 
 nnoremaps = {
     ["<leader>f"] = fmt(fzf_w, "files"),
@@ -103,10 +103,10 @@ nnoremaps = {
     ["<leader>c"] = fmt(fzf, "lsp_code_actions"),
     ["<leader>ds"] = fmt(fzf, "lsp_document_symbols"),
 
-    ["<C-k>"] = ":lua vim.lsp.diagnostic.goto_prev()<cr>",
-    ["<C-j>"] = ":lua vim.lsp.diagnostic.goto_next()<cr>",
+    ["<C-k>"] = "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
+    ["<C-j>"] = "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>",
 
-    ["<leader>w"] = ":w<C-j>",
+    ["<leader>w"] = "<cmd>w<C-j>",
 }
 
 apply_keys("n", nnoremaps, { noremap = true })
