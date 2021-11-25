@@ -100,6 +100,7 @@ nnoremaps = {
     ["<leader>c"] = "<cmd>close<cr>",
 
     ["<leader>w"] = "<cmd>w<C-j>",
+    ["<leader>sv"] = "<cmd>source $MYVIMRC<cr>",
 }
 
 apply_keys("n", nnoremaps, { noremap = true })
