@@ -34,7 +34,7 @@ end
 
 local lsp = "<cmd>lua vim.lsp.%s()<CR>"
 local buf = "<cmd>lua vim.lsp.buf.%s()<CR>"
-local diag = "<cmd>lua vim.lsp.%s()<CR>"
+local diag = "<cmd>lua vim.lsp.diagnostic.%s()<CR>"
 
 M.fzf = "<cmd>lua require('fzf-lua').%s()<cr>"
 M.fzf_w = "<cmd>w<cr><cmd>lua require('fzf-lua').%s()<cr>"
@@ -54,8 +54,8 @@ local keymaps = {
 
     ["<leader>d"] = fmt(diag, "show_line_diagnostics"),
 
-    ["<C-k>"] = fmt(diag, "diagnostic.goto_prev()"),
-    ["<C-j>"] = fmt(diag, "diagnostic.goto_next()"),
+    ["<C-k>"] = fmt(diag, "goto_prev"),
+    ["<C-j>"] = fmt(diag, "goto_next"),
 }
 
 local opts = { noremap = true, silent = true }
