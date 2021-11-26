@@ -9,5 +9,5 @@ help:
 install:
 	$(plz) build
 
-gen_path: install
+gen_path:
 	python gen_paths.py
