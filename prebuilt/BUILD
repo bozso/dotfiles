@@ -54,15 +54,20 @@ def golangci(version):
     }
 
 def stylua(version):
-    url = "https://github.com/JohnnyMorganz/StyLua/releases/download/v%s/stylua-%s-%s.zip"
+    url = "%s/stylua-%s-%s.zip" % (
+        github_release(
+            owner = "JohnnyMorganz",
+            repo = "StyLua",
+            version = "v" + version,
+        ),
+        version,
+        CONFIG.OS,
+    )
+
     return {
         "name": "stylua",
         "exported_files": ["stylua"],
-        "url": url % (
-            version,
-            version,
-            CONFIG.OS,
-        ),
+        "url": url,
     }
 
 def node(version):
@@ -111,7 +116,11 @@ def nvim(version):
         "bin": "%s/bin" % out,
         "strip_prefix": pre,
         "url": "%s/%s.tar.gz" % (
-            github_release(owner = "neovim", repo = "neovim", version = "v" + version),
+            github_release(
+                owner = "neovim",
+                repo = "neovim",
+                version = "v" + version,
+            ),
             pre,
         ),
     }
@@ -127,7 +136,11 @@ def dprint(version):
             "sha256: aa7ec5bec46142c8d851845ee50032c2f2928960669712cb3b45bfc0d000a3c8",
         ],
         "url": "%s/dprint-x86_64-unknown-%s-gnu.zip" % (
-            github_release(owner = "dprint", repo = "dprint", version = version),
+            github_release(
+                owner = "dprint",
+                repo = "dprint",
+                version = version,
+            ),
             CONFIG.OS,
         ),
     }
