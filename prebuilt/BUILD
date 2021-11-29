@@ -372,7 +372,6 @@ def rg(cfg):
 def hyperfine(cfg):
     version = cfg["version"]
     libc = cfg["libc"]
-    # https://github.com/sharkdp/hyperfine/releases/download/v1.12.0/hyperfine-v1.12.0-x86_64-unknown-linux-musl.tar.gz
 
     root = "hyperfine-v%s-x86_64-unknown-${OS}-%s" % (version, libc)
 
@@ -383,6 +382,26 @@ def hyperfine(cfg):
             github_release(
                 owner = "sharkdp",
                 repo = "hyperfine",
+                version = "v" + version,
+            ),
+            root,
+        ),
+    }
+
+def dust(cfg):
+    version = cfg["version"]
+    libc = cfg["libc"]
+    # https://github.com/bootandy/dust/releases/download/v0.7.5/dust-v0.7.5-x86_64-unknown-linux-musl.tar.gz
+
+    root = "dust-v%s-x86_64-unknown-${OS}-%s" % (version, libc)
+
+    return {
+        "name": "dust",
+        "exported_files": ["%s/dust" % root],
+        "url": "%s/%s.tar.gz" % (
+            github_release(
+                owner = "bootandy",
+                repo = "dust",
                 version = "v" + version,
             ),
             root,
@@ -405,6 +424,7 @@ fns = {
     "starship": starship,
     "delta": delta,
     "deno": deno,
+    "dust": dust,
     "nnn": nnn,
     "fzf": fzf,
     "pandoc": pandoc,
@@ -449,6 +469,10 @@ home = {
     },
     "exa": {
         "version": "0.10.1",
+        "libc": "musl",
+    },
+    "dust": {
+        "version": "0.7.5",
         "libc": "musl",
     },
     "rg": {
