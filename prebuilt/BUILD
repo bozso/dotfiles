@@ -350,8 +350,29 @@ def exa(cfg):
         ),
     }
 
+def rg(cfg):
+    version = cfg["version"]
+    libc = cfg["libc"]
+    # https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
+
+    root = "ripgrep-%s-x86_64-unknown-${OS}-%s" % (version, libc)
+
+    return {
+        "name": "rg",
+        "exported_files": ["%s/rg" % root],
+        "url": "%s/%s.tar.gz" % (
+            github_release(
+                owner = "BurntSushi",
+                repo = "ripgrep",
+                version = version,
+            ),
+            root,
+        ),
+    }
+
 fns = {
     "node": node,
+    "rg": rg,
     "exa": exa,
     "stylua": stylua,
     "golangci": golangci,
@@ -404,6 +425,10 @@ home = {
     },
     "exa": {
         "version": "0.10.1",
+        "libc": "musl",
+    },
+    "rg": {
+        "version": "13.0.0",
         "libc": "musl",
     },
     "nnn": {
