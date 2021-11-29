@@ -308,11 +308,32 @@ def pandoc(version):
         ),
     }
 
+def bat(cfg):
+    version = cfg["version"]
+    libc = cfg["libc"]
+    # https://github.com/sharkdp/bat/releases/download/v0.18.3/bat-v0.18.3-x86_64-unknown-linux-musl.tar.gz
+
+    root = "bat-v%s-x86_64-unknown-${OS}-%s" % (version, libc)
+
+    return {
+        "name": "bat",
+        "exported_files": ["%s/bat" % root],
+        "url": "%s/%s.tar.gz" % (
+            github_release(
+                owner = "sharkdp",
+                repo = "bat",
+                version = "v" + version,
+            ),
+            root,
+        ),
+    }
+
 fns = {
     "node": node,
     "stylua": stylua,
     "golangci": golangci,
     "zig": zig,
+    "bat": bat,
     "dprint": dprint,
     "nvim": nvim,
     "efm": efm,
@@ -353,6 +374,10 @@ home = {
     "deno": {
         "version": "1.16.3",
         "libc": "gnu",
+    },
+    "bat": {
+        "version": "0.18.3",
+        "libc": "musl",
     },
     "nnn": {
         "version": "4.4",
