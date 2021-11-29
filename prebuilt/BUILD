@@ -32,9 +32,20 @@ def simple_remote(setup):
     )
 
 def golangci(version):
+    root = "golangci-lint-%s-${OS}-${ARCH}" % version
+
+    url = "%s/%s.tar.gz" % (
+        github_release(
+            owner = "golangci",
+            repo = "golangci-lint",
+            version = "v" + version,
+        ),
+        root,
+    )
+
     return {
         "name": "golangci-lint",
-        "exported_files": ["golangci-lint-%s-${OS}-${ARCH}/golangci-lint" % version],
+        "exported_files": ["%s/golangci-lint" % root],
         "hashes": [
             # darwin_arm64
             "sha256: 9748c2697a65d2962106e74db6db6e3acc9066ec5ff0b81f47d803479e7b4994",
@@ -45,24 +56,24 @@ def golangci(version):
             # freebsd_amd64
             "sha256: a05d18756522b2803ab53d49f5da074c298b69546691338809dbd16c7a4840fd",
         ],
-        "url": "https://github.com/golangci/golangci-lint/releases/download/v%s/golangci-lint-%s-%s-%s.tar.gz" % (
-            version,
-            version,
-            CONFIG.OS,
-            CONFIG.ARCH,
-        ),
+        "url": url,
     }
 
 def stylua(version):
-    url = "https://github.com/JohnnyMorganz/StyLua/releases/download/v%s/stylua-%s-%s.zip"
+    url = "%s/stylua-%s-%s.zip" % (
+        github_release(
+            owner = "JohnnyMorganz",
+            repo = "StyLua",
+            version = "v" + version,
+        ),
+        version,
+        CONFIG.OS,
+    )
+
     return {
         "name": "stylua",
         "exported_files": ["stylua"],
-        "url": url % (
-            version,
-            version,
-            CONFIG.OS,
-        ),
+        "url": url,
     }
 
 def node(version):
@@ -111,7 +122,11 @@ def nvim(version):
         "bin": "%s/bin" % out,
         "strip_prefix": pre,
         "url": "%s/%s.tar.gz" % (
-            github_release(owner = "neovim", repo = "neovim", version = "v" + version),
+            github_release(
+                owner = "neovim",
+                repo = "neovim",
+                version = "v" + version,
+            ),
             pre,
         ),
     }
@@ -127,7 +142,11 @@ def dprint(version):
             "sha256: aa7ec5bec46142c8d851845ee50032c2f2928960669712cb3b45bfc0d000a3c8",
         ],
         "url": "%s/dprint-x86_64-unknown-%s-gnu.zip" % (
-            github_release(owner = "dprint", repo = "dprint", version = version),
+            github_release(
+                owner = "dprint",
+                repo = "dprint",
+                version = version,
+            ),
             CONFIG.OS,
         ),
     }
@@ -140,7 +159,11 @@ def efm(version):
         "name": "efm-langserver",
         "exported_files": ["%s/efm-langserver" % name],
         "url": "%s/%s" % (
-            github_release(owner = "mattn", repo = "efm-langserver", version = "v" + version),
+            github_release(
+                owner = "mattn",
+                repo = "efm-langserver",
+                version = "v" + version,
+            ),
             tar,
         ),
     }
@@ -176,6 +199,60 @@ def clang(cfg):
         "bin": "%s/bin" % out,
     }
 
+def starship(version):
+    root = "starship-x86_64-unknown-linux-musl"
+
+    return {
+        "name": "starship",
+        "exported_files": ["starship"],
+        "url": "%s/%s.tar.gz" % (
+            github_release(
+                owner = "starship",
+                repo = "starship",
+                version = "v" + version,
+            ),
+            root,
+        ),
+    }
+
+def delta(cfg):
+    version = cfg["version"]
+    libc = cfg["libc"]
+
+    root = "delta-%s-x86_64-unknown-${OS}-%s" % (version, libc)
+
+    return {
+        "name": "delta",
+        "exported_files": ["%s/delta" % root],
+        "url": "%s/%s.tar.gz" % (
+            github_release(
+                owner = "dandavison",
+                repo = "delta",
+                version = version,
+            ),
+            root,
+        ),
+    }
+
+def deno(cfg):
+    version = cfg["version"]
+    libc = cfg["libc"]
+
+    root = "deno-x86_64-unknown-linux-%s" % libc
+
+    return {
+        "name": "deno",
+        "exported_files": ["deno"],
+        "url": "%s/%s.zip" % (
+            github_release(
+                owner = "denoland",
+                repo = "deno",
+                version = "v" + version,
+            ),
+            root,
+        ),
+    }
+
 fns = {
     "node": node,
     "stylua": stylua,
@@ -185,6 +262,9 @@ fns = {
     "nvim": nvim,
     "efm": efm,
     "clang": clang,
+    "starship": starship,
+    "delta": delta,
+    "deno": deno,
 }
 
 def gen_env(fns, versions):
@@ -204,7 +284,16 @@ home = {
     "dprint": "0.18.2",
     "nvim": "0.5.1",
     "efm": "0.0.38",
+    "starship": "1.0.0",
     "clang": ("13.0.0", "16.04"),
+    "delta": {
+        "version": "0.10.2",
+        "libc": "musl",
+    },
+    "deno": {
+        "version": "1.16.3",
+        "libc": "gnu",
+    },
 }
 
 every = gen_env(fns, home)
