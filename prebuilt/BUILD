@@ -18,8 +18,6 @@ def binary_remote(name, exported_files, url, out = None, strip_prefix = None, ha
     )
 
 def simple_remote(setup):
-    log.debug(setup)
-    log.debug(setup["name"])
     return remote_file(
         name = setup["name"],
         out = setup.get("out"),
@@ -253,6 +251,29 @@ def deno(cfg):
         ),
     }
 
+def nnn(cfg):
+    version = cfg["version"]
+    root = "nnn"
+    mode = cfg.get("mode")
+    if mode is not None:
+        root = "%s-%s" % (root, mode)
+
+    root = "%s-static" % root
+
+    return {
+        "name": "nnn",
+        "exported_files": [root],
+        "url": "%s/%s-%s.x86_64.tar.gz" % (
+            github_release(
+                owner = "jarun",
+                repo = "nnn",
+                version = "v" + version,
+            ),
+            root,
+            version,
+        ),
+    }
+
 fns = {
     "node": node,
     "stylua": stylua,
@@ -265,6 +286,7 @@ fns = {
     "starship": starship,
     "delta": delta,
     "deno": deno,
+    "nnn": nnn,
 }
 
 def gen_env(fns, versions):
@@ -293,6 +315,10 @@ home = {
     "deno": {
         "version": "1.16.3",
         "libc": "gnu",
+    },
+    "nnn": {
+        "version": "4.4",
+        "mode": "musl",
     },
 }
 
