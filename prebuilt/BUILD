@@ -140,7 +140,11 @@ def efm(version):
         "name": "efm-langserver",
         "exported_files": ["%s/efm-langserver" % name],
         "url": "%s/%s" % (
-            github_release(owner = "mattn", repo = "efm-langserver", version = "v" + version),
+            github_release(
+                owner = "mattn",
+                repo = "efm-langserver",
+                version = "v" + version,
+            ),
             tar,
         ),
     }
@@ -176,6 +180,22 @@ def clang(cfg):
         "bin": "%s/bin" % out,
     }
 
+def starship(version):
+    root = "starship-x86_64-unknown-linux-musl"
+
+    return {
+        "name": "starship",
+        "exported_files": ["starship"],
+        "url": "%s/%s.tar.gz" % (
+            github_release(
+                owner = "starship",
+                repo = "starship",
+                version = "v" + version,
+            ),
+            root,
+        ),
+    }
+
 fns = {
     "node": node,
     "stylua": stylua,
@@ -185,6 +205,7 @@ fns = {
     "nvim": nvim,
     "efm": efm,
     "clang": clang,
+    "starship": starship,
 }
 
 def gen_env(fns, versions):
@@ -204,6 +225,7 @@ home = {
     "dprint": "0.18.2",
     "nvim": "0.5.1",
     "efm": "0.0.38",
+    "starship": "1.0.0",
     "clang": ("13.0.0", "16.04"),
 }
 
