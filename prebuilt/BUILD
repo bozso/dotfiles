@@ -311,7 +311,6 @@ def pandoc(version):
 def bat(cfg):
     version = cfg["version"]
     libc = cfg["libc"]
-    # https://github.com/sharkdp/bat/releases/download/v0.18.3/bat-v0.18.3-x86_64-unknown-linux-musl.tar.gz
 
     root = "bat-v%s-x86_64-unknown-${OS}-%s" % (version, libc)
 
@@ -328,8 +327,32 @@ def bat(cfg):
         ),
     }
 
+def exa(cfg):
+    version = cfg["version"]
+    libc = cfg.get("libc")
+
+    root = "exa-${OS}-x86_64"
+    if libc is not None:
+        root = "%s-%s" % (root, libc)
+
+    root = "%s-v%s" % (root, version)
+
+    return {
+        "name": "exa",
+        "exported_files": ["bin/exa"],
+        "url": "%s/%s.zip" % (
+            github_release(
+                owner = "ogham",
+                repo = "exa",
+                version = "v" + version,
+            ),
+            root,
+        ),
+    }
+
 fns = {
     "node": node,
+    "exa": exa,
     "stylua": stylua,
     "golangci": golangci,
     "zig": zig,
@@ -377,6 +400,10 @@ home = {
     },
     "bat": {
         "version": "0.18.3",
+        "libc": "musl",
+    },
+    "exa": {
+        "version": "0.10.1",
         "libc": "musl",
     },
     "nnn": {
