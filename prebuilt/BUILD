@@ -215,6 +215,44 @@ def starship(version):
         ),
     }
 
+def delta(cfg):
+    version = cfg["version"]
+    libc = cfg["libc"]
+
+    root = "delta-%s-x86_64-unknown-${OS}-%s" % (version, libc)
+
+    return {
+        "name": "delta",
+        "exported_files": ["%s/delta" % root],
+        "url": "%s/%s.tar.gz" % (
+            github_release(
+                owner = "dandavison",
+                repo = "delta",
+                version = version,
+            ),
+            root,
+        ),
+    }
+
+def deno(cfg):
+    version = cfg["version"]
+    libc = cfg["libc"]
+
+    root = "deno-x86_64-unknown-linux-%s" % libc
+
+    return {
+        "name": "deno",
+        "exported_files": ["deno"],
+        "url": "%s/%s.zip" % (
+            github_release(
+                owner = "denoland",
+                repo = "deno",
+                version = "v" + version,
+            ),
+            root,
+        ),
+    }
+
 fns = {
     "node": node,
     "stylua": stylua,
@@ -225,6 +263,8 @@ fns = {
     "efm": efm,
     "clang": clang,
     "starship": starship,
+    "delta": delta,
+    "deno": deno,
 }
 
 def gen_env(fns, versions):
@@ -246,6 +286,14 @@ home = {
     "efm": "0.0.38",
     "starship": "1.0.0",
     "clang": ("13.0.0", "16.04"),
+    "delta": {
+        "version": "0.10.2",
+        "libc": "musl",
+    },
+    "deno": {
+        "version": "1.16.3",
+        "libc": "gnu",
+    },
 }
 
 every = gen_env(fns, home)
