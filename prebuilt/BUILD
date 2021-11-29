@@ -497,8 +497,3 @@ for pkg in every.values():
 
     if binpath is not None:
         paths = "%s:%s" % (paths, binpath)
-
-text_file(
-    name = "paths",
-    content = paths.lstrip(":"),
-)
