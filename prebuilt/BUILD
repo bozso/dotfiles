@@ -274,6 +274,24 @@ def nnn(cfg):
         ),
     }
 
+def fzf(cfg):
+    version = cfg
+    root = "fzf-%s-${OS}_${ARCH}" % version
+    # https://github.com/junegunn/fzf/releases/download/0.28.0/fzf-0.28.0-linux_amd64.tar.gz
+
+    return {
+        "name": "fzf",
+        "exported_files": ["fzf"],
+        "url": "%s/%s.tar.gz" % (
+            github_release(
+                owner = "junegunn",
+                repo = "fzf",
+                version = version,
+            ),
+            root,
+        ),
+    }
+
 fns = {
     "node": node,
     "stylua": stylua,
@@ -287,6 +305,7 @@ fns = {
     "delta": delta,
     "deno": deno,
     "nnn": nnn,
+    "fzf": fzf,
 }
 
 def gen_env(fns, versions):
@@ -307,6 +326,7 @@ home = {
     "nvim": "0.5.1",
     "efm": "0.0.38",
     "starship": "1.0.0",
+    "fzf": "0.28.0",
     "clang": ("13.0.0", "16.04"),
     "delta": {
         "version": "0.10.2",
