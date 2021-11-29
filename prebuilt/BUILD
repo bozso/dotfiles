@@ -353,7 +353,6 @@ def exa(cfg):
 def rg(cfg):
     version = cfg["version"]
     libc = cfg["libc"]
-    # https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz
 
     root = "ripgrep-%s-x86_64-unknown-${OS}-%s" % (version, libc)
 
@@ -370,6 +369,26 @@ def rg(cfg):
         ),
     }
 
+def hyperfine(cfg):
+    version = cfg["version"]
+    libc = cfg["libc"]
+    # https://github.com/sharkdp/hyperfine/releases/download/v1.12.0/hyperfine-v1.12.0-x86_64-unknown-linux-musl.tar.gz
+
+    root = "hyperfine-v%s-x86_64-unknown-${OS}-%s" % (version, libc)
+
+    return {
+        "name": "hyperfine",
+        "exported_files": ["%s/hyperfine" % root],
+        "url": "%s/%s.tar.gz" % (
+            github_release(
+                owner = "sharkdp",
+                repo = "hyperfine",
+                version = "v" + version,
+            ),
+            root,
+        ),
+    }
+
 fns = {
     "node": node,
     "rg": rg,
@@ -377,6 +396,7 @@ fns = {
     "stylua": stylua,
     "golangci": golangci,
     "zig": zig,
+    "hyperfine": hyperfine,
     "bat": bat,
     "dprint": dprint,
     "nvim": nvim,
@@ -421,6 +441,10 @@ home = {
     },
     "bat": {
         "version": "0.18.3",
+        "libc": "musl",
+    },
+    "hyperfine": {
+        "version": "1.12.0",
         "libc": "musl",
     },
     "exa": {
