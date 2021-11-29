@@ -19,7 +19,7 @@ local servers = {
     "gopls",
     "clangd",
     "nimls",
-    "rust_analyzer",
+    -- "rust_analyzer",
     "serve_d",
     "please",
 }
@@ -79,21 +79,21 @@ end
 
 local go = {
     {
-        lintCommand = "golangci-lint run",
+        lintCommand = "golangci-lint run --out-format ''",
         lintFormats = {
-            "%f:%l:%c: %rror: %m",
-            "%f:%l:%c: %arning: %m",
+            "%f:%l:%c: %trror: %m",
+            "%f:%l:%c: %tarning: %m",
         },
-        lintStdin = true,
+        -- lintStdin = true,
     },
 }
 
 local rust = {
     {
-        lineCommand = "cargo check --message-format=short",
+        lintCommand = "cargo check --message-format=short",
         lintFormats = {
-            "%f:%l:%c: %rror%m",
-            "%f:%l:%c: %arning%m",
+            "%f:%l:%c: %trror: %m",
+            "%f:%l:%c: %tarning: %m",
         },
         lintStdin = false,
     },
@@ -108,7 +108,7 @@ local lua = {
 lspconfig.efm.setup {
     init_options = { documentFormatting = true },
     settings = {
-        rootMarkers = { ".git/" },
+        rootMarkers = { ".git/", "Cargo.toml" },
         languages = {
             go = go,
             rust = rust,
