@@ -32,9 +32,20 @@ def simple_remote(setup):
     )
 
 def golangci(version):
+    root = "golangci-lint-%s-${OS}-${ARCH}" % version
+
+    url = "%s/%s.tar.gz" % (
+        github_release(
+            owner = "golangci",
+            repo = "golangci-lint",
+            version = "v" + version,
+        ),
+        root,
+    )
+
     return {
         "name": "golangci-lint",
-        "exported_files": ["golangci-lint-%s-${OS}-${ARCH}/golangci-lint" % version],
+        "exported_files": ["%s/golangci-lint" % root],
         "hashes": [
             # darwin_arm64
             "sha256: 9748c2697a65d2962106e74db6db6e3acc9066ec5ff0b81f47d803479e7b4994",
@@ -45,12 +56,7 @@ def golangci(version):
             # freebsd_amd64
             "sha256: a05d18756522b2803ab53d49f5da074c298b69546691338809dbd16c7a4840fd",
         ],
-        "url": "https://github.com/golangci/golangci-lint/releases/download/v%s/golangci-lint-%s-%s-%s.tar.gz" % (
-            version,
-            version,
-            CONFIG.OS,
-            CONFIG.ARCH,
-        ),
+        "url": url,
     }
 
 def stylua(version):
