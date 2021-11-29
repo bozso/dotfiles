@@ -274,10 +274,8 @@ def nnn(cfg):
         ),
     }
 
-def fzf(cfg):
-    version = cfg
+def fzf(version):
     root = "fzf-%s-${OS}_${ARCH}" % version
-    # https://github.com/junegunn/fzf/releases/download/0.28.0/fzf-0.28.0-linux_amd64.tar.gz
 
     return {
         "name": "fzf",
@@ -286,6 +284,24 @@ def fzf(cfg):
             github_release(
                 owner = "junegunn",
                 repo = "fzf",
+                version = version,
+            ),
+            root,
+        ),
+    }
+
+def pandoc(version):
+    # https://github.com/jgm/pandoc/releases/download/2.16.2/pandoc-2.16.2-linux-amd64.tar.gz
+    root = "pandoc-%s" % version
+    # root = "pandoc-%s-${OS}-${ARCH}" % version
+
+    return {
+        "name": "pandoc",
+        "exported_files": ["%s/bin/pandoc" % root],
+        "url": "%s/%s-${OS}-${ARCH}.tar.gz" % (
+            github_release(
+                owner = "jgm",
+                repo = "pandoc",
                 version = version,
             ),
             root,
@@ -306,6 +322,7 @@ fns = {
     "deno": deno,
     "nnn": nnn,
     "fzf": fzf,
+    "pandoc": pandoc,
 }
 
 def gen_env(fns, versions):
@@ -327,6 +344,7 @@ home = {
     "efm": "0.0.38",
     "starship": "1.0.0",
     "fzf": "0.28.0",
+    "pandoc": "2.16.2",
     "clang": ("13.0.0", "16.04"),
     "delta": {
         "version": "0.10.2",
