@@ -23,7 +23,7 @@ def simple_remote(setup):
         out = setup.get("out"),
         binary = True,
         exported_files = setup["exported_files"],
-        extract = True,
+        extract = setup.get("extract", True),
         hashes = setup.get("hashes"),
         strip_prefix = setup.get("strip_prefix"),
         url = setup["url"],
@@ -428,6 +428,24 @@ def xplr(cfg):
         ),
     }
 
+def jq(version):
+    # https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
+    file = "jq-${OS}64"
+
+    return {
+        "name": "jq",
+        "extract": False,
+        "exported_files": [],
+        "url": "%s/%s" % (
+            github_release(
+                owner = "stedolan",
+                repo = "jq",
+                version = "jq-%s" % version,
+            ),
+            file,
+        ),
+    }
+
 fns = {
     "node": node,
     "rg": rg,
@@ -447,6 +465,7 @@ fns = {
     "dust": dust,
     "nnn": nnn,
     "fzf": fzf,
+    "jq": jq,
     "xplr": xplr,
     "pandoc": pandoc,
 }
@@ -472,6 +491,7 @@ home = {
     "fzf": "0.28.0",
     "pandoc": "2.16.2",
     "clang": ("13.0.0", "16.04"),
+    "jq": "1.6",
     "delta": {
         "version": "0.10.2",
         "libc": "musl",
