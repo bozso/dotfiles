@@ -2,6 +2,7 @@ local ut = require "utils"
 local lsp = require "lsp_setup"
 require "plugins"
 require "fmter_config"
+require "lint_config"
 
 local fmt = string.format
 
@@ -121,4 +122,5 @@ vim.cmd [[
     endif
 
     au BufRead,BufNewFile *.build_defs if &ft == '' | setfiletype bzl | endif
+    au BufWritePost <buffer> lua require('lint').try_lint()
 ]]
