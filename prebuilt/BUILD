@@ -391,7 +391,6 @@ def hyperfine(cfg):
 def dust(cfg):
     version = cfg["version"]
     libc = cfg["libc"]
-    # https://github.com/bootandy/dust/releases/download/v0.7.5/dust-v0.7.5-x86_64-unknown-linux-musl.tar.gz
 
     root = "dust-v%s-x86_64-unknown-${OS}-%s" % (version, libc)
 
@@ -402,6 +401,27 @@ def dust(cfg):
             github_release(
                 owner = "bootandy",
                 repo = "dust",
+                version = "v" + version,
+            ),
+            root,
+        ),
+    }
+
+def xplr(cfg):
+    version = cfg["version"]
+    libc = cfg.get("libc", None)
+
+    root = "xplr-${OS}"
+    if libc is not None:
+        root = "%s-%s" % (root, libc)
+
+    return {
+        "name": "xplr",
+        "exported_files": ["xplr"],
+        "url": "%s/%s.tar.gz" % (
+            github_release(
+                owner = "sayanarijit",
+                repo = "xplr",
                 version = "v" + version,
             ),
             root,
@@ -427,6 +447,7 @@ fns = {
     "dust": dust,
     "nnn": nnn,
     "fzf": fzf,
+    "xplr": xplr,
     "pandoc": pandoc,
 }
 
@@ -477,6 +498,10 @@ home = {
     },
     "rg": {
         "version": "13.0.0",
+        "libc": "musl",
+    },
+    "xplr": {
+        "version": "0.16.4",
         "libc": "musl",
     },
     "nnn": {
