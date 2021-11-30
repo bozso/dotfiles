@@ -11,7 +11,6 @@ local function cargo_check()
         fmt(tpl, "%tarning"),
         fmt(tpl, "%tnfo"),
     }, ", ")
-    print(efm)
 
     return {
         cmd = "cargo",
