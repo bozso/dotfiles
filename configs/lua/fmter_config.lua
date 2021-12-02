@@ -85,17 +85,17 @@ local lua = {
     filetypes = { "lua" },
 }
 
-local go = {
-    fmters = {
-        gofmt = function()
-            return {
-                exe = "gofmt",
-                stdin = true,
-            }
-        end,
-    },
-    filetypes = { "go" },
-}
+-- local go = {
+--     fmters = {
+--         gofmt = function()
+--             return {
+--                 exe = "gofmt",
+--                 stdin = true,
+--             }
+--         end,
+--     },
+--     filetypes = { "go" },
+-- }
 
 local python = {
     fmters = {
@@ -168,18 +168,15 @@ local extensions = {}
 ut.add_patterns("*.%s", file_extensions, extensions)
 table.insert(extensions, "BUILD*")
 
-vim.api.nvim_exec(
-    fmt(
-        [[
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost %s FormatWrite
-augroup END
-]],
-        table.concat(extensions, ",")
-    ),
-    true
-)
+-- vim.api.nvim_exec(
+--     [[
+-- augroup FormatAutogroup
+--   autocmd!
+--   autocmd BufWritePost <cmd>lua vim.lsp.buf.formatting()<cr><cmd>w<cr>
+-- augroup END
+-- ]],
+--     true
+-- )
 
 require("formatter").setup {
     filetype = filetype,

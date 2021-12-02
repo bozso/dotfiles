@@ -37,7 +37,9 @@ local buf = "<cmd>lua vim.lsp.buf.%s()<CR>"
 local diag = "<cmd>lua vim.lsp.diagnostic.%s()<CR>"
 
 M.fzf = "<cmd>lua require('fzf-lua').%s()<cr>"
-M.fzf_w = "<cmd>w<cr><cmd>lua require('fzf-lua').%s()<cr>"
+-- M.fzf_w = "<cmd>Format<cr><cmd>w<cr><cmd>lua require('fzf-lua').%s()<cr>"
+M.fzf_w =
+    "<cmd>lua vim.lsp.buf.formatting_sync()<cr><cmd>w<cr><cmd>lua require('fzf-lua').%s()<cr>"
 
 local keymaps = {
     gD = fmt(buf, "declaration"),
@@ -77,28 +79,6 @@ for _, lsp in pairs(servers) do
     }
 end
 
-local go = {
-    {
-        lintCommand = "golangci-lint run --out-format ''",
-        lintFormats = {
-            "%f:%l:%c: %trror: %m",
-            "%f:%l:%c: %tarning: %m",
-        },
-        -- lintStdin = true,
-    },
-}
-
-local rust = {
-    {
-        lintCommand = "cargo check --message-format=short",
-        lintFormats = {
-            "%f:%l:%c: %trror: %m",
-            "%f:%l:%c: %tarning: %m",
-        },
-        lintStdin = false,
-    },
-}
-
 local lua = {
     {
         formatCommand = "stylua",
@@ -106,12 +86,10 @@ local lua = {
 }
 
 lspconfig.efm.setup {
-    init_options = { documentFormatting = true },
+    init_options = { documentFormatting = false },
     settings = {
         rootMarkers = { ".git/", "Cargo.toml" },
         languages = {
-            go = go,
-            rust = rust,
             lua = lua,
         },
     },

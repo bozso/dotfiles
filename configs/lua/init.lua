@@ -100,7 +100,7 @@ nnoremaps = {
 
     ["<leader>c"] = "<cmd>close<cr>",
 
-    ["<leader>w"] = "<cmd>w<C-j>",
+    ["<leader>w"] = "<cmd>lua vim.lsp.buf.formatting()<cr><cmd>w<C-j>",
     ["<leader>sv"] = "<cmd>source $MYVIMRC<cr>",
 }
 
