@@ -80,7 +80,6 @@ for _, lsp in pairs(servers) do
 end
 
 local fmt = require "fmter_config"
-print(fmt.languages.python)
 
 lspconfig.efm.setup {
     init_options = { documentFormatting = true },
@@ -89,6 +88,5 @@ lspconfig.efm.setup {
         languages = fmt.languages,
     },
 }
-
 
 return M
