@@ -1,10 +1,27 @@
 local ut = require "utils"
 local fmt = string.format
+local M = {}
 
 -- stylua: ignore
 local format_file_extensions = {
     "c", "h", "cpp", "cc", "cxx", "hpp", "hh", "d", "go", "js", "ts", 
     "rs", "py", "lua", "build_defs",
+}
+
+M.languages = {
+    lua = {
+        {
+            formatCommand = "stylua -",
+            formatStdin = true,
+        },
+    },
+
+    python = {
+        {
+            formatCommand = "black -",
+            formatStdin = true,
+        },
+    },
 }
 
 
@@ -85,31 +102,6 @@ local lua = {
     filetypes = { "lua" },
 }
 
--- local go = {
---     fmters = {
---         gofmt = function()
---             return {
---                 exe = "gofmt",
---                 stdin = true,
---             }
---         end,
---     },
---     filetypes = { "go" },
--- }
-
-local python = {
-    fmters = {
-        black = function()
-            return {
-                exe = "black",
-                args = { "-" },
-                stdin = true,
-            }
-        end,
-    },
-    filetypes = { "python" },
-}
-
 local function add_fmter(fmter, fts, to)
     for _, ft in pairs(fts) do
         to[ft] = fmter
@@ -142,8 +134,6 @@ local filetype = setup {
     please,
     rust,
     lua,
-    go,
-    python,
 }
 
 local ft_to_ext = {
@@ -181,3 +171,5 @@ table.insert(extensions, "BUILD*")
 require("formatter").setup {
     filetype = filetype,
 }
+
+return M

@@ -41,4 +41,8 @@ function M.ignored_patterns(opts)
     return ignores
 end
 
+function M.format()
+    vim.lsp.buf.formatting_seq_sync()
+end
+
 return M

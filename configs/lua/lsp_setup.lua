@@ -39,7 +39,7 @@ local diag = "<cmd>lua vim.lsp.diagnostic.%s()<CR>"
 M.fzf = "<cmd>lua require('fzf-lua').%s()<cr>"
 -- M.fzf_w = "<cmd>Format<cr><cmd>w<cr><cmd>lua require('fzf-lua').%s()<cr>"
 M.fzf_w =
-    "<cmd>lua vim.lsp.buf.formatting_sync()<cr><cmd>w<cr><cmd>lua require('fzf-lua').%s()<cr>"
+    "<cmd>lua require('utils').format()<cr><cmd>w<cr><cmd>lua require('fzf-lua').%s()<cr>"
 
 local keymaps = {
     gD = fmt(buf, "declaration"),
@@ -79,20 +79,16 @@ for _, lsp in pairs(servers) do
     }
 end
 
-local lua = {
-    {
-        formatCommand = "stylua",
+local fmt = require "fmter_config"
+print(fmt.languages.python)
+
+lspconfig.efm.setup {
+    init_options = { documentFormatting = true },
+    settings = {
+        rootMarkers = { ".git/", "Cargo.toml" },
+        languages = fmt.languages,
     },
 }
 
-lspconfig.efm.setup {
-    init_options = { documentFormatting = false },
-    settings = {
-        rootMarkers = { ".git/", "Cargo.toml" },
-        languages = {
-            lua = lua,
-        },
-    },
-}
 
 return M
