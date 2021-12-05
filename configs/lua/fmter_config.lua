@@ -18,7 +18,7 @@ M.languages = {
 
     python = {
         {
-            formatCommand = "black -",
+            formatCommand = "black --quiet -",
             formatStdin = true,
         },
     },
