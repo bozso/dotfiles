@@ -4,16 +4,6 @@ local M = {}
 
 local fmt = string.format
 
-configs.please = {
-    default_config = {
-        cmd = { "build_langserver" },
-        filetypes = { "BUILD" },
-        root_dir = function(filename)
-            return util.path.dirname(filename)
-        end,
-    },
-}
-
 local servers = {
     "pyright",
     "gopls",
@@ -61,6 +51,7 @@ local opts = { noremap = true, silent = true }
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
+    client.resolved_capabilities.document_formatting = true
     -- Enable completion triggered by <c-x><c-o>
     buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
