@@ -36,10 +36,9 @@ local lsp = "<cmd>lua vim.lsp.%s()<CR>"
 local buf = "<cmd>lua vim.lsp.buf.%s()<CR>"
 local diag = "<cmd>lua vim.lsp.diagnostic.%s()<CR>"
 
+M.fmt = "<cmd>lua require('utils').format()<cr>"
 M.fzf = "<cmd>lua require('fzf-lua').%s()<cr>"
--- M.fzf_w = "<cmd>Format<cr><cmd>w<cr><cmd>lua require('fzf-lua').%s()<cr>"
-M.fzf_w =
-    "<cmd>lua require('utils').format()<cr><cmd>w<cr><cmd>lua require('fzf-lua').%s()<cr>"
+M.fzf_w = fmt("%s<cmd>w<cr><cmd>lua require('fzf-lua').%%s()<cr>", M.fmt)
 
 local keymaps = {
     gD = fmt(buf, "declaration"),

@@ -100,7 +100,7 @@ nnoremaps = {
 
     ["<leader>c"] = "<cmd>close<cr>",
 
-    ["<leader>w"] = "<cmd>lua require('utils').format()<cr><cmd>w<C-j>",
+    ["<leader>w"] = fmt("%s<cmd>w<C-j>", lsp.fmt),
     ["<leader>sv"] = "<cmd>source $MYVIMRC<cr>",
 }
 

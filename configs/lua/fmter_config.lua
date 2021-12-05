@@ -22,6 +22,12 @@ M.languages = {
             formatStdin = true,
         },
     },
+    go = {
+        {
+            formatCommand = "gofmt",
+            formatStdin = true,
+        },
+    },
 }
 
 
