@@ -8,6 +8,11 @@ local format_file_extensions = {
     "rs", "py", "lua", "build_defs",
 }
 
+local clang = {
+    formatCommand = "clang-format --assume-filename=${INPUT}",
+    formatStdin = true,
+}
+
 M.languages = {
     lua = {
         {

@@ -19,9 +19,6 @@ local servers = {
     "gopls",
     "clangd",
     "nimls",
-    -- "rust_analyzer",
-    "serve_d",
-    "please",
 }
 
 local function buf_set_keymap(...)
