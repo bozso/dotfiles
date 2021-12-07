@@ -13,6 +13,13 @@ local clang = {
     formatStdin = true,
 }
 
+local dprint = {
+    {
+        formatCommand = "dprint fmt --stdin ${INPUT}",
+        formatStdin = true,
+    },
+}
+
 M.languages = {
     lua = {
         {
@@ -27,12 +34,16 @@ M.languages = {
             formatStdin = true,
         },
     },
+
     go = {
         {
             formatCommand = "gofmt",
             formatStdin = true,
         },
     },
+
+    md = dprint,
+    markdown = dprint,
 }
 
 
