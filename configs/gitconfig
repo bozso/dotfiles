@@ -1,6 +1,6 @@
 [core]
     pager = delta --light
-    editor = vi
+    editor = nvim
 
 [delta]
     features = unobtrusive-line-numbers decorations
