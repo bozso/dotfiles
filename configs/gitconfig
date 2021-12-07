@@ -1,6 +1,7 @@
 [core]
     pager = delta --light
     editor = vi
+
 [delta]
     features = unobtrusive-line-numbers decorations
     whitespace-error-style = 22 reverse
@@ -27,6 +28,9 @@
 
 [github]
 	user = bozso
+    
+[bitbucket]
+	user = ibozso
 
 [credential]
 	helper = cache --timeout=300
