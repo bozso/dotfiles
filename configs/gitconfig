@@ -1,9 +1,22 @@
 [core]
     pager = delta --light
     editor = nvim
+
 [delta]
     features = unobtrusive-line-numbers decorations
     whitespace-error-style = 22 reverse
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
 
 [delta "unobtrusive-line-numbers"]
     line-numbers = true
@@ -27,6 +40,9 @@
 
 [github]
 	user = bozso
+    
+[bitbucket]
+	user = ibozso
 
 [credential]
 	helper = cache --timeout=300
