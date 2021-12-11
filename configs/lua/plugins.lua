@@ -9,17 +9,11 @@ return require("packer").startup(function()
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
 
-    use "yasukotelin/shirotelin"
     use "mhartington/formatter.nvim"
     use "neovim/nvim-lspconfig"
 
     use "mfussenegger/nvim-lint"
     use { "echasnovski/mini.nvim", branch = "stable" }
-
-    use {
-        "hoob3rt/lualine.nvim",
-        requires = { "kyazdani42/nvim-web-devicons", opt = true },
-    }
 
     use {
         "earthly/earthly.vim",
