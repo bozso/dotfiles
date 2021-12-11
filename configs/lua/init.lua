@@ -19,6 +19,11 @@ require("mini.completion").setup {
     },
 }
 
+require("mini.misc").setup {
+    --Array of fields to make global (to be used as independent variables)
+    make_global = { "put", "put_text" },
+}
+
 require("lualine").setup {
     options = {
         icons_enabled = false,
