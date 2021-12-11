@@ -6,6 +6,19 @@ require "lint_config"
 
 local fmt = string.format
 
+local base16 = require "mini.base16"
+local palette = base16.mini_palette("#e2e5ca", "#002a83", 75)
+base16.setup { palette = palette, name = "minischeme", use_cterm = true }
+vim.o.background = "light"
+
+require("mini.comment").setup()
+require("mini.completion").setup {
+    lsp_completion = {
+        source_func = "omnifunc",
+        auto_setup = true,
+    },
+}
+
 require("lualine").setup {
     options = {
         icons_enabled = false,
@@ -21,7 +34,7 @@ require("fzf-lua").setup {
 }
 
 -- TODO: figure out how to change colorscheme properly
-local status, err = pcall(vim.cmd, "colorscheme shirotelin")
+local status, err = pcall(vim.cmd, "colorscheme minischeme")
 
 if not status then
     -- vim.notify()
