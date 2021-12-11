@@ -1,5 +1,7 @@
 local ut = require "utils"
 local lsp = require "lsp_setup"
+
+require "statusline"
 require "plugins"
 require "fmter_config"
 require "lint_config"
@@ -62,16 +64,6 @@ require("mini.pairs").setup {
             neigh_pattern = "[^\\].",
             register = { cr = false },
         },
-    },
-}
-
-require("lualine").setup {
-    options = {
-        icons_enabled = false,
-        theme = "gruvbox",
-        component_separators = { "|", "|" },
-        section_separators = { " ", " " },
-        disabled_filetypes = {},
     },
 }
 
