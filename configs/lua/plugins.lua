@@ -14,6 +14,7 @@ return require("packer").startup(function()
     use "neovim/nvim-lspconfig"
 
     use "mfussenegger/nvim-lint"
+    use { "echasnovski/mini.nvim", branch = "stable" }
 
     use {
         "hoob3rt/lualine.nvim",
