@@ -111,10 +111,22 @@ def nvim(version):
         "name": "neovim",
         "exported_files": [],
         "hashes": [
+            # 0.5.1
             # darwin_amd64
             "sha256: d736845b8b63e443970ea93636dfbde3e2673a70d2058c057e41b836ac4f6f6c",
             # linux_amd64
             "sha256: d4b5b3984f607eaec1cca1df33120adfbaa89cf167d0cac77eb95fd1a9c21e9d",
+            # 0.6.0
+            # nvim-linux64.tar.gz
+            "sha256: 9a7f72e25747c3839f2c8978ef4f902aada0c60ad4b5ff0cb8b9d4c1f0b35586",
+            # nvim.appimage
+            "sha256 8a2b8bb009f5a10f2908c6806c4745e064a6032db89de7895805fb979c90a08e",
+            # nvim.appimage.zsync
+            "sha256: a20073fc161e3c5ce204e301c39a434943ac9a9dc4438e8371191a014067ac55",
+            # nvim-macos.tar.gz
+            "sha256 03cdbfeec3493f50421a9ae4246abe4f9493715f5e151a79c4db79c5b5a43acc",
+            # nvim-win64.zip
+            "sha256: d46a161a8e025f8a03a75b1181372f2712116e4edf566b2569cdcc4f371f80c4",
         ],
         "out": out,
         "bin": "%s/bin" % out,
@@ -567,8 +579,10 @@ home = {
 
 every = gen_env(fns, home)
 
+rules = []
+
 for name, pkg in every.items():
-    simple_remote(pkg)
+    rules += [simple_remote(pkg)]
 
 paths = ""
 
@@ -581,4 +595,5 @@ for pkg in every.values():
 text_file(
     name = "paths",
     content = paths.lstrip(":"),
+    deps=rules,
 )
