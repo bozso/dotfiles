@@ -429,7 +429,6 @@ def xplr(cfg):
     }
 
 def jq(version):
-    # https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
     file = "jq-${OS}64"
 
     return {
@@ -446,7 +445,41 @@ def jq(version):
         ),
     }
 
+def nim(version):
+    name = "nim-%s" % version
+    
+    return {
+        "name": "nim",
+        "exported_files": [],
+        "url": "https://nim-lang.org/download/%s-${OS}_x64.tar.xz" % (
+                name,
+        ),
+        "out": "nim/%s" % version,
+        "strip_prefix": name,
+        "bin": "nim/%s/bin" % version,
+    }
+
+def zls(version):
+    prefix = "x86_64-${OS}"
+    file = "%s.tar.xz" % prefix
+
+    return {
+        "name": "zls",
+        "exported_files": ["%s/zls" % prefix],
+        "url": "%s/%s" % (
+            github_release(
+                owner = "zigtools",
+                repo = "zls",
+                version = version,
+            ),
+            file,
+        ),
+    }
+
+
 fns = {
+    "nim": nim,
+    "zls": zls,
     "node": node,
     "rg": rg,
     "exa": exa,
@@ -481,9 +514,11 @@ def gen_env(fns, versions):
 
 home = {
     "node": "14.18.1",
+    "nim": "1.6.0",
     "stylua": "0.11.2",
     "golangci": "1.38.0",
     "zig": "0.8.1",
+    "zls": "0.1.0",
     "dprint": "0.18.2",
     "nvim": "0.5.1",
     "efm": "0.0.38",
@@ -542,3 +577,8 @@ for pkg in every.values():
 
     if binpath is not None:
         paths = "%s:%s" % (paths, binpath)
+
+text_file(
+    name = "paths",
+    content = paths.lstrip(":"),
+)

@@ -30,4 +30,5 @@ return require("packer").startup(function()
 
     use "mattn/emmet-vim"
     use "ziglang/zig.vim"
+    use "alaviss/nim.nvim"
 end)

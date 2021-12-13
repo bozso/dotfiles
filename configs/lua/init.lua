@@ -8,10 +8,18 @@ require "lint_config"
 
 local fmt = string.format
 
+vim.o.background = "light"
+
 local base16 = require "mini.base16"
 local palette = base16.mini_palette("#e2e5ca", "#002a83", 75)
 base16.setup { palette = palette, name = "minischeme", use_cterm = true }
-vim.o.background = "light"
+
+-- TODO: figure out how to change colorscheme properly
+local status, err = pcall(vim.cmd, "colorscheme minischeme")
+
+if not status then
+    vim.cmd [[colorscheme delek]]
+end
 
 require("mini.comment").setup()
 require("mini.completion").setup {
@@ -70,14 +78,6 @@ require("mini.pairs").setup {
 require("fzf-lua").setup {
     border = { "+", "─", "+", "│", "+", "─", "+", "│" },
 }
-
--- TODO: figure out how to change colorscheme properly
-local status, err = pcall(vim.cmd, "colorscheme minischeme")
-
-if not status then
-    -- vim.notify()
-    vim.cmd [[colorscheme delek]]
-end
 
 vim.wo.colorcolumn = "79"
 

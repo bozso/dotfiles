@@ -9,6 +9,7 @@ local servers = {
     "gopls",
     "clangd",
     "nimls",
+    "zls"
 }
 
 local function buf_set_keymap(...)
