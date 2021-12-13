@@ -1,10 +1,10 @@
-local ut = require "utils"
-local lsp = require "lsp_setup"
-
-require "statusline"
 require "plugins"
+require "statusline"
 require "fmter_config"
 require "lint_config"
+
+local ut = require "utils"
+local lsp = require "lsp_setup"
 
 local fmt = string.format
 
