@@ -32,8 +32,25 @@ dm_premake() {
     cd "${curr}"
 }
 
+link_dir() {
+    local from="$1"
+    local to="$2"
+    [ ! -d "${to}" ] && ln -sf "${from}" "${to}"
+}
+
+link_file() {
+    local from="$1"
+    local to="$2"
+    [ ! -f "$2" ] && ln -s "${from}" "${to}"
+}
+
 dm_symlinks() {
-    ln -s "${dotfiles}/configs/lua" ~/.config/nvim/lua
+    link_dir "${dotfiles}/configs/lua" "${HOME}/.config/nvim/lua"
+    link_dir "${dotfiles}/plz-out/bin/prebuilt/fonts" "${HOME}/.local/share/fonts"
+
+    local zellij="${HOME}/.config/zellij"
+    mkdir -p "${zellij}"
+    link_file "${dotfiles}/configs/zellij.yaml" "${zellij}/config.yaml"
 }
 
 please_version="16.14.0"

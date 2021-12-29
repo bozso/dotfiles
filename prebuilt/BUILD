@@ -488,8 +488,57 @@ def zls(version):
         ),
     }
 
+def inkscape(config):
+    url_tpl = "https://inkscape.org/gallery/item/29256/Inkscape-%s-x86_64.AppImage"
+
+    return {
+        "name": "inkscape",
+        "extract": False,
+        "url": url_tpl % config.hash,
+        "exported_files": [],
+    }
+
+def zellij(version):
+    prefix = "zellij-x86_64-unknown-${OS}-musl"
+
+    return {
+        "name": "zellij",
+        "exported_files": ["zellij"],
+        "url": "%s/%s.tar.gz" % (
+            github_release(
+                owner = "zellij-org",
+                repo = "zellij",
+                version = "v%s" % version,
+            ),
+            prefix,
+        ),
+    }
+
+def fonts(config):
+    tpl = "'%s-Regular Nerd Font Complete.otf'"
+    version = config["version"]
+    name = config["name"]
+
+    url = github_release(
+            owner="ryanoasis",
+            repo="nerd-fonts",
+            version="v%s" % version
+    )
+
+    return {
+        "name": name,
+        "exported_files": [tpl % name],
+        "url": "%s/%s.zip" % (
+            url,
+            name,
+        ),
+        "out": "fonts",
+    }
 
 fns = {
+    "fonts": fonts,
+    "zellij": zellij,
+    "inkscape": inkscape,
     "nim": nim,
     "zls": zls,
     "node": node,
@@ -525,6 +574,12 @@ def gen_env(fns, versions):
     return out
 
 home = {
+    "fonts": {
+        "version": "2.1.0",
+        "name": "AurulentSansMono",
+    },
+    "zellij": "0.23.0",
+    "inkscape": {"hash": "3bf5ae0"},
     "node": "14.18.1",
     "nim": "1.6.0",
     "stylua": "0.11.2",
