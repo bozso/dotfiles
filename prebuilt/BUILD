@@ -520,9 +520,9 @@ def fonts(config):
     name = config["name"]
 
     url = github_release(
-            owner="ryanoasis",
-            repo="nerd-fonts",
-            version="v%s" % version
+        owner="ryanoasis",
+        repo="nerd-fonts",
+        version="v%s" % version
     )
 
     return {
@@ -533,6 +533,29 @@ def fonts(config):
             name,
         ),
         "out": "fonts",
+    }
+
+def tectonic(config):
+    # https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.8.0/tectonic-0.8.0-x86_64-unknown-linux-musl.tar.gz
+
+    version = config["version"]
+    libc= config["libc"]
+
+    name = "tectonic-%s-x86_64-unknown-${OS}-%s" % (version, libc)
+
+    url = github_release(
+        owner="tectonic-typesetting",
+        repo="tectonic",
+        version="tectonic%%40%s" % version
+    )
+
+    return {
+        "name": "tectonic",
+        "exported_files": ["tectonic"],
+        "url": "%s/%s.tar.gz" % (
+            url,
+            name,
+        ),
     }
 
 fns = {
@@ -553,6 +576,7 @@ fns = {
     "nvim": nvim,
     "efm": efm,
     "clang": clang,
+    "tectonic": tectonic,
     "starship": starship,
     "delta": delta,
     "deno": deno,
@@ -596,6 +620,10 @@ home = {
     "jq": "1.6",
     "delta": {
         "version": "0.10.2",
+        "libc": "musl",
+    },
+    "tectonic": {
+        "version": "0.8.0",
         "libc": "musl",
     },
     "deno": {
