@@ -11,6 +11,20 @@ export srht="${src}/sr.ht"
 
 export dotfiles="${github}/dotfiles"
 
+ossl="openssl"
+
+get_page() {
+    local url="$1"
+    echo "$(echo -n | ${ossl} s_client -showcerts -connect ${url})"
+}
+
+get_cert() {
+    local url="$1"
+
+    $(get_page "${url}") 2>/dev/null | \
+        sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
+}
+
 bw_impl() {
     local target="$1"
 
