@@ -303,9 +303,7 @@ def fzf(version):
     }
 
 def pandoc(version):
-    # https://github.com/jgm/pandoc/releases/download/2.16.2/pandoc-2.16.2-linux-amd64.tar.gz
     root = "pandoc-%s" % version
-    # root = "pandoc-%s-${OS}-${ARCH}" % version
 
     return {
         "name": "pandoc",
@@ -505,9 +503,79 @@ def clib(version):
         ),
     }
 
+def inkscape(config):
+    url_tpl = "https://inkscape.org/gallery/item/29256/Inkscape-%s-x86_64.AppImage"
+
+    return {
+        "name": "inkscape",
+        "extract": False,
+        "url": url_tpl % config.hash,
+        "exported_files": [],
+    }
+
+def zellij(version):
+    prefix = "zellij-x86_64-unknown-${OS}-musl"
+
+    return {
+        "name": "zellij",
+        "exported_files": ["zellij"],
+        "url": "%s/%s.tar.gz" % (
+            github_release(
+                owner = "zellij-org",
+                repo = "zellij",
+                version = "v%s" % version,
+            ),
+            prefix,
+        ),
+    }
+
+def fonts(config):
+    tpl = "'%s-Regular Nerd Font Complete.otf'"
+    version = config["version"]
+    name = config["name"]
+
+    url = github_release(
+        owner="ryanoasis",
+        repo="nerd-fonts",
+        version="v%s" % version
+    )
+
+    return {
+        "name": name,
+        "exported_files": [tpl % name],
+        "url": "%s/%s.zip" % (
+            url,
+            name,
+        ),
+        "out": "fonts",
+    }
+
+def tectonic(config):
+    version = config["version"]
+    libc= config["libc"]
+
+    name = "tectonic-%s-x86_64-unknown-${OS}-%s" % (version, libc)
+
+    url = github_release(
+        owner="tectonic-typesetting",
+        repo="tectonic",
+        version="tectonic%%40%s" % version
+    )
+
+    return {
+        "name": "tectonic",
+        "exported_files": ["tectonic"],
+        "url": "%s/%s.tar.gz" % (
+            url,
+            name,
+        ),
+    }
 
 fns = {
     "clib": clib,
+    "fonts": fonts,
+    "zellij": zellij,
+    "inkscape": inkscape,
     "nim": nim,
     "zls": zls,
     "node": node,
@@ -522,6 +590,7 @@ fns = {
     "nvim": nvim,
     "efm": efm,
     "clang": clang,
+    "tectonic": tectonic,
     "starship": starship,
     "delta": delta,
     "deno": deno,
@@ -544,6 +613,12 @@ def gen_env(fns, versions):
 
 home = {
     "clib": "2.7.0",
+    "fonts": {
+        "version": "2.1.0",
+        "name": "AurulentSansMono",
+    },
+    "zellij": "0.23.0",
+    "inkscape": {"hash": "3bf5ae0"},
     "node": "14.18.1",
     "nim": "1.6.0",
     "stylua": "0.11.2",
@@ -560,6 +635,10 @@ home = {
     "jq": "1.6",
     "delta": {
         "version": "0.10.2",
+        "libc": "musl",
+    },
+    "tectonic": {
+        "version": "0.8.0",
         "libc": "musl",
     },
     "deno": {

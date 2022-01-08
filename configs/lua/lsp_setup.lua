@@ -9,7 +9,7 @@ local servers = {
     "gopls",
     "clangd",
     "nimls",
-    "zls"
+    "zls",
 }
 
 local function buf_set_keymap(...)
@@ -75,6 +75,10 @@ lspconfig.efm.setup {
         rootMarkers = { ".git/", "Cargo.toml" },
         languages = fmt.languages,
     },
+}
+
+lspconfig.haxe_language_server.setup {
+    cmd = { "node", "/home/istvan/packages/bin/server.js" },
 }
 
 return M
