@@ -488,8 +488,26 @@ def zls(version):
         ),
     }
 
+def clib(version):
+    prefix = "clib-${OS}"
+    file = "%s-%s.zip" % (prefix, version)
+
+    return {
+        "name": "clib",
+        "exported_files": ["%s/*" % prefix],
+        "url": "%s/%s" % (
+            github_release(
+                owner = "clibs",
+                repo = "clib",
+                version = version,
+            ),
+            file,
+        ),
+    }
+
 
 fns = {
+    "clib": clib,
     "nim": nim,
     "zls": zls,
     "node": node,
@@ -525,6 +543,7 @@ def gen_env(fns, versions):
     return out
 
 home = {
+    "clib": "2.7.0",
     "node": "14.18.1",
     "nim": "1.6.0",
     "stylua": "0.11.2",
