@@ -12,10 +12,8 @@ return require("packer").startup(function()
     use "mhartington/formatter.nvim"
     use "neovim/nvim-lspconfig"
 
-    use {
-        "mfussenegger/nvim-lint",
-        tag = "nvim-05",
-    }
+    use "mfussenegger/nvim-lint"
+
     use { "echasnovski/mini.nvim", branch = "stable" }
 
     use {

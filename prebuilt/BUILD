@@ -303,9 +303,7 @@ def fzf(version):
     }
 
 def pandoc(version):
-    # https://github.com/jgm/pandoc/releases/download/2.16.2/pandoc-2.16.2-linux-amd64.tar.gz
     root = "pandoc-%s" % version
-    # root = "pandoc-%s-${OS}-${ARCH}" % version
 
     return {
         "name": "pandoc",
@@ -488,6 +486,23 @@ def zls(version):
         ),
     }
 
+def clib(version):
+    prefix = "clib-${OS}"
+    file = "%s-%s.zip" % (prefix, version)
+
+    return {
+        "name": "clib",
+        "exported_files": ["%s/*" % prefix],
+        "url": "%s/%s" % (
+            github_release(
+                owner = "clibs",
+                repo = "clib",
+                version = version,
+            ),
+            file,
+        ),
+    }
+
 def inkscape(config):
     url_tpl = "https://inkscape.org/gallery/item/29256/Inkscape-%s-x86_64.AppImage"
 
@@ -536,8 +551,6 @@ def fonts(config):
     }
 
 def tectonic(config):
-    # https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.8.0/tectonic-0.8.0-x86_64-unknown-linux-musl.tar.gz
-
     version = config["version"]
     libc= config["libc"]
 
@@ -559,6 +572,7 @@ def tectonic(config):
     }
 
 fns = {
+    "clib": clib,
     "fonts": fonts,
     "zellij": zellij,
     "inkscape": inkscape,
@@ -598,6 +612,7 @@ def gen_env(fns, versions):
     return out
 
 home = {
+    "clib": "2.7.0",
     "fonts": {
         "version": "2.1.0",
         "name": "AurulentSansMono",
@@ -611,7 +626,7 @@ home = {
     "zig": "0.8.1",
     "zls": "0.1.0",
     "dprint": "0.18.2",
-    "nvim": "0.5.1",
+    "nvim": "0.6.0",
     "efm": "0.0.38",
     "starship": "1.0.0",
     "fzf": "0.28.0",
