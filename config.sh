@@ -11,6 +11,10 @@ export srht="${src}/sr.ht"
 
 export dotfiles="${github}/dotfiles"
 
+storage() {
+    sudo mount //storage/bozsoi ${HOME}/mount/storage/ -o user=bozsoi,dir_mode=0777,file_mode=0666
+}
+
 bw_impl() {
     local target="$1"
 
