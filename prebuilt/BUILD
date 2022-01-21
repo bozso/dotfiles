@@ -571,6 +571,30 @@ def tectonic(config):
         ),
     }
 
+
+def sccache(config):
+    # https://github.com/mozilla/sccache/releases/download/v0.2.15/sccache-dist-v0.2.15-x86_64-unknown-linux-musl.tar.gz
+
+    version = "v%s" % config["version"]
+    libc= config["libc"]
+
+    name = "sccache-dist-%s-x86_64-unknown-${OS}-%s" % (version, libc)
+
+    url = github_release(
+        owner="mozilla",
+        repo="sccache",
+        version=version,
+    )
+
+    return {
+        "name": "sccache",
+        "exported_files": ["%s/sccache-dist" % name],
+        "url": "%s/%s.tar.gz" % (
+            url,
+            name,
+        ),
+    }
+
 fns = {
     "clib": clib,
     "fonts": fonts,
@@ -600,6 +624,7 @@ fns = {
     "jq": jq,
     "xplr": xplr,
     "pandoc": pandoc,
+    "sccache": sccache,
 }
 
 def gen_env(fns, versions):
@@ -673,6 +698,10 @@ home = {
         "version": "4.4",
         "mode": "musl",
     },
+    "sccache": {
+        "version": "0.2.15",
+        "libc": "musl",
+    }
 }
 
 every = gen_env(fns, home)
