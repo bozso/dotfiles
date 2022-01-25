@@ -71,6 +71,17 @@ local fmt = require "fmter_config"
 
 lspconfig.efm.setup {
     init_options = { documentFormatting = true },
+    flags = { debounce_text_changes = 150 },
+    filetypes = {
+        "python",
+        "lua",
+        "yaml",
+        "json",
+        "markdown",
+        "javascript",
+        "typescript",
+        "rust",
+    },
     settings = {
         rootMarkers = { ".git/", "Cargo.toml" },
         languages = fmt.languages,
