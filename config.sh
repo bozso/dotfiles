@@ -11,6 +11,24 @@ export srht="${src}/sr.ht"
 
 export dotfiles="${github}/dotfiles"
 
+storage() {
+    sudo mount //storage/bozsoi ${HOME}/mount/storage/ -o user=bozsoi,dir_mode=0777,file_mode=0666
+}
+
+ossl="openssl"
+
+get_page() {
+    local url="$1"
+    echo "$(echo -n | ${ossl} s_client -showcerts -connect ${url})"
+}
+
+get_cert() {
+    local url="$1"
+
+    $(get_page "${url}") 2>/dev/null | \
+        sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
+}
+
 bw_impl() {
     local target="$1"
 
@@ -225,5 +243,3 @@ mm_setup() {
 }
 
 alias mm="micromamba"
-
-# eval "$(micromamba shell hook -s bash)"

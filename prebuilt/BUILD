@@ -580,6 +580,28 @@ def micromamba(version):
         "url": url % version
     }
 
+
+def sccache(config):
+    version = "v%s" % config["version"]
+    libc= config["libc"]
+
+    name = "sccache-dist-%s-x86_64-unknown-${OS}-%s" % (version, libc)
+
+    url = github_release(
+        owner="mozilla",
+        repo="sccache",
+        version=version,
+    )
+
+    return {
+        "name": "sccache",
+        "exported_files": ["%s/sccache-dist" % name],
+        "url": "%s/%s.tar.gz" % (
+            url,
+            name,
+        ),
+    }
+
 fns = {
     "micromamba": micromamba,
     "clib": clib,
@@ -610,6 +632,7 @@ fns = {
     "jq": jq,
     "xplr": xplr,
     "pandoc": pandoc,
+    "sccache": sccache,
 }
 
 def gen_env(fns, versions):
@@ -684,6 +707,10 @@ home = {
         "version": "4.4",
         "mode": "musl",
     },
+    "sccache": {
+        "version": "0.2.15",
+        "libc": "musl",
+    }
 }
 
 every = gen_env(fns, home)

@@ -7,7 +7,6 @@ local ut = require "utils"
 local lsp = require "lsp_setup"
 
 local fmt = string.format
-
 vim.o.background = "light"
 
 local base16 = require "mini.base16"
@@ -72,6 +71,29 @@ require("mini.pairs").setup {
             neigh_pattern = "[^\\].",
             register = { cr = false },
         },
+    },
+}
+
+require("mini.surround").setup {
+    -- Number of lines within which surrounding is searched
+    n_lines = 20,
+
+    -- Duration (in ms) of highlight when calling `MiniSurround.highlight()`
+    highlight_duration = 500,
+
+    -- Pattern to match function name in 'function call' surrounding
+    -- By default it is a string of letters, '_' or '.'
+    funname_pattern = "[%w_%.]+",
+
+    -- Mappings. Use `''` (empty string) to disable one.
+    mappings = {
+        add = "sa", -- Add surrounding
+        delete = "sd", -- Delete surrounding
+        find = "sf", -- Find surrounding (to the right)
+        find_left = "sF", -- Find surrounding (to the left)
+        highlight = "sh", -- Highlight surrounding
+        replace = "sr", -- Replace surrounding
+        update_n_lines = "sn", -- Update `n_lines`
     },
 }
 
