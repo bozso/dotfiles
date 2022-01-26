@@ -30,8 +30,17 @@ M.languages = {
 
     python = {
         {
-            formatCommand = "black --quiet -",
+            formatCommand = "blackd-client",
             formatStdin = true,
+        },
+        {
+            lintCommand = "mypy --show-column-numbers --ignore-missing-imports",
+            lintSource = "mypy",
+            lintFormats = {
+                "%f:%l:%c: %trror: %m",
+                "%f:%l:%c: %tarning: %m",
+                "%f:%l:%c: %tote: %m",
+            },
         },
     },
 
@@ -44,6 +53,17 @@ M.languages = {
 
     md = dprint,
     markdown = dprint,
+    rust = {
+        {
+            formatCommand = "rustfmt",
+            formatStdin = true,
+        },
+        {
+            lintCommand = "cargo clippy",
+            lintSource = "cargo",
+            lintFormats = { "%f:%l:%c: %m" },
+        },
+    },
 }
 
 

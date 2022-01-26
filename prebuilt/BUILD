@@ -571,6 +571,15 @@ def tectonic(config):
         ),
     }
 
+def micromamba(version):
+    url = "https://micromamba.snakepit.net/api/micromamba/linux-64/%s"
+
+    return {
+        "name": "micromamba",
+        "exported_files": ["bin/micromamba"],
+        "url": url % version
+    }
+
 
 def sccache(config):
     version = "v%s" % config["version"]
@@ -594,6 +603,7 @@ def sccache(config):
     }
 
 fns = {
+    "micromamba": micromamba,
     "clib": clib,
     "fonts": fonts,
     "zellij": zellij,
@@ -640,6 +650,7 @@ home = {
         "version": "2.1.0",
         "name": "AurulentSansMono",
     },
+    "micromamba": "latest",
     "zellij": "0.23.0",
     "inkscape": {"hash": "3bf5ae0"},
     "node": "14.18.1",
