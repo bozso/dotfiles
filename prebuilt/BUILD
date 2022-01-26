@@ -573,8 +573,6 @@ def tectonic(config):
 
 
 def sccache(config):
-    # https://github.com/mozilla/sccache/releases/download/v0.2.15/sccache-dist-v0.2.15-x86_64-unknown-linux-musl.tar.gz
-
     version = "v%s" % config["version"]
     libc= config["libc"]
 
