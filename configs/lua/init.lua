@@ -21,6 +21,7 @@ if not status then
 end
 
 require("mini.comment").setup()
+
 require("mini.completion").setup {
     lsp_completion = {
         source_func = "omnifunc",
@@ -97,9 +98,7 @@ require("mini.surround").setup {
     },
 }
 
-require("fzf-lua").setup {
-    border = { "+", "─", "+", "│", "+", "─", "+", "│" },
-}
+require("fzf-lua").setup {}
 
 vim.wo.colorcolumn = "79"
 

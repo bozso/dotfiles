@@ -70,6 +70,7 @@ end
 local fmt = require "fmter_config"
 
 lspconfig.efm.setup {
+    cmd = { "efm-langserver", "-logfile", "/tmp/efm.log" },
     init_options = { documentFormatting = true },
     flags = { debounce_text_changes = 150 },
     filetypes = {

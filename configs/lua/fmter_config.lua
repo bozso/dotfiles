@@ -57,11 +57,11 @@ M.languages = {
         {
             formatCommand = "rustfmt",
             formatStdin = true,
-        },
-        {
-            lintCommand = "cargo clippy",
+            lintCommand = "cargo check --message-format short",
+            lintIgnoreExitCode = true,
             lintSource = "cargo",
             lintFormats = { "%f:%l:%c: %m" },
+            lintStdin = false,
         },
     },
 }
@@ -210,8 +210,8 @@ table.insert(extensions, "BUILD*")
 --     true
 -- )
 
-require("formatter").setup {
-    filetype = filetype,
-}
+-- require("formatter").setup {
+--     filetype = filetype,
+-- }
 
 return M
