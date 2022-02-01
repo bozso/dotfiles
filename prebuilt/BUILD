@@ -583,7 +583,7 @@ def micromamba(version):
 
 def sccache(config):
     version = "v%s" % config["version"]
-    libc= config["libc"]
+    libc = config["libc"]
 
     name = "sccache-dist-%s-x86_64-unknown-${OS}-%s" % (version, libc)
 
@@ -602,7 +602,39 @@ def sccache(config):
         ),
     }
 
+def julia(config):
+    # https://julialang-s3.julialang.org/bin/musl/x64/1.7/julia-1.7.1-musl-x86_64.tar.gz
+    version = config["version"]
+    libc = config["libc"]
+    version_short = ".".join(version.split(".")[:-1])
+
+    if libc == "glibc":
+        libc = "linux"
+
+
+    name_v = "julia-%s" % version
+    name = "%s-%s-x86_64" % (name_v, libc)
+
+    url = "https://julialang-s3.julialang.org/bin/%s/x64/%s" % (
+        libc, version_short
+    )
+
+    out = "julia/%s" % version
+
+    return {
+        "name": "julia",
+        "exported_files": [],
+        "url": "%s/%s.tar.gz" % (
+            url,
+            name,
+        ),
+        "strip_prefix": name_v,
+        "out": out,
+        "bin": "%s/bin" % out,
+    }
+
 fns = {
+    "julia": julia,
     "micromamba": micromamba,
     "clib": clib,
     "fonts": fonts,
@@ -710,6 +742,10 @@ home = {
     "sccache": {
         "version": "0.2.15",
         "libc": "musl",
+    },
+    "julia": {
+        "version": "1.7.1",
+        "libc": "glibc"
     }
 }
 
