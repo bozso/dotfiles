@@ -4,6 +4,8 @@ local M = {}
 
 local fmt = string.format
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
 local servers = {
     "pyright",
     "gopls",
@@ -87,6 +89,32 @@ lspconfig.efm.setup {
     settings = {
         rootMarkers = { ".git/", "Cargo.toml" },
         languages = fmt.languages,
+    },
+}
+
+lspconfig.denols.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = { debounce_text_changes = 150 },
+    root_dir = lspconfig.util.root_pattern "deno.json",
+    filetypes = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+        "yaml",
+        "json",
+        "markdown",
+        "html",
+        "css",
+    },
+    init_options = {
+        enable = true,
+        lint = true,
+        unstable = true,
+        -- importMap = "./import_map.json",
     },
 }
 
