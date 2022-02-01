@@ -10,6 +10,7 @@ local servers = {
     "clangd",
     "nimls",
     "zls",
+    "julials",
 }
 
 local function buf_set_keymap(...)
