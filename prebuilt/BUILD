@@ -603,7 +603,6 @@ def sccache(config):
     }
 
 def julia(config):
-    # https://julialang-s3.julialang.org/bin/musl/x64/1.7/julia-1.7.1-musl-x86_64.tar.gz
     version = config["version"]
     libc = config["libc"]
     version_short = ".".join(version.split(".")[:-1])
@@ -633,6 +632,22 @@ def julia(config):
         "bin": "%s/bin" % out,
     }
 
+def thunderbird(cfg):
+    # https://download.mozilla.org/?product=thunderbird-91.5.1-SSL&os=linux64&lang=en-US
+    url = "https://download.mozilla.org/?product=thunderbird-%s-SSL&os=linux64" % cfg
+    out = "thunderbird/%s" % cfg
+
+
+    return {
+        "name": "thunderbird",
+        "exported_files": [],
+        "url": url,
+        "strip_prefix": "thunderbird",
+        "bin": "thunderbird",
+        "out": out,
+        "bin": out
+    }
+
 fns = {
     "julia": julia,
     "micromamba": micromamba,
@@ -651,6 +666,7 @@ fns = {
     "hyperfine": hyperfine,
     "bat": bat,
     "dprint": dprint,
+    "thunderbird": thunderbird,
     "nvim": nvim,
     "efm": efm,
     "clang": clang,
@@ -699,6 +715,7 @@ home = {
     "pandoc": "2.16.2",
     "clang": ("13.0.0", "16.04"),
     "jq": "1.6",
+    "thunderbird": "91.5.1",
     "delta": {
         "version": "0.10.2",
         "libc": "musl",
