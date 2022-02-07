@@ -475,7 +475,7 @@ def zls(version):
 
     return {
         "name": "zls",
-        "exported_files": ["%s/zls" % prefix],
+        "exported_files": ["bin/zls"],
         "url": "%s/%s" % (
             github_release(
                 owner = "zigtools",
@@ -706,7 +706,7 @@ home = {
     "stylua": "0.11.2",
     "golangci": "1.38.0",
     "zig": "0.9.0",
-    "zls": "0.1.0",
+    "zls": "0.9.0",
     "dprint": "0.18.2",
     "nvim": "0.6.0",
     "efm": "0.0.38",
