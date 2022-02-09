@@ -637,19 +637,35 @@ def thunderbird(cfg):
     url = "https://download.mozilla.org/?product=thunderbird-%s-SSL&os=linux64" % cfg
     out = "thunderbird/%s" % cfg
 
-
     return {
         "name": "thunderbird",
         "exported_files": [],
         "url": url,
         "strip_prefix": "thunderbird",
-        "bin": "thunderbird",
         "out": out,
         "bin": out
     }
 
+
+def go(config):
+    version = config
+
+    url = "https://go.dev/dl/go%s.${OS}-amd64.tar.gz" % version
+    out = "go/%s" % version
+
+    return {
+        "name": "go",
+        "exported_files": [],
+        "url": url,
+        "strip_prefix": "go",
+        "out": out,
+        "bin": "%s/bin" % out,
+    }
+
+
 fns = {
     "julia": julia,
+    "go": go,
     "micromamba": micromamba,
     "clib": clib,
     "fonts": fonts,
@@ -716,6 +732,7 @@ home = {
     "clang": ("13.0.0", "16.04"),
     "jq": "1.6",
     "thunderbird": "91.5.1",
+    "go": "1.17.6",
     "delta": {
         "version": "0.10.2",
         "libc": "musl",
