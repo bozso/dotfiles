@@ -663,9 +663,17 @@ def go(config):
     }
 
 
+def cifs_utils(config):
+    version = config["version"]
+    cflags = config["cflags"]
+    url = "https://www.samba.org/ftp/linux-cifs/cifs-utils/cifs-utils-%s.tar.bz2" % version
+    return None
+
+
 fns = {
     "julia": julia,
     "go": go,
+    # "cifs_utils": cifs_utils,
     "micromamba": micromamba,
     "clib": clib,
     "fonts": fonts,
@@ -714,7 +722,10 @@ home = {
         "version": "2.1.0",
         "name": "AurulentSansMono",
     },
-    "micromamba": "latest",
+    "cifs_utils": {
+        "version": "6.9",
+        "cflags": "",
+    },
     "zellij": "0.23.0",
     "inkscape": {"hash": "3bf5ae0"},
     "node": "14.18.1",
@@ -783,12 +794,20 @@ home = {
     }
 }
 
+def add(config):
+    is_build = config.get("build")
+    if is_build is None:
+        pass
+
+    return simple_remote(pkg)
+
+
 every = gen_env(fns, home)
 
 rules = []
 
 for name, pkg in every.items():
-    rules += [simple_remote(pkg)]
+    rules += [add(pkg)]
 
 paths = ""
 

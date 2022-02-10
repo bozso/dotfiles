@@ -192,6 +192,15 @@ manage_ssh() {
     esac
 }
 
+storage() {
+    local mount_dir="/home/istvan/mount/storage"
+    # local prog="${HOME}/packages/usr/bin/mount.cifs"
+    local prog="mount.cifs"
+    local url="//storage.ggki.hu/bozsoi/"
+    mkdir -p "${mount_dir}"
+    sudo "${prog}" "${url}"  "${mount_dir}"  -o username=bozsoi,vers=2.1 
+}
+
 connect() {
     manage_ssh "join"
 }
@@ -253,6 +262,7 @@ dog
 mcon
 wincap
 selcap
+storage
 "
 
 
