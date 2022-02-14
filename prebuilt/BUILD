@@ -670,6 +670,27 @@ def cifs_utils(config):
     return None
 
 
+def procs(config):
+    version = "v%s" % config
+
+    name = "procs-%s-x86_64-lnx" % version
+
+    url = github_release(
+        owner="dalance",
+        repo="procs",
+        version=version
+    )
+
+    return {
+        "name": "procs",
+        "exported_files": ["procs"],
+        "url": "%s/%s.zip" % (
+            url,
+            name,
+        ),
+    }
+
+
 fns = {
     "julia": julia,
     "go": go,
@@ -692,6 +713,7 @@ fns = {
     "dprint": dprint,
     "thunderbird": thunderbird,
     "nvim": nvim,
+    "procs": procs,
     "efm": efm,
     "clang": clang,
     "tectonic": tectonic,
@@ -728,6 +750,7 @@ home = {
     },
     "zellij": "0.23.0",
     "inkscape": {"hash": "3bf5ae0"},
+    "procs": "0.12.1",
     "node": "14.18.1",
     "nim": "1.6.0",
     "stylua": "0.11.2",
