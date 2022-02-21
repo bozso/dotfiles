@@ -775,11 +775,31 @@ def shfmt(config):
         ),
     }
 
+def misspell(config):
+    version = config
+    name = "misspell_%s_${OS}_64bit" % version
+
+    url = github_release(
+        owner="client9",
+        repo="misspell",
+        version="v%s" % version
+    )
+
+    return {
+        "name": "misspell",
+        "exported_files": ["misspell"],
+        "url": "%s/%s.tar.gz" % (
+            url,
+            name,
+        ),
+    }
+
 fns = {
     "teal": teal,
     "julia": julia,
     "go": go,
     "shfmt": shfmt,
+    "misspell": misspell,
     "shellharden": shellharden,
     # "cifs_utils": cifs_utils,
     "micromamba": micromamba,
@@ -861,6 +881,7 @@ home = {
     "thunderbird": "91.5.1",
     "go": "1.17.6",
     "shellcheck": "0.8.0",
+    "misspell": "0.3.4",
     "delta": {
         "version": "0.10.2",
         "libc": "musl",
