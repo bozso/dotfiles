@@ -17,14 +17,12 @@ function null_ls_setup()
             diag.teal,
             diag.misspell,
             diag.selene,
-            diag.shellcheck.with {
-                filetypes = { "sh", "bash" },
-            },
+            diag.shellcheck,
+            fmt.shellharden,
+            fmt.shfmt,
             diag.golangci_lint,
             fmt.goimports,
             fmt.isort,
-            fmt.shellharden,
-            fmt.shfmt,
         },
         on_attach = on_attach,
     }
