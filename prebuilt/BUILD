@@ -691,7 +691,39 @@ def procs(config):
     }
 
 
+def unciv(config):
+    pass
+
+
+def teal(config):
+    # https://github.com/teal-language/tl/releases/download/v0.13.2/tl-0.13.2-linux-x86_64.tar.gz
+    version = config
+
+    name = "tl-%s-${OS}-x86_64" % version
+
+    url = github_release(
+        owner="teal-language",
+        repo="tl",
+        version="v%s" % version
+    )
+
+    out = "teal/%s" % version
+
+    return {
+        "name": "teal",
+        "exported_files": [],
+        "strip_prefix": name,
+        "out": out,
+        "bin": "%s/tl" % out,
+        "url": "%s/%s.tar.gz" % (
+            url,
+            name,
+        ),
+    }
+
+
 fns = {
+    "teal": teal,
     "julia": julia,
     "go": go,
     # "cifs_utils": cifs_utils,
@@ -727,6 +759,7 @@ fns = {
     "xplr": xplr,
     "pandoc": pandoc,
     "sccache": sccache,
+    # "unciv": unciv,
 }
 
 def gen_env(fns, versions):
@@ -740,6 +773,7 @@ def gen_env(fns, versions):
 
 home = {
     "clib": "2.7.0",
+    "teal": "0.13.2",
     "fonts": {
         "version": "2.1.0",
         "name": "AurulentSansMono",
@@ -748,6 +782,7 @@ home = {
         "version": "6.9",
         "cflags": "",
     },
+    # "unciv": "3.19.10",
     "zellij": "0.23.0",
     "inkscape": {"hash": "3bf5ae0"},
     "procs": "0.12.1",
