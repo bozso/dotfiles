@@ -8,11 +8,23 @@
 function null_ls_setup()
     local null_ls = require "null-ls"
     local builtins = null_ls.builtins
+    local fmt = builtins.formatting
+    local diag = builtins.diagnostics
     local on_attach = require("lsp_setup").on_attach
 
     null_ls.setup {
         sources = {
-            builtins.diagnostics.teal,
+            diag.teal,
+            diag.misspell,
+            diag.selene,
+            diag.shellcheck.with {
+                filetypes = { "sh", "bash" },
+            },
+            diag.golangci_lint,
+            fmt.goimports,
+            fmt.isort,
+            fmt.shellharden,
+            fmt.shfmt,
         },
         on_attach = on_attach,
     }
