@@ -33,7 +33,7 @@ M.fzf_w = fmt("%s<cmd>w<cr><cmd>lua require('fzf-lua').%%s()<cr>", M.fmt)
 
 local keymaps = {
     gD = fmt(buf, "declaration"),
-    gd = fmt(buf, "defintion"),
+    gd = fmt(buf, "definition"),
     Gd = fmt(buf, "type_definition"),
 
     ["<leader>s"] = fmt(M.fzf_w, "lsp_workspace_symbols"),
@@ -54,10 +54,12 @@ local opts = { noremap = true, silent = true }
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-function M.on_attach(client, bufnr)
+local function on_attach(client, bufnr)
     client.resolved_capabilities.document_formatting = true
     -- Enable completion triggered by <c-x><c-o>
-    buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+    if client.resolved_capabilities.completion then
+        buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+    end
 
     for key, val in pairs(keymaps) do
         buf_set_keymap("n", key, val, opts)
@@ -72,25 +74,25 @@ end
 
 local fmt = require "fmter_config"
 
-lspconfig.efm.setup {
-    cmd = { "efm-langserver", "-logfile", "/tmp/efm.log" },
-    init_options = { documentFormatting = true },
-    flags = { debounce_text_changes = 150 },
-    filetypes = {
-        "python",
-        "lua",
-        "yaml",
-        "json",
-        "markdown",
-        "javascript",
-        "typescript",
-        "rust",
-    },
-    settings = {
-        rootMarkers = { ".git/", "Cargo.toml" },
-        languages = fmt.languages,
-    },
-}
+-- lspconfig.efm.setup {
+--     cmd = { "efm-langserver", "-logfile", "/tmp/efm.log" },
+--     init_options = { documentFormatting = true },
+--     flags = { debounce_text_changes = 150 },
+--     filetypes = {
+--         "python",
+--         "lua",
+--         "yaml",
+--         "json",
+--         "markdown",
+--         "javascript",
+--         "typescript",
+--         "rust",
+--     },
+--     settings = {
+--         rootMarkers = { ".git/", "Cargo.toml" },
+--         languages = fmt.languages,
+--     },
+-- }
 
 lspconfig.gopls.setup {
     on_attach = on_attach,
@@ -146,5 +148,41 @@ lspconfig.denols.setup {
         -- importMap = "./import_map.json",
     },
 }
+
+function null_ls_setup()
+    local null_ls = require "null-ls"
+    local builtins = null_ls.builtins
+    local fmt = builtins.formatting
+    local diag = builtins.diagnostics
+
+    null_ls.setup {
+        sources = {
+            -- python
+            fmt.black,
+            fmt.isort,
+            diag.teal,
+            diag.misspell,
+            fmt.stylua.with {
+                condition = function(utils)
+                    return utils.root_has_file {
+                        "stylua.toml",
+                        ".stylua.toml",
+                    }
+                end,
+            },
+            -- diag.selene,
+            -- sh, bash
+            diag.shellcheck,
+            fmt.shellharden,
+            fmt.shfmt,
+            -- golang
+            diag.golangci_lint,
+            fmt.goimports,
+        },
+        on_attach = on_attach,
+    }
+end
+
+null_ls_setup()
 
 return M
