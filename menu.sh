@@ -198,7 +198,8 @@ storage() {
     local prog="mount.cifs"
     local url="//storage.ggki.hu/bozsoi/"
     mkdir -p "${mount_dir}"
-    sudo "${prog}" "${url}"  "${mount_dir}"  -o username=bozsoi,vers=2.1 
+    echo "sudo ${prog} ${url} ${mount_dir} -o username=bozsoi,vers=2.1,rw"
+    sudo "${prog}" "${url}" "${mount_dir}" -o username=bozsoi,vers=2.1,rw 
 }
 
 connect() {
