@@ -708,7 +708,7 @@ def teal(config):
         "exported_files": [],
         "strip_prefix": name,
         "out": out,
-        "bin": "%s/tl" % out,
+        "bin": out,
         "url": "%s/%s.tar.gz" % (
             url,
             name,
