@@ -5,24 +5,22 @@ def github_release(owner, repo, version):
         version,
     )
 
-def binary_remote(name, exported_files, url, out = None, strip_prefix = None, hashes = None):
+def binary_remote(cfg):
     return remote_file(
-        name = name,
-        out = out,
+        name = cfg["name"],
+        out = cfg["out"],
         binary = True,
-        exported_files = exported_files,
-        extract = True,
-        hashes = hashes,
-        strip_prefix = strip_prefix,
-        url = url,
+        hashes = cfg.get("hashes", None),
+        url = cfg["url"],
     )
 
 def simple_remote(setup):
+    exp = setup.get("exported_files", None)
     return remote_file(
         name = setup["name"],
         out = setup.get("out"),
         binary = True,
-        exported_files = setup["exported_files"],
+        exported_files = exp,
         extract = setup.get("extract", True),
         hashes = setup.get("hashes"),
         strip_prefix = setup.get("strip_prefix"),
@@ -691,9 +689,118 @@ def procs(config):
     }
 
 
+def unciv(config):
+    pass
+
+
+def teal(config):
+    version = config
+    name = "tl-%s-${OS}-x86_64" % version
+    url = github_release(
+        owner="teal-language",
+        repo="tl",
+        version="v%s" % version
+    )
+    out = "teal/%s" % version
+
+    return {
+        "name": "teal",
+        "exported_files": [],
+        "strip_prefix": name,
+        "out": out,
+        "bin": "%s/tl" % out,
+        "url": "%s/%s.tar.gz" % (
+            url,
+            name,
+        ),
+    }
+
+def shellcheck(config):
+    version = "v%s" % config
+    name = "shellcheck-%s" % version
+
+    url = github_release(
+        owner="koalaman",
+        repo="shellcheck",
+        version=version
+    )
+
+    return {
+        "name": "shellcheck",
+        "exported_files": ["%s/shellcheck" % name],
+        "url": "%s/%s.${OS}.x86_64.tar.xz" % (
+            url,
+            name,
+        ),
+    }
+
+def shellharden(config):
+    version = config
+    name = "shellharden-%s-x86_64-${OS}-gnu" % version
+
+    url = github_release(
+        owner="anordal",
+        repo="shellharden",
+        version="v%s" % version
+    )
+
+    return {
+        "kind": "binary",
+        "name": "shellharden",
+        "out": "shellharden",
+        "url": "%s/%s" % (
+            url,
+            name,
+        ),
+    }
+
+def shfmt(config):
+    # https://github.com/mvdan/sh/releases/download/v3.4.3/shfmt_v3.4.3_linux_amd64
+    version = "v%s" % config
+    name = "shfmt_%s_${OS}_amd64" % version
+
+    url = github_release(
+        owner="mvdan",
+        repo="sh",
+        version=version
+    )
+
+    return {
+        "kind": "binary",
+        "name": "shfmt",
+        "out": "shfmt",
+        "url": "%s/%s" % (
+            url,
+            name,
+        ),
+    }
+
+def misspell(config):
+    version = config
+    name = "misspell_%s_${OS}_64bit" % version
+
+    url = github_release(
+        owner="client9",
+        repo="misspell",
+        version="v%s" % version
+    )
+
+    return {
+        "name": "misspell",
+        "exported_files": ["misspell"],
+        "url": "%s/%s.tar.gz" % (
+            url,
+            name,
+        ),
+    }
+
 fns = {
+    "teal": teal,
     "julia": julia,
     "go": go,
+    "shfmt": shfmt,
+    "misspell": misspell,
+    "shellharden": shellharden,
     # "cifs_utils": cifs_utils,
     "micromamba": micromamba,
     "clib": clib,
@@ -727,6 +834,8 @@ fns = {
     "xplr": xplr,
     "pandoc": pandoc,
     "sccache": sccache,
+    "shellcheck": shellcheck,
+    # "unciv": unciv,
 }
 
 def gen_env(fns, versions):
@@ -740,6 +849,9 @@ def gen_env(fns, versions):
 
 home = {
     "clib": "2.7.0",
+    "teal": "0.13.2",
+    "shellharden": "4.1.1",
+    "shfmt": "3.4.3",
     "fonts": {
         "version": "2.1.0",
         "name": "AurulentSansMono",
@@ -748,6 +860,7 @@ home = {
         "version": "6.9",
         "cflags": "",
     },
+    # "unciv": "3.19.10",
     "zellij": "0.23.0",
     "inkscape": {"hash": "3bf5ae0"},
     "procs": "0.12.1",
@@ -767,6 +880,8 @@ home = {
     "jq": "1.6",
     "thunderbird": "91.5.1",
     "go": "1.17.6",
+    "shellcheck": "0.8.0",
+    "misspell": "0.3.4",
     "delta": {
         "version": "0.10.2",
         "libc": "musl",
@@ -818,9 +933,10 @@ home = {
 }
 
 def add(config):
-    is_build = config.get("build")
-    if is_build is None:
-        pass
+    kind = config.get("kind", None)
+    if kind is not None:
+        if kind == "binary":
+            return binary_remote(config)
 
     return simple_remote(pkg)
 

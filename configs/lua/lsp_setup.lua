@@ -1,5 +1,6 @@
 local lspconfig = require "lspconfig"
 local configs = require "lspconfig/configs"
+local util = require "lspconfig.util"
 local M = {}
 
 local fmt = string.format
@@ -8,7 +9,6 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 local servers = {
     "pyright",
-    "gopls",
     "clangd",
     "nimls",
     "zls",
@@ -54,7 +54,7 @@ local opts = { noremap = true, silent = true }
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+function M.on_attach(client, bufnr)
     client.resolved_capabilities.document_formatting = true
     -- Enable completion triggered by <c-x><c-o>
     buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -92,6 +92,35 @@ lspconfig.efm.setup {
     },
 }
 
+lspconfig.gopls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = { debounce_text_changes = 150 },
+    filetypes = { "go", "gomod", "gotmpl" },
+    root_dir = function(fname)
+        return util.root_pattern "go.work"(fname)
+            or util.root_pattern("go.mod", ".git")(fname)
+    end,
+    single_file_support = true,
+    default_config = {
+        root_dir = [[root_pattern("go.mod", ".git")]],
+    },
+    settings = {
+        gopls = {
+            analyses = {
+                nilness = true,
+                shadow = true,
+            },
+        },
+    },
+    init_options = {
+        analyses = {
+            nilness = true,
+            shadow = true,
+        },
+    },
+}
+
 lspconfig.denols.setup {
     on_attach = on_attach,
     capabilities = capabilities,
@@ -116,10 +145,6 @@ lspconfig.denols.setup {
         unstable = true,
         -- importMap = "./import_map.json",
     },
-}
-
-lspconfig.haxe_language_server.setup {
-    cmd = { "node", "/home/istvan/packages/bin/server.js" },
 }
 
 return M

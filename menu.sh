@@ -242,6 +242,10 @@ notebook() {
     ${miniconda}/bin/jupyter notebook
 }
 
+rotp() {
+    java -jar plz-out/bin/prebuilt/rotp/Remnants.jar
+}
+
 dog() {
     houndd -conf="/home/istvan/packages/src/github.com/bozso/dotfiles/configs/repos.json"
 }
@@ -264,6 +268,7 @@ mcon
 wincap
 selcap
 storage
+rotp
 "
 
 
