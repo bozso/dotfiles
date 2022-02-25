@@ -9,7 +9,6 @@ return require("packer").startup(function()
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
 
-    use "mhartington/formatter.nvim"
     use "neovim/nvim-lspconfig"
     use "teal-language/vim-teal"
 
@@ -17,8 +16,6 @@ return require("packer").startup(function()
         "jose-elias-alvarez/null-ls.nvim",
         requires = { "nvim-lua/plenary.nvim" },
     }
-
-    use "mfussenegger/nvim-lint"
 
     use { "echasnovski/mini.nvim", branch = "stable" }
 
