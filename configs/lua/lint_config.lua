@@ -40,30 +40,28 @@ local function parse_cargo_diag(diag, item)
     end
 end
 
-M.cargo_check = h.generator_factory {
-    -- src/template/service.rs:35:5: warning: field is never read: `context`
-    -- path/to/file:line:col: severity: message
+M.cargo_check = {
     name = "cargo_check",
     method = DIAGNOSTICS_ON_SAVE,
     filetypes = { "rust" },
-    -- generator_opts = {
-    command = "cargo",
-    args = { "check", "--message-format=json" },
-    filetypes = { "rust" },
-    from_stderr = false,
-    ignore_stderr = true,
-    format = "json",
-    on_output = function(params)
-        local diags = {}
+    generator = h.generator_factory {
+        command = "cargo",
+        args = { "check", "--message-format=json" },
+        filetypes = { "rust" },
+        from_stderr = false,
+        ignore_stderr = true,
+        format = "json",
+        on_output = function(params)
+            local diags = {}
 
-        for _, item in ipairs(params.output) do
-            if item.reason == "compiler-message" then
-                parse_cargo_diag(diags, item)
+            for _, item in ipairs(params.output) do
+                if item.reason == "compiler-message" then
+                    parse_cargo_diag(diags, item)
+                end
             end
-        end
-        return diags
-    end,
-    -- },
+            return diags
+        end,
+    },
 }
 
 return M

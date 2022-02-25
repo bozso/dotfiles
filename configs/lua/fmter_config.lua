@@ -8,17 +8,16 @@ local FORMATTING = methods.internal.FORMATTING
 
 local M = {}
 
-M.dprint = h.generator_factory {
+M.dprint = {
     filetypes = { "markdown", "json", "toml" },
     name = "dprint",
     method = FORMATTING,
-    generator_opts = {
-        command = "dfmt",
+    generator = h.formatter_factory {
+        command = "dprint",
         args = { "fmt", "--stdin", "$FILENAME" },
         command = "dprint",
         to_stdin = true,
     },
-    factory = h.formatter_factory,
 }
 
 return M
