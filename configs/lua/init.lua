@@ -194,5 +194,4 @@ vim.cmd [[
     endif
 
     au BufRead,BufNewFile *.build_defs if &ft == '' | setfiletype bzl | endif
-    au BufWritePost <buffer> lua require('lint').try_lint()
 ]]
