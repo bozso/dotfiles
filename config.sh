@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 export temu=lxterminal
 export BROWSER="chromium-browser"
 
@@ -185,6 +186,13 @@ eval_if_dir() {
 	if [ -d "$1" ]; then
 		evaluate "$2"
 	fi
+}
+
+get_miniconda() {
+	local url="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+	local curr_dir="$PWD"
+	cd "/tmp" && wget "$url"
+	cd "$curr_dir"
 }
 
 eval_if_file() {
