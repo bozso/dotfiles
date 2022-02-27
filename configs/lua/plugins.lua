@@ -10,7 +10,6 @@ return require("packer").startup(function()
     use "wbthomason/packer.nvim"
 
     use "neovim/nvim-lspconfig"
-    use "teal-language/vim-teal"
 
     use {
         "jose-elias-alvarez/null-ls.nvim",
@@ -18,11 +17,6 @@ return require("packer").startup(function()
     }
 
     use { "echasnovski/mini.nvim", branch = "stable" }
-
-    use {
-        "earthly/earthly.vim",
-        branch = "main",
-    }
 
     use {
         "ibhagwan/fzf-lua",
@@ -33,6 +27,16 @@ return require("packer").startup(function()
     }
 
     use "mattn/emmet-vim"
+
+    use {
+        "earthly/earthly.vim",
+        branch = "main",
+    }
+
+    use "nathom/filetype.nvim"
+
+    -- extra language packages
+    use "teal-language/vim-teal"
     use "ziglang/zig.vim"
     use "alaviss/nim.nvim"
 end)

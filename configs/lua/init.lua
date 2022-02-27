@@ -98,6 +98,13 @@ require("mini.surround").setup {
     },
 }
 
+require("filetype").setup {
+    overrides = {
+        extensions = {
+            tl = "teal",
+        },
+    },
+}
 require("fzf-lua").setup {}
 
 vim.wo.colorcolumn = "79"
