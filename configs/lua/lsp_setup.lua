@@ -15,11 +15,11 @@ local servers = {
     "julials",
 }
 
-local function buf_set_keymap(...)
+local function buf_set_keymap(bufnr, ...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
 end
 
-local function buf_set_option(...)
+local function buf_set_option(bufnr, ...)
     vim.api.nvim_buf_set_option(bufnr, ...)
 end
 
@@ -52,18 +52,19 @@ local keymaps = {
 
 local opts = { noremap = true, silent = true }
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
 local function on_attach(client, bufnr)
     client.resolved_capabilities.document_formatting = true
+
     -- Enable completion triggered by <c-x><c-o>
-    if client.resolved_capabilities.completion then
-        buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-    end
+    buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
     for key, val in pairs(keymaps) do
-        buf_set_keymap("n", key, val, opts)
+        buf_set_keymap(bufnr, "n", key, val, opts)
     end
+
+    -- if client.name == "null-ls" then
+    --     client.resolved_capabilities. = false
+    -- end
 end
 
 for _, lsp in pairs(servers) do
@@ -157,32 +158,37 @@ function null_ls_setup()
     local fmter = require "fmter_config"
     local lint = require "lint_config"
 
-    null_ls.setup {
-        sources = {
-            -- python
-            fmt.black,
-            fmt.isort,
-            diag.teal,
-            -- lint.cargo_check,
-            diag.misspell,
-            fmter.dprint,
-            fmt.stylua.with {
-                condition = function(utils)
-                    return utils.root_has_file {
-                        "stylua.toml",
-                        ".stylua.toml",
-                    }
-                end,
-            },
-            -- diag.selene,
-            -- sh, bash
-            diag.shellcheck,
-            fmt.shellharden,
-            fmt.shfmt,
-            -- golang
-            diag.golangci_lint,
-            fmt.goimports,
+    srcs = {
+        -- python
+        fmt.black,
+        fmt.isort,
+        diag.teal,
+        -- lint.cargo_check,
+        diag.misspell,
+        fmter.dprint,
+        fmt.stylua.with {
+            condition = function(utils)
+                return utils.root_has_file {
+                    "stylua.toml",
+                    ".stylua.toml",
+                }
+            end,
         },
+        -- diag.selene,
+        -- sh, bash
+        diag.shellcheck,
+        fmt.shellharden,
+        fmt.shfmt,
+        -- golang
+        diag.golangci_lint,
+        fmt.goimports,
+    }
+
+    -- local cfg = require "null-ls.config"
+
+    null_ls.setup {
+        debug = true,
+        sources = srcs,
         on_attach = on_attach,
     }
 end
