@@ -1,6 +1,3 @@
-local ut = require "utils"
-local fmt = string.format
-
 local h = require "null-ls.helpers"
 local methods = require "null-ls.methods"
 
