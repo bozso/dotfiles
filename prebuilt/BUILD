@@ -794,7 +794,70 @@ def misspell(config):
         ),
     }
 
+def dmd(config):
+    tpl = "http://downloads.dlang.org/releases/%s/dmd.%s.linux.tar.xz"
+    url = tpl % (config.year, config.version)
+
+    out = "dmd"
+
+    return {
+        "name": "dmd",
+        "exported_files": [],
+        "url": url,
+        "out": out,
+        "bin": "%s/dmd2/linux/bin64" % out,
+    }
+
+def serve_d(config):
+    version = config
+    name = "serve-d_%s-${OS}-x86_64" % version
+
+    url = github_release(
+        owner="Pure-D",
+        repo="serve-d",
+        version="v%s" % version
+    )
+
+    out = "serve_d"
+
+    return {
+        "name": "serve_d",
+        "exported_files": ["serve-d"],
+        "url": "%s/%s.tar.xz" % (
+            url,
+            name,
+        ),
+        # "out": out,
+        # "bin": "%s/bin" % out,
+    }
+
+def dcd(config):
+    # https://github.com/dlang-community/DCD/releases/download/v0.13.6/.tar.gz
+    version = "v%s" % config
+    name = "dcd-%s-${OS}-x86_64" % version
+
+    url = github_release(
+        owner="dlang-community",
+        repo="DCD",
+        version=version
+    )
+
+    out = "dcd"
+
+    return {
+        "name": "dcd",
+        "exported_files": ["dcd-server", "dcd-client"],
+        "url": "%s/%s.tar.gz" % (
+            url,
+            name,
+        ),
+    }
+
+
 fns = {
+    "dcd": dcd,
+    "dmd": dmd,
+    "serve_d": serve_d,
     "teal": teal,
     "julia": julia,
     "go": go,
@@ -847,8 +910,17 @@ def gen_env(fns, versions):
 
     return out
 
+
+
+
 home = {
     "clib": "2.7.0",
+    "serve_d": "0.7.4",
+    "dcd": "0.13.6",
+    "dmd": {
+        "version": "2.099.0",
+        "year": "2022",
+    },
     "teal": "0.13.2",
     "shellharden": "4.1.1",
     "shfmt": "3.4.3",

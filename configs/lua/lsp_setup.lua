@@ -13,6 +13,7 @@ local servers = {
     "nimls",
     "zls",
     "julials",
+    "serve_d",
 }
 
 local function buf_set_keymap(bufnr, ...)
@@ -62,9 +63,9 @@ local function on_attach(client, bufnr)
         buf_set_keymap(bufnr, "n", key, val, opts)
     end
 
-    -- if client.name == "null-ls" then
-    --     client.resolved_capabilities. = false
-    -- end
+    if client.name == "null-ls" then
+        client.resolved_capabilities.completion = false
+    end
 end
 
 for _, lsp in pairs(servers) do
@@ -166,6 +167,7 @@ function null_ls_setup()
         -- lint.cargo_check,
         diag.misspell,
         fmter.dprint,
+        fmt.nimpretty,
         fmt.stylua.with {
             condition = function(utils)
                 return utils.root_has_file {
