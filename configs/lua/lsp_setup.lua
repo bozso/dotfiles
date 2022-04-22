@@ -8,7 +8,8 @@ local fmt = string.format
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 local servers = {
-    "pyright",
+    -- "pyre",
+    "pylsp",
     "clangd",
     "nimls",
     "zls",
