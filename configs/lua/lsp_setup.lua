@@ -76,26 +76,6 @@ end
 
 local fmt = require "fmter_config"
 
--- lspconfig.efm.setup {
---     cmd = { "efm-langserver", "-logfile", "/tmp/efm.log" },
---     init_options = { documentFormatting = true },
---     flags = { debounce_text_changes = 150 },
---     filetypes = {
---         "python",
---         "lua",
---         "yaml",
---         "json",
---         "markdown",
---         "javascript",
---         "typescript",
---         "rust",
---     },
---     settings = {
---         rootMarkers = { ".git/", "Cargo.toml" },
---         languages = fmt.languages,
---     },
--- }
-
 lspconfig.gopls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
