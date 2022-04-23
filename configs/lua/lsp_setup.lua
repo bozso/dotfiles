@@ -156,6 +156,7 @@ function null_ls_setup()
     local builtins = null_ls.builtins
     local fmt = builtins.formatting
     local diag = builtins.diagnostics
+    local mydiag = require "diagnostics"
     local fmter = require "fmter_config"
     local lint = require "lint_config"
 
@@ -168,6 +169,7 @@ function null_ls_setup()
         diag.misspell,
         fmter.dprint,
         fmt.nimpretty,
+        mydiag.dub,
         fmt.stylua.with {
             condition = function(utils)
                 return utils.root_has_file {
