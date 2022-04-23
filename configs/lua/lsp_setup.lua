@@ -8,7 +8,8 @@ local fmt = string.format
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 local servers = {
-    "pyright",
+    -- "pyre",
+    "pylsp",
     "clangd",
     "nimls",
     "zls",
@@ -76,26 +77,6 @@ end
 
 local fmt = require "fmter_config"
 
--- lspconfig.efm.setup {
---     cmd = { "efm-langserver", "-logfile", "/tmp/efm.log" },
---     init_options = { documentFormatting = true },
---     flags = { debounce_text_changes = 150 },
---     filetypes = {
---         "python",
---         "lua",
---         "yaml",
---         "json",
---         "markdown",
---         "javascript",
---         "typescript",
---         "rust",
---     },
---     settings = {
---         rootMarkers = { ".git/", "Cargo.toml" },
---         languages = fmt.languages,
---     },
--- }
-
 lspconfig.gopls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
@@ -161,9 +142,6 @@ function null_ls_setup()
     local lint = require "lint_config"
 
     srcs = {
-        -- python
-        fmt.black,
-        fmt.isort,
         diag.teal,
         -- lint.cargo_check,
         diag.misspell,
