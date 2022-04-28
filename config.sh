@@ -33,7 +33,8 @@ get_cert() {
 bw_impl() {
 	local target="$1"
 
-	local sel="$(rbw list | fzf)"
+	local sel
+	sel="$(rbw list | fzf)"
 	[ -z "$sel" ] && return
 	rbw get "$sel" | xclip -i -selection "$target"
 }
@@ -70,7 +71,7 @@ report() {
 	gotoolbox repositories \
 		-command status \
 		-html -out "/tmp/git_report.html" \
-		-config "$gh/dotfiles/configs/local_repos.json"
+		-config "$github/dotfiles/configs/local_repos.json"
 }
 
 local_install() {
@@ -107,7 +108,6 @@ proton() {
 	local p_sapps="/home/istvan/.steam/steam/steamapps"
 	local p_compat="$p_sapps/compatdata/eofs"
 	local e_proton="$p_sapps/common/Proton 3.16/proton"
-	local p_freetype="/usr/lib/x86_64-linux-gnu/libfreetype.so.6"
 
 	# STEAM_COMPAT_DATA_PATH="/home/istvan/.proton/" python "$e_proton" run $1 LD_PRELOAD=$p_freetype
 	# PROTON_USE_WINED3D11=1 \
@@ -123,7 +123,7 @@ alias nbrc="nano -u ~/.bashrc"
 alias fm="nnn -d -R"
 alias tb="gotoolbox"
 alias mage="tb mage"
-alias light="sudo $pkgs_bin/xbacklight -set"
+alias light="sudo \$pkgs_bin/xbacklight -set"
 
 alias reload='. ${dotfiles}/config.sh'
 alias menu='sh ${dotfiles}/menu.sh modules'
