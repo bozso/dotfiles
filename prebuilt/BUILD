@@ -103,17 +103,26 @@ def zig(version):
 
 def nvim(version):
     pre = "nvim-%s64" % CONFIG.OS
-    out = "neovim/%s" % version
+    out = "neovim"
 
     return {
         "name": "neovim",
         "exported_files": [],
         "hashes": [
             # 0.5.1
-            # darwin_amd64
-            "sha256: d736845b8b63e443970ea93636dfbde3e2673a70d2058c057e41b836ac4f6f6c",
-            # linux_amd64
+            # nvim-linux64.tar.gz
             "sha256: d4b5b3984f607eaec1cca1df33120adfbaa89cf167d0cac77eb95fd1a9c21e9d",
+            # nvim.appimage
+            "sha256: 1cfbc587ea5598545ac045ee776965a005b1f0c26d5daf5479b859b092697439",
+            # nvim.appimage.zsync
+            "sha256: 65be33fc7bfe939019693d3a8781da97def1b848d083d023d172e8a79a3d1f0a",
+            # nvim-macos.tar.gz
+            "sha256: d736845b8b63e443970ea93636dfbde3e2673a70d2058c057e41b836ac4f6f6c",
+            # nvim-win64.zip
+            "sha256: 0e0dd552a1f28b222b10c07fb94787548cf443b0db6845cf683857e2e13724d2",
+            # nvim-win32.zip
+            "sha256: d098236b443f487ac82be522e50c4259ee2043370943404db3ab38e06d6d39fa",
+
             # 0.6.0
             # nvim-linux64.tar.gz
             "sha256: 9a7f72e25747c3839f2c8978ef4f902aada0c60ad4b5ff0cb8b9d4c1f0b35586",
@@ -125,6 +134,22 @@ def nvim(version):
             "sha256 03cdbfeec3493f50421a9ae4246abe4f9493715f5e151a79c4db79c5b5a43acc",
             # nvim-win64.zip
             "sha256: d46a161a8e025f8a03a75b1181372f2712116e4edf566b2569cdcc4f371f80c4",
+
+            # 0.7.0
+            # nvim-linux64.tar.gz
+            "sha256: 5b3fced3f185ae1e1497cb5f949597c4065585fc26e7cd25a31f5f791dbd9b59",
+            # nvim-linux64.deb
+            "sha256: 4c36e1708b99f24327cde6fff2c19c2b4217e1a289fac90c2c10492df3ea7a71",
+            # nvim.appimage
+            "sha256: ac1caae4f1c54e0ce126b9313d993cb0d1cc4a81ef3e09dd26772be37aaa61db",
+            # nvim.appimage.zsync
+            "sha256: 9711fd721732ac189e8fa40aea6aadc5816861cf53f6ac498bd21cd6cf602f85", 
+            # nvim-macos.tar.gz
+            "sha256: 6260a2edb2da35af02b986c8a6506138afcb3f78f81a80734214b2cadf390a42",
+            # nvim-win64.zip
+            "sha256: a72a90e2897ea296b777c325a37c981a0b51e2fe0c8b8735e3366b65e958cddc",
+            # nvim-win64.msi
+            "sha256: c79b647338c3728e8d690ff70f81a4dda815adf9195cfdcfaa4f715514b0b3b2",
         ],
         "out": out,
         "bin": "%s/bin" % out,
@@ -871,14 +896,12 @@ home = {
     "zig": "0.9.0",
     "zls": "0.9.0",
     "dprint": "0.18.2",
-    "nvim": "0.6.0",
-    "efm": "0.0.38",
+    "nvim": "0.7.0",
     "starship": "1.2.1",
     "fzf": "0.28.0",
     "pandoc": "2.16.2",
     "clang": ("13.0.0", "16.04"),
     "jq": "1.6",
-    "thunderbird": "91.5.1",
     "go": "1.17.6",
     "shellcheck": "0.8.0",
     "misspell": "0.3.4",
