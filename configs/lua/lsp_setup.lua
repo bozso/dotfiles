@@ -140,6 +140,9 @@ function null_ls_setup()
     local lint = require "lint_config"
 
     srcs = {
+        -- python
+        fmter.black,
+        fmter.isort,
         diag.teal,
         -- lint.cargo_check,
         diag.misspell,
