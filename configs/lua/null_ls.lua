@@ -56,10 +56,7 @@ function setup()
         end
     end
 
-    -- on_attach_ = lsp.on_attach
-    on_attach_ = function(_, bufnr)
-        print("null-ls attached", bufnr)
-    end
+    on_attach_ = lsp.on_attach
 
     null_ls.setup {
         debug = true,
@@ -67,6 +64,5 @@ function setup()
         on_attach = on_attach_,
     }
 end
-
 
 setup()

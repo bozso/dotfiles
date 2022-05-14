@@ -38,7 +38,8 @@ return require("packer").startup(function()
     use "nathom/filetype.nvim"
 
     -- extra language packages
-    use "teal-language/vim-teal"
-    use "ziglang/zig.vim"
-    use "alaviss/nim.nvim"
+    -- commented out for now, using treesitter for syntax highlight
+    -- use "teal-language/vim-teal"
+    -- use "ziglang/zig.vim"
+    -- use "alaviss/nim.nvim"
 end)
