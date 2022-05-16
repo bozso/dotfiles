@@ -5,6 +5,11 @@ require "lint_config"
 
 local ut = require "utils"
 local lsp = require "lsp_setup"
+local ts = require "tree_sitter"
+require "null_ls"
+
+lsp.setup_servers()
+ts.setup()
 
 local fmt = string.format
 vim.o.background = "light"
