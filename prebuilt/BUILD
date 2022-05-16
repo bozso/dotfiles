@@ -755,7 +755,6 @@ def shellharden(config):
     }
 
 def shfmt(config):
-    # https://github.com/mvdan/sh/releases/download/v3.4.3/shfmt_v3.4.3_linux_amd64
     version = "v%s" % config
     name = "shfmt_%s_${OS}_amd64" % version
 
@@ -793,6 +792,29 @@ def misspell(config):
             name,
         ),
     }
+
+def haxe(config):
+    # https://haxe.org/download/file/4.2.5/haxe-4.2.5-linux64.tar.gz/
+    # https://github.com/HaxeFoundation/haxe/releases/download/4.2.5/haxe-4.2.5-linux64.tar.gz
+    version = config
+    name = "haxe-%s-linux64.tar.gz" % (version)
+
+    url = github_release(
+        owner="HaxeFoundation",
+        repo="haxe",
+        version=version
+    )
+
+    return {
+        "name": "haxe",
+        "exported_files": [],
+        "url": "%s/%s" % (url, name),
+        "strip_prefix": "haxe_20220306074705_e5eec31",
+        "bin": "haxe",
+        "out": "haxe",
+    }
+
+
 
 fns = {
     "teal": teal,
@@ -835,6 +857,7 @@ fns = {
     "pandoc": pandoc,
     "sccache": sccache,
     "shellcheck": shellcheck,
+    "haxe": haxe,
     # "unciv": unciv,
 }
 
@@ -882,6 +905,7 @@ home = {
     "go": "1.17.6",
     "shellcheck": "0.8.0",
     "misspell": "0.3.4",
+    "haxe": "4.2.5",
     "delta": {
         "version": "0.10.2",
         "libc": "musl",
