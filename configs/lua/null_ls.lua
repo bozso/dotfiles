@@ -14,6 +14,10 @@ function setup()
         fmt.black,
         fmt.isort,
         diag.teal,
+        -- html,css
+        diag.tidy,
+        diag.djlint,
+        fmt.djlint,
         -- lint.cargo_check,
         diag.misspell,
         fmter.dprint,
