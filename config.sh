@@ -22,6 +22,15 @@ storage_nas1() {
 }
 
 ftp_ai() {
+	local target="$mount/gifi"
+	mkdir -p "$target"
+	curlftpfs gifi@storage.ggki.hu "$target"
+}
+
+install_deps() {
+	local deps=" cifs-utils curlftpfs "
+
+	sudo apt-get install "$deps"
 }
 
 ossl="openssl"
