@@ -7,7 +7,7 @@ function setup()
     local diag = builtins.diagnostics
     local fmter = require "fmter_config"
     local lint = require "lint_config"
-    print(fmter.black)
+    local django_fts = { "django", "jinja.html", "htmldjango", "html" }
 
     srcs = {
         -- python
@@ -15,9 +15,13 @@ function setup()
         fmt.isort,
         diag.teal,
         -- html,css
-        diag.tidy,
-        diag.djlint,
-        fmt.djlint,
+        -- diag.tidy,
+        diag.djlint.with {
+            filetypes = django_fts,
+        },
+        fmt.djlint.with {
+            filetypes = django_fts,
+        },
         -- lint.cargo_check,
         diag.misspell,
         fmter.dprint,

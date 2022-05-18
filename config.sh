@@ -11,6 +11,7 @@ export bitbucket="$src/bitbucket.org/ibozso"
 export srht="$src/sr.ht"
 
 export dotfiles="$github/dotfiles"
+mount="$HOME/mount"
 
 storage() {
 	sudo mount.cifs //storage/bozsoi "$HOME"/mount/storage/ -o user=bozsoi,vers=3
@@ -18,6 +19,9 @@ storage() {
 
 storage_nas1() {
 	sudo mount.cifs //nas1.ggki.hu/nkp "$HOME"/mount/nas1 -o user=bozsoi,vers=3
+}
+
+ftp_ai() {
 }
 
 ossl="openssl"

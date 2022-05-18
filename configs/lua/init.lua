@@ -107,7 +107,6 @@ require("filetype").setup {
     overrides = {
         extensions = {
             tl = "teal",
-            dj = "django",
         },
     },
 }
