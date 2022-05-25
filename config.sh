@@ -11,9 +11,26 @@ export bitbucket="$src/bitbucket.org/ibozso"
 export srht="$src/sr.ht"
 
 export dotfiles="$github/dotfiles"
+mount="$HOME/mount"
 
 storage() {
-	sudo mount //storage/bozsoi "$HOME"/mount/storage/ -o user=bozsoi,dir_mode=0777,file_mode=0666
+	sudo mount.cifs //storage/bozsoi "$HOME"/mount/storage/ -o user=bozsoi,vers=3
+}
+
+storage_nas1() {
+	sudo mount.cifs //nas1.ggki.hu/nkp "$HOME"/mount/nas1 -o user=bozsoi,vers=3
+}
+
+ftp_ai() {
+	local target="$mount/gifi"
+	mkdir -p "$target"
+	curlftpfs gifi@storage.ggki.hu "$target"
+}
+
+install_deps() {
+	local deps=" cifs-utils curlftpfs "
+
+	sudo apt-get install "$deps"
 }
 
 ossl="openssl"

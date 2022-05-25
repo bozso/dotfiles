@@ -14,7 +14,6 @@ local servers = {
     "nimls",
     "zls",
     "julials",
-    "serve_d",
 }
 
 local function buf_set_keymap(bufnr, ...)
@@ -54,8 +53,10 @@ local keymaps = {
 
 local opts = { noremap = true, silent = true }
 
-local function on_attach(client, bufnr)
-    client.resolved_capabilities.document_formatting = true
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+function M.on_attach(client, bufnr)
+    -- client.resolved_capabilities.document_formatting = true
 
     -- Enable completion triggered by <c-x><c-o>
     buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -63,121 +64,69 @@ local function on_attach(client, bufnr)
     for key, val in pairs(keymaps) do
         buf_set_keymap(bufnr, "n", key, val, opts)
     end
+end
 
-    if client.name == "null-ls" then
-        client.resolved_capabilities.completion = false
+function M.setup_servers()
+    for _, lsp in pairs(servers) do
+        lspconfig[lsp].setup {
+            on_attach = on_attach,
+        }
     end
-end
 
-for _, lsp in pairs(servers) do
-    lspconfig[lsp].setup {
+    lspconfig.gopls.setup {
         on_attach = on_attach,
-    }
-end
-
-local fmt = require "fmter_config"
-
-lspconfig.gopls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = { debounce_text_changes = 150 },
-    filetypes = { "go", "gomod", "gotmpl" },
-    root_dir = function(fname)
-        return util.root_pattern "go.work"(fname)
-            or util.root_pattern("go.mod", ".git")(fname)
-    end,
-    single_file_support = true,
-    default_config = {
-        root_dir = [[root_pattern("go.mod", ".git")]],
-    },
-    settings = {
-        gopls = {
+        capabilities = capabilities,
+        flags = { debounce_text_changes = 150 },
+        filetypes = { "go", "gomod", "gotmpl" },
+        root_dir = function(fname)
+            return util.root_pattern "go.work"(fname)
+                or util.root_pattern("go.mod", ".git")(fname)
+        end,
+        single_file_support = true,
+        default_config = {
+            root_dir = [[root_pattern("go.mod", ".git")]],
+        },
+        settings = {
+            gopls = {
+                analyses = {
+                    nilness = true,
+                    shadow = true,
+                },
+            },
+        },
+        init_options = {
             analyses = {
                 nilness = true,
                 shadow = true,
             },
         },
-    },
-    init_options = {
-        analyses = {
-            nilness = true,
-            shadow = true,
-        },
-    },
-}
-
-lspconfig.denols.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = { debounce_text_changes = 150 },
-    root_dir = lspconfig.util.root_pattern "deno.json",
-    filetypes = {
-        "javascript",
-        "javascriptreact",
-        "javascript.jsx",
-        "typescript",
-        "typescriptreact",
-        "typescript.tsx",
-        "yaml",
-        "json",
-        "markdown",
-        "html",
-        "css",
-    },
-    init_options = {
-        enable = true,
-        lint = true,
-        unstable = true,
-        -- importMap = "./import_map.json",
-    },
-}
-
-function null_ls_setup()
-    local null_ls = require "null-ls"
-    local builtins = null_ls.builtins
-    local fmt = builtins.formatting
-    local diag = builtins.diagnostics
-    local mydiag = require "diagnostics"
-    local fmter = require "fmter_config"
-    local lint = require "lint_config"
-
-    srcs = {
-        diag.teal,
-        -- lint.cargo_check,
-        diag.misspell,
-        fmter.dprint,
-        fmt.nimpretty,
-        mydiag.dub,
-        mydiag.clippy.with {
-            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-        },
-        fmt.stylua.with {
-            condition = function(utils)
-                return utils.root_has_file {
-                    "stylua.toml",
-                    ".stylua.toml",
-                }
-            end,
-        },
-        -- diag.selene,
-        -- sh, bash
-        diag.shellcheck,
-        fmt.shellharden,
-        fmt.shfmt,
-        -- golang
-        diag.golangci_lint,
-        fmt.goimports,
     }
 
-    -- local cfg = require "null-ls.config"
-
-    null_ls.setup {
-        debug = true,
-        sources = srcs,
+    lspconfig.denols.setup {
         on_attach = on_attach,
+        capabilities = capabilities,
+        flags = { debounce_text_changes = 150 },
+        root_dir = lspconfig.util.root_pattern "deno.json",
+        filetypes = {
+            "javascript",
+            "javascriptreact",
+            "javascript.jsx",
+            "typescript",
+            "typescriptreact",
+            "typescript.tsx",
+            "yaml",
+            "json",
+            "markdown",
+            "html",
+            "css",
+        },
+        init_options = {
+            enable = true,
+            lint = true,
+            unstable = true,
+            -- importMap = "./import_map.json",
+        },
     }
 end
-
-null_ls_setup()
 
 return M
