@@ -959,11 +959,11 @@ home = {
         "libc": "musl",
     },
     "tectonic": {
-        "version": "0.8.0",
+        "version": "0.9.0",
         "libc": "musl",
     },
     "deno": {
-        "version": "1.16.3",
+        "version": "1.22.0",
         "libc": "gnu",
     },
     "bat": {

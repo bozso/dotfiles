@@ -148,6 +148,9 @@ function null_ls_setup()
         fmter.dprint,
         fmt.nimpretty,
         mydiag.dub,
+        mydiag.clippy.with {
+            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+        },
         fmt.stylua.with {
             condition = function(utils)
                 return utils.root_has_file {

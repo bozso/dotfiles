@@ -137,6 +137,10 @@ $bitbucket/stmpy
 $bitbucket/stm-bi
 "
 
+same_as() {
+	xrandr --output VGA-1 --same-as LVDS-1
+}
+
 for path in "$paths"; do
 	p="$path/init.sh"
 
@@ -195,10 +199,75 @@ get_miniconda() {
 	cd "$curr_dir"
 }
 
+servers="\
+robosztus : robosztus.ggki.hu
+zafir     : zafir.ggki.hu
+eejit     : eejit.geo.uu.nl
+"
+
 eval_if_file() {
 	if [ -f "$1" ]; then
 		evaluate "$2"
 	fi
+}
+
+_ssh_select() {
+	echo "$(printf '%s\n' "$servers" | fzf)"
+}
+
+_ssh_calc_address() {
+	local addr
+	addr="$(printf '%s' "$1" |
+		cut -d ':' -f 2 |
+		tr -d ' ')"
+
+	echo "$(printf 'istvan@%s' "$addr")"
+}
+
+_ssh_mount() {
+	local name path cmd
+	name="$(printf '%s' "$1" |
+		cut -d ':' -f 1 |
+		tr -d ' ')"
+
+	path="$HOME/mount/$name"
+	cmd="$(printf 'sshfs %s: %s' "$2" "$path")"
+	"$cmd"
+}
+
+_ssh_join() {
+	local cmd
+	cmd="$(printf 'ssh %s' "$1")"
+	"$cmd"
+}
+
+_manage_ssh() {
+	local mode="$1"
+
+	local server
+	local addr
+	server="$(_ssh_select)"
+	addr="$(_ssh_calc_address "$server")"
+
+	case "$mode" in
+	"mount")
+		_ssh_mount "$server" "$addr"
+		;;
+	"join")
+		_ssh_join "$addr"
+		;;
+	*)
+		printf 'Unknown option: %s!\n' "{mode}"
+		;;
+	esac
+}
+
+ssh_mount() {
+	_manage_ssh "mount"
+}
+
+ssh_join() {
+	_manage_ssh "join"
 }
 
 evaluate "$(starship init bash)"

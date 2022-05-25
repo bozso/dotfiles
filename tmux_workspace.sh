@@ -5,72 +5,74 @@ shutil:$srht/shutil
 "
 
 workspace() {
-    local path="$1"
+	local path="$1"
 
-    # detach from a tmux session if in one
-    tmws_start_server
-    tmws_detach
+	# detach from a tmux session if in one
+	tmws_start_server
+	tmws_detach
 
-    echo $path
+	echo "$path"
 
-    if [ -z "${path}" ]; then
-        path=$(tmws_select_ws)
-    fi
+	if [ -z "$path" ]; then
+		path=$(tmws_select_ws)
+	fi
 
-    local name="$(basename ${path})"
+	local name
+	name="$(basename "$path")"
 
-    echo $name $path
+	echo "$name" "$path"
 
-    tmux has-session -t "${name}" && tmws_attach "${name}" && return
+	tmux has-session -t "$name" && tmws_attach "$name" && return
 
-    tmws_create_session "${name}" "${path}"
-    tmws_setup_session
-    tmws_attach "${name}"
+	tmws_create_session "$name" "$path"
+	tmws_setup_session
+	tmws_attach "$name"
 }
 
 tmws_start_server() {
-    tmux start-server
+	tmux start-server
 }
 
 tmws_select_ws() {
-    local selector="fzf"
-    local paths="${github}:${bitbucket}:${srht}"
-    local buf=""
+	local selector="fzf"
+	local paths="$github:$bitbucket:$srht"
+	local buf=""
 
-    IFS=":"
-    for line in ${paths}; do
-        buf="$(printf "%s\n%s" ${buf} $(ls -1 -d ${line}/*))"
-    done
+	IFS=":"
 
-    echo "$(echo ${buf} | ${selector})"
+	for line in $paths; do
+		buf="$(printf "%s\n%s" "$buf" "$(ls -1 -d "$line"/*)")"
+	done
+
+	echo "$(echo "$buf" | "$selector")"
 }
 
 tmws_attach() {
-    local name="$1"
-    tmux attach -t "${name}"
+	local name="$1"
+	tmux attach -t "$name"
 }
 
 tmws_detach() {
-    tmux detach > /dev/null
+	tmux detach >/dev/null
 }
 
 tmws_create_session() {
-    local name="$1" path="$2"
-    cd "${path}"
-    tmux new-session -d -s "${name}"
+	local name="$1" path="$2"
+	cd "$path" || return
+	tmux new-session -d -s "$name"
 }
 
 tmws_setup_session() {
-    local path="$1" editor="nvim"
-    tmux rename-window "vim"
+	local path="$1" editor="nvim"
+	tmux rename-window "vim"
 
-    tmux send-keys "${editor}" C-m
-    tmux split-window -h -p 35
+	# tmux send-keys "$editor" C-m
+	tmux split-window -h -p 35
 
-    tmux new-window -n fsys
+	tmux new-window -n fsys
 
-    tmux send-keys "fm" C-m
-    tmux split-window -h
+	tmux send-keys "fm" C-m
+	tmux split-window -h
 
-    tmux select-window -t 1
+	tmux select-window -t 1
 }
