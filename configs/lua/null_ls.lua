@@ -1,6 +1,6 @@
 local lsp = require "lsp_setup"
 
-function setup()
+local function setup()
     local null_ls = require "null-ls"
     local builtins = null_ls.builtins
     local fmt = builtins.formatting

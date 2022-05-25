@@ -4,7 +4,7 @@ local methods = require "null-ls.methods"
 local u = require "null-ls.utils"
 local join = u.path.join
 local fmt = string.format
-local gsub = string.gsub
+local find = string.find
 
 local DIAGNOSTICS = methods.internal.DIAGNOSTICS
 
@@ -58,6 +58,8 @@ local parser = h.diagnostics.from_json {
 
 local handle_output = function(params)
     local l = require "null-ls.logger"
+    local bufname = params.bufname
+    l:debug "HSTART"
 
     local messages = {}
     for line in string.gmatch(params.output, "[^\n]+") do
@@ -73,9 +75,11 @@ local handle_output = function(params)
             local msg = decoded.message
             local span = msg.spans[1]
             local file_name = span.file_name
-            local bufname = gsub(params.bufname, params.root .. "/", "")
-            if file_name == bufname then
-                l:debug(msg)
+            l:debug(bufname)
+            l:debug(file_name)
+            local res = find(bufname, file_name)
+            l:debug(res)
+            if res ~= nil then
                 local message = {
                     line = span.line_start,
                     column = span.column_start,
