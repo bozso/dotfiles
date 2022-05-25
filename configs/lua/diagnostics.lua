@@ -49,13 +49,15 @@ M.dub = {
 }
 
 local DIAGNOSTICS = methods.internal.DIAGNOSTICS
+local severities = {
+    error = h.diagnostics.severities["error"],
+    warning = h.diagnostics.severities["warning"],
+    note = h.diagnostics.severities["information"],
+    hint = h.diagnostics.severities["hint"],
+}
+
 local parser = h.diagnostics.from_json {
-    severities = {
-        error = h.diagnostics.severities["error"],
-        warning = h.diagnostics.severities["warning"],
-        note = h.diagnostics.severities["information"],
-        hint = h.diagnostics.severities["hint"],
-    },
+    severities = severities,
 }
 
 local handle_output = function(params)
@@ -85,7 +87,7 @@ local handle_output = function(params)
                 col = span.column_start,
                 end_row = span.line_end,
                 end_col = span.column_end,
-                severity = msg.level,
+                severity = severities[msg.level],
                 message = msg.rendered,
                 filename = bufname,
                 bufnr = bufnr,
