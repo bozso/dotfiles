@@ -45,7 +45,7 @@ local keymaps = {
     ["<leader>h"] = fmt(buf, "hover"),
     ["<leader>H"] = fmt(buf, "signature_help"),
 
-    ["<leader>d"] = fmt(diag, "show_line_diagnostics"),
+    ["<leader>d"] = fmt(diag, "open_float"),
 
     ["<C-k>"] = fmt(diag, "goto_prev"),
     ["<C-j>"] = fmt(diag, "goto_next"),
@@ -63,6 +63,9 @@ function M.on_attach(client, bufnr)
 
     for key, val in pairs(keymaps) do
         buf_set_keymap(bufnr, "n", key, val, opts)
+    end
+    if client.name == "null-ls" then
+        client.resolved_capabilities.completion = false
     end
 end
 
