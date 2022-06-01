@@ -87,9 +87,14 @@ require("mini.surround").setup {
     -- Duration (in ms) of highlight when calling `MiniSurround.highlight()`
     highlight_duration = 500,
 
-    -- Pattern to match function name in 'function call' surrounding
-    -- By default it is a string of letters, '_' or '.'
-    funname_pattern = "[%w_%.]+",
+    -- Add custom surroundings to be used on top of builtin ones. For more
+    -- information with examples, see `:h MiniSurround.config`.
+    custom_surroundings = nil,
+
+    -- How to search for surrounding (first inside current line, then inside
+    -- neighborhood). One of 'cover', 'cover_or_next', 'cover_or_prev',
+    -- 'cover_or_nearest'. For more details, see `:h MiniSurround.config`.
+    search_method = "cover",
 
     -- Mappings. Use `''` (empty string) to disable one.
     mappings = {
