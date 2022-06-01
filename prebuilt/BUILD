@@ -476,6 +476,7 @@ def jq(version):
             ),
             file,
         ),
+        "out": "jq",
     }
 
 def nim(version):
@@ -534,6 +535,7 @@ def inkscape(config):
         "extract": False,
         "url": url_tpl % config.hash,
         "exported_files": [],
+        "out": "inkscape",
     }
 
 def zellij(version):
@@ -856,7 +858,6 @@ def serve_d(config):
     }
 
 def dcd(config):
-    # https://github.com/dlang-community/DCD/releases/download/v0.13.6/.tar.gz
     version = "v%s" % config
     name = "dcd-%s-${OS}-x86_64" % version
 
@@ -879,8 +880,6 @@ def dcd(config):
 
 
 def haxe(config):
-    # https://haxe.org/download/file/4.2.5/haxe-4.2.5-linux64.tar.gz/
-    # https://github.com/HaxeFoundation/haxe/releases/download/4.2.5/haxe-4.2.5-linux64.tar.gz
     version = config
     name = "haxe-%s-linux64.tar.gz" % (version)
 
@@ -900,6 +899,31 @@ def haxe(config):
     }
 
 
+def pueue_cfg(cfg):
+    # https://github.com/Nukesor/pueue/releases/tag/v2.0.2
+    version = "v%s" % cfg
+    url = github_release(
+        owner="Nukesor",
+        repo="pueue",
+        version=version
+    )
+
+    names = ["pueue", "pueued"]
+    out = {}
+    for name in names:
+        exe_name = "%s-${OS}-x86_64" % name
+        out[name] = {
+            "extract": False,
+            "name": name,
+            "url": "%s/%s" % (
+                url,
+                exe_name,
+            ),
+            "out": name,
+        }
+
+    return out
+    
 
 fns = {
     "dcd": dcd,
@@ -949,6 +973,10 @@ fns = {
     # "unciv": unciv,
 }
 
+multi_fns = {
+    "pueue": pueue_cfg,
+}
+
 def gen_env(fns, versions):
     out = {}
     for key, val in fns.items():
@@ -957,8 +985,6 @@ def gen_env(fns, versions):
             out[key] = val(version)
 
     return out
-
-
 
 
 home = {
@@ -1048,16 +1074,16 @@ home = {
     "julia": {
         "version": "1.7.1",
         "libc": "glibc"
-    }
+    },
+    "pueue": "2.0.2",
 }
 
 def add(config):
     kind = config.get("kind", None)
-    if kind is not None:
-        if kind == "binary":
-            return binary_remote(config)
+    if (kind is not None) and (kind == "binary"):
+        return binary_remote(config)
 
-    return simple_remote(pkg)
+    return simple_remote(config)
 
 
 every = gen_env(fns, home)
@@ -1066,6 +1092,14 @@ rules = []
 
 for name, pkg in every.items():
     rules += [add(pkg)]
+
+
+for name, pkg in multi_fns.items():
+    cfg = home[name]
+    subpkgs = pkg(cfg)
+    for s in subpkgs.values():
+        rules += [add(s)]
+
 
 paths = ""
 
