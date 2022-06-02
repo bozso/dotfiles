@@ -902,6 +902,8 @@ def haxe(config):
 
 
 fns = {
+    # TODO, pueue
+    # https://github.com/Nukesor/pueue/releases/download/v2.0.2/pueue-linux-x86_64
     "dcd": dcd,
     "dmd": dmd,
     "serve_d": serve_d,
