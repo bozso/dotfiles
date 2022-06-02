@@ -900,7 +900,6 @@ def haxe(config):
 
 
 def pueue_cfg(cfg):
-    # https://github.com/Nukesor/pueue/releases/tag/v2.0.2
     version = "v%s" % cfg
     url = github_release(
         owner="Nukesor",
@@ -924,8 +923,29 @@ def pueue_cfg(cfg):
 
     return out
     
+def xplr(cfg):
+    # https://github.com/sayanarijit/xplr/releases/download/v0.18.0/xplr-linux-musl.tar.gz
+    name = "xplr"
+    version = cfg
+    version = "v%s" % version
+
+    url = github_release(
+        owner="sayanarijit",
+        repo="xplr",
+        version=version
+    )
+
+    return {
+        "name": name,
+        "exported_files": ["xplr"],
+        "url": "%s/xplr-${OS}.tar.gz" % (
+            url
+        ),
+        # "out": "xplr",
+    }
 
 fns = {
+    "xplr": xplr,
     "dcd": dcd,
     "dmd": dmd,
     "serve_d": serve_d,
@@ -991,6 +1011,7 @@ home = {
     "clib": "2.7.0",
     "serve_d": "0.7.4",
     "dcd": "0.13.6",
+    "xplr": "0.18.0",
     "dmd": {
         "version": "2.099.0",
         "year": "2022",
@@ -1057,10 +1078,6 @@ home = {
     },
     "rg": {
         "version": "13.0.0",
-        "libc": "musl",
-    },
-    "xplr": {
-        "version": "0.16.4",
         "libc": "musl",
     },
     "nnn": {
