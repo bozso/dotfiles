@@ -40,7 +40,7 @@ tmws_select_ws() {
 
 	IFS=":"
 
-	for line in "$paths"; do
+	for line in $paths; do
 		buf="$(printf "%s\n%s" "$buf" "$(ls -1 -d "$line"/*)")"
 	done
 
