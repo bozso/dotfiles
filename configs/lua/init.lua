@@ -183,6 +183,7 @@ end
 local fzf_w = lsp.fzf_w
 
 nnoremaps = {
+    ["<leader>j"] = "<cmd>FzfLua<cr>",
     ["<leader>f"] = fmt(fzf_w, "files"),
     ["<leader>b"] = fmt(fzf_w, "buffers"),
     ["<leader>g"] = fmt(fzf_w, "live_grep"),
