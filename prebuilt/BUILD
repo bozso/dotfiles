@@ -658,7 +658,6 @@ def julia(config):
     }
 
 def thunderbird(cfg):
-    # https://download.mozilla.org/?product=thunderbird-91.5.1-SSL&os=linux64&lang=en-US
     url = "https://download.mozilla.org/?product=thunderbird-%s-SSL&os=linux64" % cfg
     out = "thunderbird/%s" % cfg
 
@@ -944,6 +943,33 @@ def xplr(cfg):
         # "out": "xplr",
     }
 
+
+def nushell(cfg):
+    # https://github.com/nushell/nushell/releases/download/0.63.0/nu_0_63_0_linux.tar.gz
+    version = cfg
+
+    url = github_release(
+        owner="nushell",
+        repo="nushell",
+        version=version
+    )
+    main_name = "nushell"
+    version_escaped = version.replace(".", "_")
+    name = "nu_%s_${OS}" % (version_escaped)
+    sub_name = "nushell-%s" % (version)
+
+    return {
+        "name": main_name,
+        "exported_files": [],
+        "url": "%s/%s.tar.gz" % (url, name),
+        "strip_prefix": "%s/%s" % (name, sub_name),
+        "out": main_name,
+        "bin": main_name,
+    }
+
+
+
+
 fns = {
     "xplr": xplr,
     "dcd": dcd,
@@ -984,6 +1010,7 @@ fns = {
     "dust": dust,
     "nnn": nnn,
     "fzf": fzf,
+    "nushell": nushell,
     "jq": jq,
     "xplr": xplr,
     "pandoc": pandoc,
@@ -1048,6 +1075,7 @@ home = {
     "shellcheck": "0.8.0",
     "misspell": "0.3.4",
     "haxe": "4.2.5",
+    # "nushell": "0.43.0",
     "delta": {
         "version": "0.10.2",
         "libc": "musl",
