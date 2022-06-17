@@ -64,9 +64,6 @@ function M.on_attach(client, bufnr)
     for key, val in pairs(keymaps) do
         buf_set_keymap(bufnr, "n", key, val, opts)
     end
-    if client.name == "null-ls" then
-        client.resolved_capabilities.completion = false
-    end
 end
 
 function M.setup_servers()

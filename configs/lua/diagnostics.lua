@@ -60,39 +60,70 @@ local parser = h.diagnostics.from_json {
     severities = severities,
 }
 
+local function clippy_parse_msg(msg)
+    local span = msg.spans[1]
+    local file_name = span.file_name
+    local stripped_src = gsub(file_name, "src", "")
+    local bufname = join(root, stripped_src)
+    local bufnr = uri_to_buf("file:///" .. bufname)
+
+    local message = {
+        row = span.line_start,
+        col = span.column_start,
+        end_row = span.line_end,
+        end_col = span.column_end,
+        severity = severities[msg.level],
+        message = msg.rendered,
+        filename = bufname,
+        bufnr = bufnr,
+    }
+    return message
+end
+
+local function parse_children(msg, root, target)
+    local chld = msg.children
+    local parsed = {}
+    sub = chld.children
+    if sub and len(sub) ~= 0 then
+        parse_children(sub, root, target)
+    end
+    local msg = clippy_parse_msg(chld)
+    table.insert(target, message)
+end
+
+local clippy = {
+    parsers = {
+        old = function(decoded, root, target)
+            if
+                decoded.message
+                and decoded.message.spans
+                and decoded.message.spans[1]
+                and decoded.message.code
+            then
+                local msg = clippy_parse_msg(decoded.message)
+                table.insert(target, msg)
+            end
+        end,
+        new = function(decoded, root, target)
+            if decoded.message then
+                local msg = decoded.message
+                parse_children(msg, root, target)
+            end
+        end,
+    },
+}
+
 local handle_output = function(params)
-    local l = require "null-ls.logger"
     local root = params.root
+    -- local parser = clippy.parsers.new
+    local parser = clippy.parsers.old
 
     local messages = {}
     for line in string.gmatch(params.output, "[^\n]+") do
         local ok, decoded = pcall(vim.json.decode, line)
 
-        if
-            ok
-            and decoded.message
-            and decoded.message.spans
-            and decoded.message.spans[1]
-            and decoded.message.code
-        then
-            local msg = decoded.message
-            local span = msg.spans[1]
-            local file_name = span.file_name
-            local stripped_src = gsub(file_name, "src", "")
-            local bufname = join(root, stripped_src)
-            local bufnr = uri_to_buf("file:///" .. bufname)
-
-            local message = {
-                row = span.line_start,
-                col = span.column_start,
-                end_row = span.line_end,
-                end_col = span.column_end,
-                severity = severities[msg.level],
-                message = msg.rendered,
-                filename = bufname,
-                bufnr = bufnr,
-            }
-            table.insert(messages, message)
+        if ok then
+            parser(decoded, root, messages)
         end
     end
 

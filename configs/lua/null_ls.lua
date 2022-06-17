@@ -11,6 +11,7 @@ local function setup()
     local django_fts = { "django", "jinja.html", "htmldjango", "html" }
 
     srcs = {
+        builtins.completion.spell,
         -- python
         fmt.black,
         fmt.isort,
