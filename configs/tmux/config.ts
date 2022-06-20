@@ -22,5 +22,5 @@ export interface Pane {
 }
 
 export interface Workspace {
-  public: Record<string, Pane>;
+  panes: Record<string, Pane>;
 }
