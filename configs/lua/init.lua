@@ -18,8 +18,17 @@ local base16 = require "mini.base16"
 local palette = base16.mini_palette("#e2e5ca", "#002a83", 75)
 base16.setup { palette = palette, name = "minischeme", use_cterm = true }
 
+require("github-theme").setup {
+    theme_style = "light",
+    function_style = "italic",
+    sidebars = { "qf", "vista_kind", "terminal", "packer" },
+    colors = {
+        bg_visual_selection = "#c0cec7",
+    },
+}
+
 -- TODO: figure out how to change colorscheme properly
-local status, err = pcall(vim.cmd, "colorscheme minischeme")
+local status, err = pcall(vim.cmd, "colorscheme github_light_default")
 
 if not status then
     vim.cmd [[colorscheme delek]]
