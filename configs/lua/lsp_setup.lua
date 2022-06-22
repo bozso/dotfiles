@@ -83,21 +83,20 @@ function M.setup_servers()
                 or util.root_pattern("go.mod", ".git")(fname)
         end,
         single_file_support = true,
-        default_config = {
-            root_dir = [[root_pattern("go.mod", ".git")]],
-        },
+        -- default_config = {
+        --     root_dir = [[root_pattern("go.mod", ".git")]],
+        -- },
         settings = {
             gopls = {
                 analyses = {
                     nilness = true,
                     shadow = true,
+                    unusedparams = true,
+                    fieldalignment = true,
+                    unusedwrite = true,
+                    useany = true,
                 },
-            },
-        },
-        init_options = {
-            analyses = {
-                nilness = true,
-                shadow = true,
+                staticcheck = true,
             },
         },
     }
