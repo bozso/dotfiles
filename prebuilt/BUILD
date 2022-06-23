@@ -968,6 +968,27 @@ def nushell(cfg):
     }
 
 
+def gitui(cfg):
+    # https://github.com/extrawurst/gitui/releases/download/v0.20.1/gitui-linux-musl.tar.gz
+    ver = cfg["version"]
+    libc = cfg["libc"]
+    version = "v%s" % ver
+
+    url = github_release(
+        owner="extrawurst",
+        repo="gitui",
+        version=version
+    )
+
+    name = "gitui-${OS}-%s" % libc
+
+    return {
+        "name": "gitui",
+        "exported_files": ["gitui"],
+        "url": "%s/%s.tar.gz" % (
+            url, name
+        ),
+    }
 
 
 fns = {
@@ -977,6 +998,7 @@ fns = {
     "serve_d": serve_d,
     "teal": teal,
     "julia": julia,
+    "gitui": gitui,
     "go": go,
     "shfmt": shfmt,
     "misspell": misspell,
@@ -1076,6 +1098,10 @@ home = {
     "misspell": "0.3.4",
     "haxe": "4.2.5",
     # "nushell": "0.43.0",
+    "gitui": {
+        "version": "0.20.1",
+        "libc": "musl",
+    },
     "delta": {
         "version": "0.10.2",
         "libc": "musl",
