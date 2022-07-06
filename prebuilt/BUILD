@@ -969,7 +969,6 @@ def nushell(cfg):
 
 
 def gitui(cfg):
-    # https://github.com/extrawurst/gitui/releases/download/v0.20.1/gitui-linux-musl.tar.gz
     ver = cfg["version"]
     libc = cfg["libc"]
     version = "v%s" % ver
@@ -990,8 +989,29 @@ def gitui(cfg):
         ),
     }
 
+def bun(cfg):
+    # https://github.com/Jarred-Sumner/bun/releases/download/bun-v0.1.1/bun-linux-x64.zip
+    ver = cfg
+    version = "bun-v%s" % ver
+
+    url = github_release(
+        owner="Jarred-Sumner",
+        repo="bun",
+        version=version
+    )
+
+    name = "bun-${OS}-x64"
+
+    return {
+        "name": "bun",
+        "exported_files": ["%s/bun" % name],
+        "url": "%s/%s.zip" % (
+            url, name
+        ),
+    }
 
 fns = {
+    "bun": bun,
     "xplr": xplr,
     "dcd": dcd,
     "dmd": dmd,
@@ -1057,6 +1077,7 @@ def gen_env(fns, versions):
 
 
 home = {
+    "bun": "0.1.1",
     "clib": "2.7.0",
     "serve_d": "0.7.4",
     "dcd": "0.13.6",
