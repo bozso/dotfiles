@@ -995,7 +995,7 @@ def bun(cfg):
     version = "bun-v%s" % ver
 
     url = github_release(
-        owner="Jarred-Sumner",
+        owner="oven-sh",
         repo="bun",
         version=version
     )
@@ -1077,7 +1077,7 @@ def gen_env(fns, versions):
 
 
 home = {
-    "bun": "0.1.1",
+    "bun": "0.1.4",
     "clib": "2.7.0",
     "serve_d": "0.7.4",
     "dcd": "0.13.6",
