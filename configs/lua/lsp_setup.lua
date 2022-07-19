@@ -77,7 +77,7 @@ function M.setup_servers()
         on_attach = on_attach,
         capabilities = capabilities,
         flags = { debounce_text_changes = 150 },
-        filetypes = { "go", "gomod", "gotmpl" },
+        filetypes = { "go", "gomod", "gotmpl", "template" },
         root_dir = function(fname)
             return util.root_pattern "go.work"(fname)
                 or util.root_pattern("go.mod", ".git")(fname)
@@ -88,6 +88,7 @@ function M.setup_servers()
         -- },
         settings = {
             gopls = {
+                templateExtensions = { "tmpl" },
                 analyses = {
                     nilness = true,
                     shadow = true,
