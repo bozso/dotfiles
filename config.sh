@@ -158,6 +158,10 @@ same_as() {
 	xrandr --output VGA-1 --same-as LVDS-1
 }
 
+monitor_institute() {
+	xrandr --output HDMI-1 --same-as eDP-1 --right-of eDP-1
+}
+
 for path in "$paths"; do
 	p="$path/init.sh"
 
