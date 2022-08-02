@@ -1010,7 +1010,33 @@ def bun(cfg):
         ),
     }
 
+
+def rust_analyzer(cfg):
+    # https://github.com/rust-lang/rust-analyzer/releases/download/2022-07-18/rust-analyzer-x86_64-unknown-linux-musl.gz
+
+    ver = cfg["version"]
+    libc = cfg["libc"]
+
+    url = github_release(
+        owner="rust-lang",
+        repo="rust-analyzer",
+        version=ver
+    )
+
+    name = "rust-analyzer-x86_64-unknown-${OS}-%s" % (libc,)
+
+    return {
+        "name": "rust_analyzer",
+        "exported_files": [name],
+        "url": "%s/%s.gz" % (
+            url, name
+        ),
+        "out": name,
+        "bin": name,
+    }
+
 fns = {
+    "rust_analyzer": rust_analyzer,
     "bun": bun,
     "xplr": xplr,
     "dcd": dcd,
@@ -1077,6 +1103,10 @@ def gen_env(fns, versions):
 
 
 home = {
+    "rust_analyzer": {
+        "version": "2022-07-18",
+        "libc": "gnu",
+    },
     "bun": "0.1.1",
     "clib": "2.7.0",
     "serve_d": "0.7.4",
