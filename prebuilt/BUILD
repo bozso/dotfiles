@@ -1103,11 +1103,11 @@ def gen_env(fns, versions):
 
 
 home = {
-    "rust_analyzer": {
-        "version": "2022-07-18",
-        "libc": "gnu",
-    },
-    "bun": "0.1.1",
+    # "rust_analyzer": {
+    #     "version": "2022-07-18",
+    #     "libc": "gnu",
+    # },
+    "bun": "0.1.6",
     "clib": "2.7.0",
     "serve_d": "0.7.4",
     "dcd": "0.13.6",
