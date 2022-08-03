@@ -1,0 +1,125 @@
+{
+    "createdBy": "Redirector v3.5.3",
+    "createdAt": "2022-07-27T10:35:28.404Z",
+    "redirects": [
+        {
+            "description": "Twitter to Nitter",
+            "exampleUrl": "https://twitter.com/golang/status/1446247743148670989",
+            "exampleResult": "https://nitter.net/golang/status/1446247743148670989",
+            "error": null,
+            "includePattern": "^https?://(?:.*\\.)*twitter.com/(.*)$",
+            "excludePattern": "",
+            "patternDesc": "",
+            "redirectUrl": "https://nitter.net/$1",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "Example redirect, try going to http://example.com/anywordhere",
+            "exampleUrl": "http://example.com/some-word-that-matches-wildcard",
+            "exampleResult": "https://google.com/search?q=some-word-that-matches-wildcard",
+            "error": null,
+            "includePattern": "http://example.com/*",
+            "excludePattern": "",
+            "patternDesc": "Any word after example.com leads to google search for that word.",
+            "redirectUrl": "https://google.com/search?q=$1",
+            "patternType": "W",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "Old reddit",
+            "exampleUrl": "https://reddit.com/r/rustjerk/comments/q59q96/ah_another_productive_day_of_using_glorious_rust/",
+            "exampleResult": "https://libredd.it/r/rustjerk/comments/q59q96/ah_another_productive_day_of_using_glorious_rust/",
+            "error": null,
+            "includePattern": "^https?://(?:.*\\.)*reddit.com/(.*)$",
+            "excludePattern": "",
+            "patternDesc": "",
+            "redirectUrl": "https://libredd.it/$1",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "Youtube to Snopyta",
+            "exampleUrl": "https://www.youtube.com/watch?v=J0k45TbBGLk&ab_channel=Partiz%C3%A1n",
+            "exampleResult": "https://invidious.snopyta.org/watch?v=J0k45TbBGLk&ab_channel=Partiz%C3%A1n",
+            "error": null,
+            "includePattern": "^https?://(?:.*\\.)*youtube.com/(.*)$",
+            "excludePattern": "",
+            "patternDesc": "",
+            "redirectUrl": "https://invidious.snopyta.org/$1",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "Yewtube to Snopyta",
+            "exampleUrl": "https://yewtu.be/watch?v=Ix_GQWNYcNU",
+            "exampleResult": "https://invidious.snopyta.org/watch?v=Ix_GQWNYcNU",
+            "error": null,
+            "includePattern": "^https?://(?:.*\\.)*yewtu.be/(.*)$",
+            "excludePattern": "",
+            "patternDesc": "",
+            "redirectUrl": "https://invidious.snopyta.org/$1",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "Kavin to Snopyta",
+            "exampleUrl": "https://invidious-jp.kavin.rocks/watch?v=Ix_GQWNYcNU",
+            "exampleResult": "https://invidious.snopyta.org/watch?v=Ix_GQWNYcNU",
+            "error": null,
+            "includePattern": "^https?://(?:.*\\.)*invidious-jp.kavin.rocks/(.*)$",
+            "excludePattern": "",
+            "patternDesc": "",
+            "redirectUrl": "https://invidious.snopyta.org/$1",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "Medium to Scribe",
+            "exampleUrl": "https://medium.com/@user/post-123456abcdef",
+            "exampleResult": "https://scribe.rip/@user/post-123456abcdef",
+            "error": null,
+            "includePattern": "^https?://(?:.*\\.)*medium.com/(.*)$",
+            "excludePattern": "",
+            "patternDesc": "",
+            "redirectUrl": "https://scribe.rip/$1",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        }
+    ]
+}
