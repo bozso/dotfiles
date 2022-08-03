@@ -75,7 +75,6 @@ def stylua(version):
 def node(version):
     return {
         "name": "node",
-        # "exported_files": ["bin/", "include/", ""],
         "exported_files": [],
         "url": "https://nodejs.org/dist/v%s/node-v%s-%s-x64.tar.xz" % (
             version,
@@ -852,8 +851,6 @@ def serve_d(config):
             url,
             name,
         ),
-        # "out": out,
-        # "bin": "%s/bin" % out,
     }
 
 def dcd(config):
@@ -923,7 +920,6 @@ def pueue_cfg(cfg):
     return out
     
 def xplr(cfg):
-    # https://github.com/sayanarijit/xplr/releases/download/v0.18.0/xplr-linux-musl.tar.gz
     name = "xplr"
     version = cfg
     version = "v%s" % version
@@ -945,7 +941,6 @@ def xplr(cfg):
 
 
 def nushell(cfg):
-    # https://github.com/nushell/nushell/releases/download/0.63.0/nu_0_63_0_linux.tar.gz
     version = cfg
 
     url = github_release(
@@ -1134,7 +1129,7 @@ home = {
     "node": "14.18.1",
     "nim": "1.6.0",
     "stylua": "0.11.2",
-    "golangci": "1.47.0",
+    "golangci": "1.47.3",
     "zig": "0.9.0",
     "zls": "0.9.0",
     "dprint": "0.18.2",
