@@ -14,6 +14,7 @@ local servers = {
     "nimls",
     "zls",
     "julials",
+    "rust_analyzer",
 }
 
 local function buf_set_keymap(bufnr, ...)
