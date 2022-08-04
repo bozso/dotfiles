@@ -321,4 +321,13 @@ mm_setup() {
 	eval "$(micromamba shell hook -s bash)"
 }
 
+export DOWNLOAD_THREADS=32
+
+bandcamp_download() {
+	java -jar -jar "$HOME/bandcamp-collection-downloader.jar" \
+		-d Zenék \
+		--cookies-file=/tmp/bandcamp.com_cookies.txt bozsoi \
+		-j "$DOWNLOAD_THREADS"
+}
+
 alias mm="micromamba"
