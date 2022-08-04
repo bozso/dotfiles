@@ -1030,6 +1030,26 @@ def rust_analyzer(cfg):
         "bin": name,
     }
 
+
+def mage(cfg):
+    # https://github.com/magefile/mage/releases/download/v1.13.0/mage_1.13.0_Linux-64bit.tar.gz
+    version = cfg
+    url = github_release(
+        owner="magefile",
+        repo="mage",
+        version="v%s" % version,
+    )
+
+    filename = "mage_%s_Linux-64bit" % version
+    url = "%s/%s.tar.gz" % (url, filename)
+
+    return {
+        "name": "mage",
+        "exported_files": ["mage"],
+        "url": url,
+    }
+
+
 fns = {
     "rust_analyzer": rust_analyzer,
     "bun": bun,
@@ -1081,6 +1101,7 @@ fns = {
     "shellcheck": shellcheck,
     "haxe": haxe,
     # "unciv": unciv,
+    "mage": mage,
 }
 
 multi_fns = {
@@ -1193,6 +1214,7 @@ home = {
         "libc": "glibc"
     },
     "pueue": "2.0.2",
+    "mage": "1.13.0",
 }
 
 def add(config):
