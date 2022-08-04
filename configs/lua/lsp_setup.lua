@@ -40,6 +40,8 @@ local keymaps = {
 
     ["<leader>s"] = fmt(M.fzf_w, "lsp_workspace_symbols"),
     ["<leader>ds"] = fmt(M.fzf, "lsp_document_symbols"),
+    ["<leader>wd"] = fmt(M.fzf, "lsp_workspace_diagnostics"),
+    ["<leader>a"] = fmt(M.fzf, "lsp_code_actions"),
 
     ["<leader>r"] = fmt(buf, "references"),
     ["<leader>rn"] = fmt(buf, "rename"),
