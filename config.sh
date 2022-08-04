@@ -283,17 +283,19 @@ ssh_join() {
 	_manage_ssh "join"
 }
 
-evaluate "$(starship init bash)"
-
-eval_if_file "starship" "$(starship init bash)"
-eval_if_dir "$HOME/bake/bake" "$HOME/bake/bake env"
-
 # source a file if it exists
 source_if() {
 	if [ -f "$1" ]; then
 		. "$1"
 	fi
 }
+
+source_if "$HOME/.config/paths_gen.sh"
+
+evaluate "$(starship init bash)"
+
+eval_if_file "starship" "$(starship init bash)"
+eval_if_dir "$HOME/bake/bake" "$HOME/bake/bake env"
 
 source_if "$HOME/.nix-profile/etc/profile.d/nix.sh"
 source_if "$HOME/.cargo/env"
@@ -311,18 +313,8 @@ source_if "$dotfiles/tmux_workspace.sh"
 conda="$HOME/miniconda3"
 export conda_lib="$conda/lib"
 
-node_path="$down/node/v14.18.0"
-node_bin="$node_path/bin"
-
-export PATH="$PATH:$node_bin"
-
-if [ -f "$node_bin" ]; then
-	export PATH="$PATH:$node_bin"
-fi
-
 . "$dotfiles/manage.sh"
 source_if "/home/istvan/.sdkman/bin/sdkman-init.sh"
-source_if "$HOME/.config/paths_gen.sh"
 
 mm_setup() {
 	eval "$(micromamba shell hook -s bash)"
