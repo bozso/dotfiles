@@ -1030,6 +1030,17 @@ def rust_analyzer(cfg):
         "bin": name,
     }
 
+def ripcord(cfg):
+    version = cfg
+    url = "https://cancel.fm/dl/Ripcord-%s-x86_64.AppImage" % version
+
+    return {
+        "name": "ripcord",
+        "exported_files": [],
+        "url": url,
+        "out": "ripcord",
+    }
+
 fns = {
     "rust_analyzer": rust_analyzer,
     "bun": bun,
@@ -1069,6 +1080,7 @@ fns = {
     "tectonic": tectonic,
     "starship": starship,
     "delta": delta,
+    "ripcord": ripcord,
     "deno": deno,
     "dust": dust,
     "nnn": nnn,
@@ -1193,8 +1205,8 @@ home = {
         "libc": "glibc"
     },
     "pueue": "2.0.2",
+    "ripcord": "0.4.29"
 }
-
 def add(config):
     kind = config.get("kind", None)
     if (kind is not None) and (kind == "binary"):
