@@ -56,13 +56,6 @@ bw_impl() {
 	rbw get "$sel" | xclip -i -selection "$target"
 }
 
-preb() {
-	local py="python3"
-	local file="$dotfiles/prebuilt_binaries.py"
-
-	"$py" "$file" "$@"
-}
-
 bwp() {
 	bw_impl "primary"
 }
@@ -137,9 +130,8 @@ proton() {
 
 alias nano="nano -u"
 alias nbrc="nano -u ~/.bashrc"
-alias fm="nnn -d -R"
+alias fm="nnn-musl-static -d -R"
 alias tb="gotoolbox"
-alias mage="tb mage"
 alias light="sudo \$pkgs_bin/xbacklight -set"
 
 alias reload='. ${dotfiles}/config.sh'
