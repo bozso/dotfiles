@@ -91,6 +91,7 @@ function M.setup_servers()
         -- },
         settings = {
             gopls = {
+                buildFlags = { "-tags=mage" },
                 templateExtensions = { "tmpl" },
                 analyses = {
                     nilness = true,
