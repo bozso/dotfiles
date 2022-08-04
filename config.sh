@@ -5,6 +5,7 @@ export BROWSER="chromium-browser"
 pkgs="$HOME/packages"
 src="$pkgs/src"
 pkgs_bin="$pkgs/usr/bin"
+export PATH="$PATH:$HOME/bin"
 
 export github="$src/github.com/bozso"
 export bitbucket="$src/bitbucket.org/ibozso"

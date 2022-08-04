@@ -75,7 +75,6 @@ def stylua(version):
 def node(version):
     return {
         "name": "node",
-        # "exported_files": ["bin/", "include/", ""],
         "exported_files": [],
         "url": "https://nodejs.org/dist/v%s/node-v%s-%s-x64.tar.xz" % (
             version,
@@ -852,8 +851,6 @@ def serve_d(config):
             url,
             name,
         ),
-        # "out": out,
-        # "bin": "%s/bin" % out,
     }
 
 def dcd(config):
@@ -923,7 +920,6 @@ def pueue_cfg(cfg):
     return out
     
 def xplr(cfg):
-    # https://github.com/sayanarijit/xplr/releases/download/v0.18.0/xplr-linux-musl.tar.gz
     name = "xplr"
     version = cfg
     version = "v%s" % version
@@ -945,7 +941,6 @@ def xplr(cfg):
 
 
 def nushell(cfg):
-    # https://github.com/nushell/nushell/releases/download/0.63.0/nu_0_63_0_linux.tar.gz
     version = cfg
 
     url = github_release(
@@ -1010,7 +1005,33 @@ def bun(cfg):
         ),
     }
 
+
+def rust_analyzer(cfg):
+    # https://github.com/rust-lang/rust-analyzer/releases/download/2022-07-18/rust-analyzer-x86_64-unknown-linux-musl.gz
+
+    ver = cfg["version"]
+    libc = cfg["libc"]
+
+    url = github_release(
+        owner="rust-lang",
+        repo="rust-analyzer",
+        version=ver
+    )
+
+    name = "rust-analyzer-x86_64-unknown-${OS}-%s" % (libc,)
+
+    return {
+        "name": "rust_analyzer",
+        "exported_files": [name],
+        "url": "%s/%s.gz" % (
+            url, name
+        ),
+        "out": name,
+        "bin": name,
+    }
+
 fns = {
+    "rust_analyzer": rust_analyzer,
     "bun": bun,
     "xplr": xplr,
     "dcd": dcd,
@@ -1077,7 +1098,11 @@ def gen_env(fns, versions):
 
 
 home = {
-    "bun": "0.1.1",
+    # "rust_analyzer": {
+    #     "version": "2022-07-18",
+    #     "libc": "gnu",
+    # },
+    "bun": "0.1.6",
     "clib": "2.7.0",
     "serve_d": "0.7.4",
     "dcd": "0.13.6",
