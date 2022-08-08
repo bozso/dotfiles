@@ -46,7 +46,7 @@ local keymaps = {
     ["<leader>r"] = fmt(buf, "references"),
     ["<leader>rn"] = fmt(buf, "rename"),
     ["<leader>h"] = fmt(buf, "hover"),
-    ["<leader>H"] = fmt(buf, "signature_help"),
+    ["<leader>D"] = ":vsplit | lua vim.lsp.buf.definition()<CR>",
 
     ["<leader>d"] = fmt(diag, "open_float"),
 
