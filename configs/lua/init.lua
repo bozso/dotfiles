@@ -173,6 +173,7 @@ ut.update_table {
 ut.update_table {
     to = vim.opt,
     options = {
+        splitright = true,
         tabstop = 4,
         softtabstop = 4,
         shiftwidth = 4,
