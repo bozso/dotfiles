@@ -6,11 +6,10 @@ local function setup()
     local fmt = builtins.formatting
     local diag = builtins.diagnostics
     local fmter = require "fmter_config"
-    local lint = require "lint_config"
     local mydiag = require "diagnostics"
     local django_fts = { "django", "jinja.html", "htmldjango", "html" }
 
-    srcs = {
+    local srcs = {
         builtins.completion.spell,
         -- python
         fmt.black,
@@ -27,6 +26,7 @@ local function setup()
         -- lint.cargo_check,
         diag.misspell,
         fmter.dprint,
+        -- lua
         fmt.stylua.with {
             condition = function(utils)
                 return utils.root_has_file {
@@ -35,13 +35,14 @@ local function setup()
                 }
             end,
         },
-        -- diag.selene,
+        diag.selene,
         -- sh, bash
         diag.shellcheck,
         fmt.shellharden,
         fmt.shfmt,
         -- golang
         diag.golangci_lint,
+        fmt.golines,
         fmt.goimports,
         -- Rust
         fmt.rustfmt,
