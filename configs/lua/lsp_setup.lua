@@ -15,6 +15,9 @@ local servers = {
     "zls",
     "julials",
     "rust_analyzer",
+    "marksman",
+    "sumneko_lua",
+    "ltex",
 }
 
 local function buf_set_keymap(bufnr, ...)
@@ -25,7 +28,6 @@ local function buf_set_option(bufnr, ...)
     vim.api.nvim_buf_set_option(bufnr, ...)
 end
 
-local lsp = "<cmd>lua vim.lsp.%s()<CR>"
 local buf = "<cmd>lua vim.lsp.buf.%s()<CR>"
 local diag = "<cmd>lua vim.diagnostic.%s()<CR>"
 
@@ -56,8 +58,6 @@ local keymaps = {
 
 local opts = { noremap = true, silent = true }
 
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
 function M.on_attach(client, bufnr)
     -- client.resolved_capabilities.document_formatting = true
 
@@ -76,13 +76,37 @@ function M.setup_servers()
         }
     end
 
+    if not configs.golangcilsp then
+        configs.golangcilsp = {
+            default_config = {
+                cmd = { "golangci-lint-langserver" },
+                root_dir = lspconfig.util.root_pattern(".git", "go.mod"),
+                init_options = {
+                    command = {
+                        "golangci-lint",
+                        "run",
+                        "--enable-all",
+                        "--disable",
+                        "lll",
+                        "--out-format",
+                        "json",
+                    },
+                },
+            },
+        }
+    end
+
+    lspconfig.golangci_lint_ls.setup {
+        filetypes = { "go", "gomod" },
+    }
+
     lspconfig.gopls.setup {
         on_attach = on_attach,
         capabilities = capabilities,
         flags = { debounce_text_changes = 150 },
         filetypes = { "go", "gomod", "gotmpl", "template" },
         root_dir = function(fname)
-            return util.root_pattern "go.work"(fname)
+            return util.root_pattern "go.work" (fname)
                 or util.root_pattern("go.mod", ".git")(fname)
         end,
         single_file_support = true,
