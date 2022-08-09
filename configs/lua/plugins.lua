@@ -14,6 +14,11 @@ return require("packer").startup(function()
     use "neovim/nvim-lspconfig"
 
     use {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+    }
+
+    use {
         "projekt0n/github-nvim-theme",
         config = function()
             require("github-theme").setup {
