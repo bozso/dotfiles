@@ -6,8 +6,10 @@ require "lint_config"
 local ut = require "utils"
 local lsp = require "lsp_setup"
 local ts = require "tree_sitter"
+local mason = require "mason_setup"
 require "null_ls"
 
+mason.setup()
 lsp.setup_servers()
 ts.setup()
 
