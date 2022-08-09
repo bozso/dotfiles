@@ -68,6 +68,12 @@ tmws() {
 alias bw="bwp"
 alias rg="rigrep"
 
+fvim() {
+	local filename
+	filename="$(find . -type d \( -name .git -o -name plz-out \) -prune -o -type f -print | fzf)"
+	nvim "$filename"
+}
+
 bw_c() {
 	bw_impl "clipboard"
 }
