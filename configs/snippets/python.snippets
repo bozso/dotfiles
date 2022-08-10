@@ -1,0 +1,51 @@
+snippet #!
+	#!/usr/bin/env python3
+
+snippet docs
+	"""
+	File: ${0}
+	Author: 
+	Email: 
+	Description:
+	"""
+
+snippet itype "import typing package"
+	import typing as t
+
+snippet idt "import typing package"
+	import dataclasses as dc
+
+snippet datac "dataclass definition"
+	@dc.dataclass
+	class ${1:ClassName}(object):
+		"""${2:description}"""
+		${3}
+
+snippet iface "interface / protocol definition"
+	class ${1:ClassName}(t.Protocol):
+		"""${2:description}"""
+		${3}
+
+snippet context "context manager methods" b
+	def __enter__(self):
+		${1:pass}
+
+	def __exit__(self, exc_type, exc_value, traceback):
+		${2:pass}
+
+snippet namedt NamedTuple
+	class ${1:ClassName}(t.NamedTuple):
+		"""${2:description}"""
+		${3}
+
+snippet ret
+	return ${0}
+
+
+snippet trip
+	"""${0}
+	"""
+
+snippet ifmain
+	if __name__ == "__main__":
+		${0:main()}
