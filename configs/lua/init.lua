@@ -3,6 +3,8 @@ require "statusline"
 require "fmter_config"
 require "lint_config"
 
+require("luasnip.loaders.from_snipmate").lazy_load()
+
 local ut = require "utils"
 local lsp = require "lsp_setup"
 local ts = require "tree_sitter"
@@ -192,9 +194,16 @@ local function apply_keys(mode, keybinds, extra_opts)
     end
 end
 
+local set_key = vim.keymap.set
+local function set_keys(mode, keybinds, extra_opts)
+    for key, val in pairs(keybinds) do
+        set_key(mode, key, val, extra_opts)
+    end
+end
+
 local fzf_w = lsp.fzf_w
 
-nnoremaps = {
+local nnoremaps = {
     ["<leader>j"] = "<cmd>FzfLua<cr>",
     ["<leader>f"] = fmt(fzf_w, "files"),
     ["<leader>b"] = fmt(fzf_w, "buffers"),
@@ -206,7 +215,20 @@ nnoremaps = {
     ["<leader>sv"] = "<cmd>source $MYVIMRC<cr>",
 }
 
+local ls = require "luasnip"
+local exorj = ls.expand_or_jumpable
+local exj = ls.expand_or_jump
+
+local inoremaps = {
+    ["<Tab>"] = function()
+        if exorj() then
+            exj()
+        end
+    end,
+}
+
 apply_keys("n", nnoremaps, { noremap = true })
+set_keys("i", inoremaps, { noremap = true, silent = true })
 
 --[[
 TODO: figure out how to port this to lua
