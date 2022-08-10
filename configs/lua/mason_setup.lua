@@ -6,7 +6,7 @@ local tools = {
     -- golang
     { "gopls", version = "v0.9.1" },
     { "golangci-lint-langserver", version = "v0.0.6" },
-    { "gofumpt", version = "v1.3.1" },
+    { "gofumpt", version = "v0.3.1" },
     { "goimports", version = "v0.1.12" },
     -- TODO: integration with nvim
     { "gomodifytags", version = "v1.16.0" },
@@ -21,7 +21,7 @@ local tools = {
     { "marksman", version = "2022-08-07" },
     { "misspell", version = "v0.3.4" },
     -- lua
-    { "selene", version = "0.5.0" },
+    { "selene", version = "0.20.0" },
     { "stylua", version = "v0.14.2" },
     { "lua-language-server", version = "v3.5.2" },
     -- zig
