@@ -16,6 +16,7 @@ return require("packer").startup(function()
     use {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
     }
 
     use {
