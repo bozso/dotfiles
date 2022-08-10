@@ -3,6 +3,7 @@ local lsp = require "lsp_setup"
 local function setup()
     local null_ls = require "null-ls"
     local builtins = null_ls.builtins
+    local actions = builtins.code_actions
     local fmt = builtins.formatting
     local diag = builtins.diagnostics
     local fmter = require "fmter_config"
@@ -23,9 +24,7 @@ local function setup()
         fmt.djlint.with {
             filetypes = django_fts,
         },
-        -- lint.cargo_check,
         diag.misspell,
-        fmter.dprint,
         -- lua
         fmt.stylua.with {
             condition = function(utils)
@@ -37,18 +36,25 @@ local function setup()
         },
         diag.selene,
         -- sh, bash
+        actions.shellcheck,
         diag.shellcheck,
         fmt.shellharden,
         fmt.shfmt,
         -- golang
-        diag.golangci_lint,
         fmt.golines,
         fmt.goimports,
+        fmt.gofumpt,
+        -- protobuf
+        fmt.buf,
+        diag.buf,
         -- Rust
         fmt.rustfmt,
         mydiag.clippy.with {
             method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
         },
+        -- web, miscellaneous
+        fmter.dprint,
+        fmt.jq,
     }
 
     for _, src in pairs(srcs) do
