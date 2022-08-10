@@ -4,6 +4,7 @@ local function setup()
     local null_ls = require "null-ls"
     local builtins = null_ls.builtins
     local actions = builtins.code_actions
+    local completion = builtins.completion
     local fmt = builtins.formatting
     local diag = builtins.diagnostics
     local fmter = require "fmter_config"
@@ -11,6 +12,7 @@ local function setup()
     local django_fts = { "django", "jinja.html", "htmldjango", "html" }
 
     local srcs = {
+        completion.luasnip,
         builtins.completion.spell,
         -- python
         fmt.black,
