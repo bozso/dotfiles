@@ -3,8 +3,6 @@ require "statusline"
 require "fmter_config"
 require "lint_config"
 
-require("luasnip.loaders.from_snipmate").lazy_load()
-
 local ut = require "utils"
 local lsp = require "lsp_setup"
 local ts = require "tree_sitter"
@@ -215,9 +213,16 @@ local nnoremaps = {
     ["<leader>sv"] = "<cmd>source $MYVIMRC<cr>",
 }
 
+-- TODO: refactor this into separate directory
 local ls = require "luasnip"
 local exorj = ls.expand_or_jumpable
 local exj = ls.expand_or_jump
+
+-- file named _.snippets applies to all files
+-- TODO: this does not work
+ls.filetype_extend("all", { "_" })
+
+require("luasnip.loaders.from_snipmate").lazy_load()
 
 local inoremaps = {
     ["<Tab>"] = function()
