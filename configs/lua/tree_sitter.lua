@@ -5,12 +5,13 @@ function M.setup()
     cfg.setup {
         ensure_installed = {
             "c",
+            "cpp",
             "lua",
             "rust",
-            "cpp",
             "python",
             "json",
             "go",
+            "http",
         },
         highlight = {
             -- `false` will disable the whole extension
