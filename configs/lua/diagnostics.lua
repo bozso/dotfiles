@@ -7,34 +7,57 @@ local fmt = string.format
 local gsub = string.gsub
 local find = string.find
 local uri_to_buf = vim.uri_to_bufnr
+local diag = h.diagnostics
 
 local DIAGNOSTICS = methods.internal.DIAGNOSTICS
 
+local severities = {
+    error = h.diagnostics.severities["error"],
+    warning = h.diagnostics.severities["warning"],
+    note = h.diagnostics.severities["information"],
+    hint = h.diagnostics.severities["hint"],
+}
+
 local M = {}
 
-M.dub = {
-    filetypes = { "d" },
-    name = "dub",
+M.zig = h.make_builtin {
+    filetypes = { "zig" },
+    name = "zig",
     method = DIAGNOSTICS,
-
     generator = h.generator_factory {
-        command = "dub",
+        check_exit_code = { 0 },
+        multiple_files = true,
+        command = "zig",
         args = { "build" },
         format = "line",
         from_stderr = true,
-        on_output = h.diagnostics.from_pattern {
-            "[^:]+(%d+:%d:): (%a+) (.*)",
-            { "filename", "row", "col", "severity", "message" },
-        },
-        -- on_output = h.diagnostics.from_errorformat {
-        --     table.concat({
-        --         "%f(%l,%c): %trror: %m",
-        --         "%f(%l,%c): %tarning: %m",
-        --         "%f(%l,%c): %teprecation: %m",
-        --         "%f(%l,%c): %m",
-        --     }, ","),
-        --     "dub",
-        -- },
+        on_output = diag.from_errorformat(
+            table.concat({
+                "%f:%l:%c: %trror: %m",
+                "%f:%l:%c: %tarning: %m",
+            }, ","),
+            "zig"
+        ),
+        -- on_output = diag.from_pattern(
+        --     [[(%s+):(%d+):(%d+): (%w+): (.*)]],
+        --     { "filename", "row", "col", "severity", "message" },
+        --     {
+        --         severities = {
+        --             error = severities.error,
+        --         },
+        --     }
+        -- ),
+        -- on_output = diag.from_pattern(
+        --     "[^:]+:%d+:%d: (%a+): (.*)",
+        --     { "filename", "row", "col", "severity", "message" },
+        --     { error = severities.error, warning = severities.warning }
+        -- ),
+        -- source/slice/raw.d(3,22): Error: undefined identifier `u64`
+        -- on_output = h.diagnostics.from_pattern(
+        --     "[^:]+(%d+:%d:): (%a+): (.*)",
+        --     { "filename", "row", "col", "severity", "message" },
+        --     { Error = severities.error }
+        -- ),
         -- check_exit_code, -- function or table of numbers (optional)
         -- env, -- table (optional)
         -- cwd, -- function (optional)
@@ -48,12 +71,39 @@ M.dub = {
     },
 }
 
-local DIAGNOSTICS = methods.internal.DIAGNOSTICS
-local severities = {
-    error = h.diagnostics.severities["error"],
-    warning = h.diagnostics.severities["warning"],
-    note = h.diagnostics.severities["information"],
-    hint = h.diagnostics.severities["hint"],
+M.dub = h.make_builtin {
+    filetypes = { "d" },
+    name = "dub",
+    method = DIAGNOSTICS,
+    generator = h.generator_factory {
+        check_exit_code = { 0 },
+        multiple_files = true,
+        command = "dub",
+        args = { "build" },
+        format = "line",
+        from_stderr = true,
+        on_output = diag.from_pattern(
+            "[^:]+(%d+:%d:): (%a+): (.*)",
+            { "filename", "row", "col", "severity", "message" },
+            { Error = severities.error }
+        ),
+        -- source/slice/raw.d(3,22): Error: undefined identifier `u64`
+        -- on_output = h.diagnostics.from_pattern(
+        --     "[^:]+(%d+:%d:): (%a+): (.*)",
+        --     { "filename", "row", "col", "severity", "message" },
+        --     { Error = severities.error }
+        -- ),
+        -- check_exit_code, -- function or table of numbers (optional)
+        -- env, -- table (optional)
+        -- cwd, -- function (optional)
+        -- dynamic_command, -- function (optional)
+        -- ignore_stderr, -- boolean (optional)
+        -- multiple_files, -- boolean (optional)
+        -- timeout, -- number (optional)
+        -- to_stdin, -- boolean (optional)
+        -- to_temp_file, -- boolean (optional)
+        -- use_cache, -- boolean (optional)
+    },
 }
 
 local parser = h.diagnostics.from_json {
