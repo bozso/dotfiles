@@ -3,21 +3,17 @@ local lsp = require "lsp_setup"
 local function setup()
     local null_ls = require "null-ls"
     local builtins = null_ls.builtins
+    local actions = builtins.code_actions
+    local completion = builtins.completion
     local fmt = builtins.formatting
     local diag = builtins.diagnostics
     local fmter = require "fmter_config"
-    local lint = require "lint_config"
     local mydiag = require "diagnostics"
     local django_fts = { "django", "jinja.html", "htmldjango", "html" }
     local on_save = null_ls.methods.DIAGNOSTICS_ON_SAVE
 
-    srcs = {
-        -- mydiag.dub.with {
-        --     method = on_save,
-        -- },
-        -- mydiag.zig.with {
-        --     method = on_save,
-        -- },
+    local srcs = {
+        completion.luasnip,
         builtins.completion.spell,
         -- python
         fmt.black,
@@ -31,9 +27,8 @@ local function setup()
         fmt.djlint.with {
             filetypes = django_fts,
         },
-        -- lint.cargo_check,
         diag.misspell,
-        fmter.dprint,
+        -- lua
         fmt.stylua.with {
             condition = function(utils)
                 return utils.root_has_file {
@@ -42,19 +37,27 @@ local function setup()
                 }
             end,
         },
-        -- diag.selene,
+        diag.selene,
         -- sh, bash
+        actions.shellcheck,
         diag.shellcheck,
         fmt.shellharden,
         fmt.shfmt,
         -- golang
-        diag.golangci_lint,
+        fmt.golines,
         fmt.goimports,
+        fmt.gofumpt,
+        -- protobuf
+        fmt.buf,
+        diag.buf,
         -- Rust
         fmt.rustfmt,
         mydiag.clippy.with {
             method = on_save,
         },
+        -- web, miscellaneous
+        fmter.dprint,
+        fmt.jq,
     }
 
     for _, src in pairs(srcs) do

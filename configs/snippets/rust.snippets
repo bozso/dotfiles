@@ -1,0 +1,75 @@
+# General
+
+snippet new "Constructor function"
+	pub fn new(${2}) -> ${1:Self} {
+		$1 { ${3} }
+	}
+
+# Attributes
+
+snippet allow "allow lint attribute" b
+	#[allow(${1:unused_variables})]
+
+snippet cfg "cfg attribute" b
+	#[cfg(${1:target_os = "linux"})]
+
+snippet feat "feature attribute" b
+	#![feature(${1:plugin})]
+
+snippet der "#[derive(..)]" b
+	#[derive(${1:Debug})]
+
+snippet attr "#[..]" b
+	#[${1:inline}]
+
+# Common types
+
+snippet opt "Option<T>"
+	Option<${1:i32}>
+
+snippet res "Result<T, E>"
+	Result<${1:&str}, ${2:()}>
+
+# Struct
+
+snippet impl "Struct/Trait implementation"
+	impl ${1:Type/Trait}${2: for $3} {
+		${0}
+	}
+
+# Implementations
+
+snippet drop "Drop trait implementation (destructor)"
+	impl Drop for $1 {
+		fn drop(&mut self) {
+			${0}
+		}
+	}
+
+snippet asref "AsRef trait implementation"
+	impl AsRef<${1:Ref}> for ${2:Type} {
+		fn as_ref(&self) -> &${3:$1} {
+			&self.${0:field}
+		}
+	}
+
+snippet asmut "AsMut trait implementation"
+	impl AsMut<${1:Ref}> for ${2:Type} {
+		fn as_mut(&mut self) -> &mut ${3:$1} {
+			&mut self.${0:field}
+		}
+	}
+
+# Pointer shortcuts
+
+snippet boxp "Box::new()"
+	Box::new(${0:${VISUAL}})
+
+snippet rc "Rc::new()"
+	Rc::new(${0:${VISUAL}})
+
+snippet arc "Rc::new()"
+	Arc::new(${0:${VISUAL}})
+
+snippet arcm "Rc::new()"
+	Arc::new(Mutex::new(${0:${VISUAL}}))

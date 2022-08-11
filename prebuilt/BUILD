@@ -42,16 +42,16 @@ def golangci(version):
     return {
         "name": "golangci-lint",
         "exported_files": ["%s/golangci-lint" % root],
-        "hashes": [
-            # darwin_arm64
-            "sha256: 9748c2697a65d2962106e74db6db6e3acc9066ec5ff0b81f47d803479e7b4994",
-            # darwin_amd64
-            "sha256: a9b5eb572ce55ae900a3935640fa5e199729e784a6f058e8077a9a2126e00857",
-            # linux_amd64
-            "sha256: 97be8342ac9870bee003904bd8de25c0f3169c6b6238a013d6d6862efa5af992",
-            # freebsd_amd64
-            "sha256: a05d18756522b2803ab53d49f5da074c298b69546691338809dbd16c7a4840fd",
-        ],
+        # "hashes": [
+        #     # darwin_arm64
+        #     "sha256: 9748c2697a65d2962106e74db6db6e3acc9066ec5ff0b81f47d803479e7b4994",
+        #     # darwin_amd64
+        #     "sha256: a9b5eb572ce55ae900a3935640fa5e199729e784a6f058e8077a9a2126e00857",
+        #     # linux_amd64
+        #     "sha256: 97be8342ac9870bee003904bd8de25c0f3169c6b6238a013d6d6862efa5af992",
+        #     # freebsd_amd64
+        #     "sha256: a05d18756522b2803ab53d49f5da074c298b69546691338809dbd16c7a4840fd",
+        # ],
         "url": url,
     }
 
@@ -75,7 +75,6 @@ def stylua(version):
 def node(version):
     return {
         "name": "node",
-        # "exported_files": ["bin/", "include/", ""],
         "exported_files": [],
         "url": "https://nodejs.org/dist/v%s/node-v%s-%s-x64.tar.xz" % (
             version,
@@ -852,8 +851,6 @@ def serve_d(config):
             url,
             name,
         ),
-        # "out": out,
-        # "bin": "%s/bin" % out,
     }
 
 def dcd(config):
@@ -923,7 +920,6 @@ def pueue_cfg(cfg):
     return out
     
 def xplr(cfg):
-    # https://github.com/sayanarijit/xplr/releases/download/v0.18.0/xplr-linux-musl.tar.gz
     name = "xplr"
     version = cfg
     version = "v%s" % version
@@ -945,7 +941,6 @@ def xplr(cfg):
 
 
 def nushell(cfg):
-    # https://github.com/nushell/nushell/releases/download/0.63.0/nu_0_63_0_linux.tar.gz
     version = cfg
 
     url = github_release(
@@ -1010,7 +1005,63 @@ def bun(cfg):
         ),
     }
 
+
+def rust_analyzer(cfg):
+    # https://github.com/rust-lang/rust-analyzer/releases/download/2022-07-18/rust-analyzer-x86_64-unknown-linux-musl.gz
+
+    ver = cfg["version"]
+    libc = cfg["libc"]
+
+    url = github_release(
+        owner="rust-lang",
+        repo="rust-analyzer",
+        version=ver
+    )
+
+    name = "rust-analyzer-x86_64-unknown-${OS}-%s" % (libc,)
+
+    return {
+        "name": "rust_analyzer",
+        "exported_files": [name],
+        "url": "%s/%s.gz" % (
+            url, name
+        ),
+        "out": name,
+        "bin": name,
+    }
+
+def ripcord(cfg):
+    version = cfg
+    url = "https://cancel.fm/dl/Ripcord-%s-x86_64.AppImage" % version
+
+    return {
+        "name": "ripcord",
+        "exported_files": [],
+        "url": url,
+        "out": "ripcord",
+    }
+
+def mage(cfg):
+    # https://github.com/magefile/mage/releases/download/v1.13.0/mage_1.13.0_Linux-64bit.tar.gz
+    version = cfg
+    url = github_release(
+        owner="magefile",
+        repo="mage",
+        version="v%s" % version,
+    )
+
+    filename = "mage_%s_Linux-64bit" % version
+    url = "%s/%s.tar.gz" % (url, filename)
+
+    return {
+        "name": "mage",
+        "exported_files": ["mage"],
+        "url": url,
+    }
+
+
 fns = {
+    "rust_analyzer": rust_analyzer,
     "bun": bun,
     "xplr": xplr,
     "dcd": dcd,
@@ -1048,6 +1099,7 @@ fns = {
     "tectonic": tectonic,
     "starship": starship,
     "delta": delta,
+    "ripcord": ripcord,
     "deno": deno,
     "dust": dust,
     "nnn": nnn,
@@ -1060,6 +1112,7 @@ fns = {
     "shellcheck": shellcheck,
     "haxe": haxe,
     # "unciv": unciv,
+    "mage": mage,
 }
 
 multi_fns = {
@@ -1077,7 +1130,7 @@ def gen_env(fns, versions):
 
 
 home = {
-    "bun": "0.1.4",
+    "bun": "0.1.6",
     "clib": "2.7.0",
     "serve_d": "0.7.4",
     "dcd": "0.13.6",
@@ -1104,7 +1157,7 @@ home = {
     "node": "14.18.1",
     "nim": "1.6.0",
     "stylua": "0.11.2",
-    "golangci": "1.38.0",
+    "golangci": "1.47.3",
     "zig": "0.9.0",
     "zls": "0.9.0",
     "dprint": "0.18.2",
@@ -1168,6 +1221,8 @@ home = {
         "libc": "glibc"
     },
     "pueue": "2.0.2",
+    "ripcord": "0.4.29"
+    "mage": "1.13.0",
 }
 
 def add(config):

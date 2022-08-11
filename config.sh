@@ -5,6 +5,7 @@ export BROWSER="chromium-browser"
 pkgs="$HOME/packages"
 src="$pkgs/src"
 pkgs_bin="$pkgs/usr/bin"
+export PATH="$PATH:$HOME/bin"
 
 export github="$src/github.com/bozso"
 export bitbucket="$src/bitbucket.org/ibozso"
@@ -56,13 +57,6 @@ bw_impl() {
 	rbw get "$sel" | xclip -i -selection "$target"
 }
 
-preb() {
-	local py="python3"
-	local file="$dotfiles/prebuilt_binaries.py"
-
-	"$py" "$file" "$@"
-}
-
 bwp() {
 	bw_impl "primary"
 }
@@ -73,6 +67,12 @@ tmws() {
 
 alias bw="bwp"
 alias rg="rigrep"
+
+fvim() {
+	local filename
+	filename="$(find . -type d \( -name .git -o -name plz-out \) -prune -o -type f -print | fzf)"
+	nvim "$filename"
+}
 
 bw_c() {
 	bw_impl "clipboard"
@@ -137,9 +137,8 @@ proton() {
 
 alias nano="nano -u"
 alias nbrc="nano -u ~/.bashrc"
-alias fm="nnn -d -R"
+alias fm="nnn-musl-static -d -R"
 alias tb="gotoolbox"
-alias mage="tb mage"
 alias light="sudo \$pkgs_bin/xbacklight -set"
 
 alias reload='. ${dotfiles}/config.sh'
@@ -156,6 +155,10 @@ $bitbucket/stm-bi
 
 same_as() {
 	xrandr --output VGA-1 --same-as LVDS-1
+}
+
+monitor_institute() {
+	xrandr --output HDMI-1 --same-as eDP-1 --right-of eDP-1
 }
 
 for path in "$paths"; do
@@ -287,17 +290,19 @@ ssh_join() {
 	_manage_ssh "join"
 }
 
-evaluate "$(starship init bash)"
-
-eval_if_file "starship" "$(starship init bash)"
-eval_if_dir "$HOME/bake/bake" "$HOME/bake/bake env"
-
 # source a file if it exists
 source_if() {
 	if [ -f "$1" ]; then
 		. "$1"
 	fi
 }
+
+source_if "$HOME/.config/paths_gen.sh"
+
+evaluate "$(starship init bash)"
+
+eval_if_file "starship" "$(starship init bash)"
+eval_if_dir "$HOME/bake/bake" "$HOME/bake/bake env"
 
 source_if "$HOME/.nix-profile/etc/profile.d/nix.sh"
 source_if "$HOME/.cargo/env"
@@ -315,21 +320,20 @@ source_if "$dotfiles/tmux_workspace.sh"
 conda="$HOME/miniconda3"
 export conda_lib="$conda/lib"
 
-node_path="$down/node/v14.18.0"
-node_bin="$node_path/bin"
-
-export PATH="$PATH:$node_bin"
-
-if [ -f "$node_bin" ]; then
-	export PATH="$PATH:$node_bin"
-fi
-
 . "$dotfiles/manage.sh"
 source_if "/home/istvan/.sdkman/bin/sdkman-init.sh"
-source_if "$HOME/.config/paths_gen.sh"
 
 mm_setup() {
 	eval "$(micromamba shell hook -s bash)"
+}
+
+export DOWNLOAD_THREADS=32
+
+bandcamp_download() {
+	java -jar -jar "$HOME/bandcamp-collection-downloader.jar" \
+		-d Zenék \
+		--cookies-file=/tmp/bandcamp.com_cookies.txt bozsoi \
+		-j "$DOWNLOAD_THREADS"
 }
 
 alias mm="micromamba"
