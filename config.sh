@@ -330,7 +330,7 @@ mm_setup() {
 export DOWNLOAD_THREADS=32
 
 bandcamp_download() {
-	java -jar -jar "$HOME/bandcamp-collection-downloader.jar" \
+	java -jar -jar "$HOME/bin/bandcamp-collection-downloader.jar" \
 		-d Zenék \
 		--cookies-file=/tmp/bandcamp.com_cookies.txt bozsoi \
 		-j "$DOWNLOAD_THREADS"
