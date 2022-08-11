@@ -5,12 +5,12 @@ snippet ap "append"
 
 snippet co "constants with iota"
 	const (
-		${1} ${2} = iota
+		${1} = iota
 		${0}
 	)
 
 
-snippet intf "interface"
+snippet iface "interface"
 	type ${1} interface{
 		${2}
 	}
@@ -50,3 +50,7 @@ snippet rerr
 		${2:return err}
 	}
 
+snippet perr
+	if ${1:err} != nil {
+		panic(${1})
+	}
