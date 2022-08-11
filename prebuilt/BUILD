@@ -903,6 +903,18 @@ def mage(cfg):
     }
 
 
+def bcd(cfg):
+    # https://framagit.org/Ezwen/bandcamp-collection-downloader/-/jobs/1515933/artifacts/raw/build/libs/bandcamp-collection-downloader.jar?inline=false
+    url = "https://framagit.org/Ezwen/bandcamp-collection-downloader/-/jobs/%s/artifacts/raw/build/libs/bandcamp-collection-downloader.jar?inline=false"
+
+    url = url % cfg
+
+    return {
+        "name": "bandcamp-collection-downloader",
+        "exported_files": [],
+        "url": url,
+    }
+
 fns = {
     "bun": bun,
     "xplr": xplr,
@@ -948,6 +960,7 @@ fns = {
     "haxe": haxe,
     # "unciv": unciv,
     "mage": mage,
+    "bandcamp-collection-downloader": bcd,
 }
 
 multi_fns = {
@@ -1052,6 +1065,7 @@ home = {
     "pueue": "2.0.2",
     "ripcord": "0.4.29",
     "mage": "1.13.0",
+    # "bandcamp-collection-downloader": "1515933",
 }
 
 def add(config):
