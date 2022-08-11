@@ -126,6 +126,10 @@ require("filetype").setup {
 }
 require("fzf-lua").setup {}
 
+local nvim_share = "/home/istvan/.local/share/nvim/site/pack/packer/start"
+
+vim.api.nvim_create_user_command("Plugins", fmt(":e %s", nvim_share), {})
+
 vim.wo.colorcolumn = "79"
 
 -- Ignore certain files and folders when globbing
