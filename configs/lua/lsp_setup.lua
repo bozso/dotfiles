@@ -9,6 +9,8 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 local servers = {
     -- "pyre",
+    "rust_analyzer",
+    "rls",
     "pylsp",
     "clangd",
     "nimls",
@@ -125,6 +127,24 @@ function M.setup_servers()
             unstable = true,
             -- importMap = "./import_map.json",
         },
+    }
+
+    local efm = require "efm"
+
+    lspconfig.efm.setup {
+        cmd = {
+            "efm-langserver",
+            "-logfile",
+            "/tmp/efm.log",
+            "-loglevel",
+            "100",
+        },
+        settings = {
+            rootMarkers = { ".git/" },
+            languages = efm,
+        },
+        filetypes = { "zig" },
+        single_file_support = false, -- This is the important line for supporting older version of EFM
     }
 end
 
