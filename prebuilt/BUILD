@@ -27,50 +27,6 @@ def simple_remote(setup):
         url = setup["url"],
     )
 
-def golangci(version):
-    root = "golangci-lint-%s-${OS}-${ARCH}" % version
-
-    url = "%s/%s.tar.gz" % (
-        github_release(
-            owner = "golangci",
-            repo = "golangci-lint",
-            version = "v" + version,
-        ),
-        root,
-    )
-
-    return {
-        "name": "golangci-lint",
-        "exported_files": ["%s/golangci-lint" % root],
-        # "hashes": [
-        #     # darwin_arm64
-        #     "sha256: 9748c2697a65d2962106e74db6db6e3acc9066ec5ff0b81f47d803479e7b4994",
-        #     # darwin_amd64
-        #     "sha256: a9b5eb572ce55ae900a3935640fa5e199729e784a6f058e8077a9a2126e00857",
-        #     # linux_amd64
-        #     "sha256: 97be8342ac9870bee003904bd8de25c0f3169c6b6238a013d6d6862efa5af992",
-        #     # freebsd_amd64
-        #     "sha256: a05d18756522b2803ab53d49f5da074c298b69546691338809dbd16c7a4840fd",
-        # ],
-        "url": url,
-    }
-
-def stylua(version):
-    url = "%s/stylua-%s-%s.zip" % (
-        github_release(
-            owner = "JohnnyMorganz",
-            repo = "StyLua",
-            version = "v" + version,
-        ),
-        version,
-        CONFIG.OS,
-    )
-
-    return {
-        "name": "stylua",
-        "exported_files": ["stylua"],
-        "url": url,
-    }
 
 def node(version):
     return {
@@ -492,23 +448,6 @@ def nim(version):
         "bin": "nim/%s/bin" % version,
     }
 
-def zls(version):
-    prefix = "x86_64-${OS}"
-    file = "%s.tar.xz" % prefix
-
-    return {
-        "name": "zls",
-        "exported_files": ["bin/zls"],
-        "url": "%s/%s" % (
-            github_release(
-                owner = "zigtools",
-                repo = "zls",
-                version = version,
-            ),
-            file,
-        ),
-    }
-
 def clib(version):
     prefix = "clib-${OS}"
     file = "%s-%s.zip" % (prefix, version)
@@ -595,16 +534,6 @@ def tectonic(config):
         ),
     }
 
-def micromamba(version):
-    url = "https://micromamba.snakepit.net/api/micromamba/linux-64/%s"
-
-    return {
-        "name": "micromamba",
-        "exported_files": ["bin/micromamba"],
-        "url": url % version
-    }
-
-
 def sccache(config):
     version = "v%s" % config["version"]
     libc = config["libc"]
@@ -656,20 +585,6 @@ def julia(config):
         "bin": "%s/bin" % out,
     }
 
-def thunderbird(cfg):
-    url = "https://download.mozilla.org/?product=thunderbird-%s-SSL&os=linux64" % cfg
-    out = "thunderbird/%s" % cfg
-
-    return {
-        "name": "thunderbird",
-        "exported_files": [],
-        "url": url,
-        "strip_prefix": "thunderbird",
-        "out": out,
-        "bin": out
-    }
-
-
 def go(config):
     version = config
 
@@ -692,7 +607,6 @@ def cifs_utils(config):
     url = "https://www.samba.org/ftp/linux-cifs/cifs-utils/cifs-utils-%s.tar.bz2" % version
     return None
 
-
 def procs(config):
     version = "v%s" % config
 
@@ -713,10 +627,8 @@ def procs(config):
         ),
     }
 
-
 def unciv(config):
     pass
-
 
 def teal(config):
     version = config
@@ -799,25 +711,6 @@ def shfmt(config):
         ),
     }
 
-def misspell(config):
-    version = config
-    name = "misspell_%s_${OS}_64bit" % version
-
-    url = github_release(
-        owner="client9",
-        repo="misspell",
-        version="v%s" % version
-    )
-
-    return {
-        "name": "misspell",
-        "exported_files": ["misspell"],
-        "url": "%s/%s.tar.gz" % (
-            url,
-            name,
-        ),
-    }
-
 def dmd(config):
     tpl = "http://downloads.dlang.org/releases/%s/dmd.%s.linux.tar.xz"
     url = tpl % (config.year, config.version)
@@ -830,27 +723,6 @@ def dmd(config):
         "url": url,
         "out": out,
         "bin": "%s/dmd2/linux/bin64" % out,
-    }
-
-def serve_d(config):
-    version = config
-    name = "serve-d_%s-${OS}-x86_64" % version
-
-    url = github_release(
-        owner="Pure-D",
-        repo="serve-d",
-        version="v%s" % version
-    )
-
-    out = "serve_d"
-
-    return {
-        "name": "serve_d",
-        "exported_files": ["serve-d"],
-        "url": "%s/%s.tar.xz" % (
-            url,
-            name,
-        ),
     }
 
 def dcd(config):
@@ -893,7 +765,6 @@ def haxe(config):
         "bin": "haxe",
         "out": "haxe",
     }
-
 
 def pueue_cfg(cfg):
     version = "v%s" % cfg
@@ -939,7 +810,6 @@ def xplr(cfg):
         # "out": "xplr",
     }
 
-
 def nushell(cfg):
     version = cfg
 
@@ -961,7 +831,6 @@ def nushell(cfg):
         "out": main_name,
         "bin": main_name,
     }
-
 
 def gitui(cfg):
     ver = cfg["version"]
@@ -1005,31 +874,6 @@ def bun(cfg):
         ),
     }
 
-
-def rust_analyzer(cfg):
-    # https://github.com/rust-lang/rust-analyzer/releases/download/2022-07-18/rust-analyzer-x86_64-unknown-linux-musl.gz
-
-    ver = cfg["version"]
-    libc = cfg["libc"]
-
-    url = github_release(
-        owner="rust-lang",
-        repo="rust-analyzer",
-        version=ver
-    )
-
-    name = "rust-analyzer-x86_64-unknown-${OS}-%s" % (libc,)
-
-    return {
-        "name": "rust_analyzer",
-        "exported_files": [name],
-        "url": "%s/%s.gz" % (
-            url, name
-        ),
-        "out": name,
-        "bin": name,
-    }
-
 def ripcord(cfg):
     version = cfg
     url = "https://cancel.fm/dl/Ripcord-%s-x86_64.AppImage" % version
@@ -1042,7 +886,6 @@ def ripcord(cfg):
     }
 
 def mage(cfg):
-    # https://github.com/magefile/mage/releases/download/v1.13.0/mage_1.13.0_Linux-64bit.tar.gz
     version = cfg
     url = github_release(
         owner="magefile",
@@ -1061,37 +904,29 @@ def mage(cfg):
 
 
 fns = {
-    "rust_analyzer": rust_analyzer,
     "bun": bun,
     "xplr": xplr,
     "dcd": dcd,
     "dmd": dmd,
-    "serve_d": serve_d,
     "teal": teal,
     "julia": julia,
     "gitui": gitui,
     "go": go,
     "shfmt": shfmt,
-    "misspell": misspell,
     "shellharden": shellharden,
     # "cifs_utils": cifs_utils,
-    "micromamba": micromamba,
     "clib": clib,
     "fonts": fonts,
     "zellij": zellij,
     "inkscape": inkscape,
     "nim": nim,
-    "zls": zls,
     "node": node,
     "rg": rg,
     "exa": exa,
-    "stylua": stylua,
-    "golangci": golangci,
     "zig": zig,
     "hyperfine": hyperfine,
     "bat": bat,
     "dprint": dprint,
-    "thunderbird": thunderbird,
     "nvim": nvim,
     "procs": procs,
     "efm": efm,
@@ -1132,7 +967,6 @@ def gen_env(fns, versions):
 home = {
     "bun": "0.1.6",
     "clib": "2.7.0",
-    "serve_d": "0.7.4",
     "dcd": "0.13.6",
     "xplr": "0.18.0",
     "dmd": {
@@ -1156,19 +990,14 @@ home = {
     "procs": "0.12.1",
     "node": "14.18.1",
     "nim": "1.6.0",
-    "stylua": "0.11.2",
-    "golangci": "1.47.3",
     "zig": "0.9.0",
-    "zls": "0.9.0",
     "dprint": "0.18.2",
     "nvim": "0.7.0",
     "starship": "1.2.1",
     "fzf": "0.28.0",
     "pandoc": "2.16.2",
-    "clang": ("13.0.0", "16.04"),
     "jq": "1.6",
     "go": "1.18.3",
-    "shellcheck": "0.8.0",
     "misspell": "0.3.4",
     "haxe": "4.2.5",
     # "nushell": "0.43.0",
@@ -1221,7 +1050,7 @@ home = {
         "libc": "glibc"
     },
     "pueue": "2.0.2",
-    "ripcord": "0.4.29"
+    "ripcord": "0.4.29",
     "mage": "1.13.0",
 }
 
