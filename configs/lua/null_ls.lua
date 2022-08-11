@@ -9,8 +9,15 @@ local function setup()
     local lint = require "lint_config"
     local mydiag = require "diagnostics"
     local django_fts = { "django", "jinja.html", "htmldjango", "html" }
+    local on_save = null_ls.methods.DIAGNOSTICS_ON_SAVE
 
     srcs = {
+        -- mydiag.dub.with {
+        --     method = on_save,
+        -- },
+        -- mydiag.zig.with {
+        --     method = on_save,
+        -- },
         builtins.completion.spell,
         -- python
         fmt.black,
@@ -46,7 +53,7 @@ local function setup()
         -- Rust
         fmt.rustfmt,
         mydiag.clippy.with {
-            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+            method = on_save,
         },
     }
 
