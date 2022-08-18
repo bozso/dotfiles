@@ -14,6 +14,11 @@ return require("packer").startup(function()
     use "neovim/nvim-lspconfig"
 
     use {
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+    }
+
+    use {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "WhoIsSethDaniel/mason-tool-installer.nvim",
