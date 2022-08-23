@@ -7,6 +7,7 @@ local ut = require "utils"
 local lsp = require "lsp_setup"
 local ts = require "tree_sitter"
 local mason = require "mason_setup"
+local pkgs = require "packages"
 local lsp_diag = require "lsp_diag"
 require "null_ls"
 
@@ -14,6 +15,14 @@ mason.setup()
 lsp.setup_servers()
 ts.setup()
 lsp_diag.setup()
+
+local function install()
+    pkgs.install {
+        { pkgs.so, version = "v0.4.7" },
+    }
+end
+
+vim.api.nvim_create_user_command("Install", install, {})
 
 local fmt = string.format
 vim.o.background = "light"
