@@ -18,6 +18,8 @@ return require("packer").startup(function()
         requires = "kyazdani42/nvim-web-devicons",
     }
 
+    use "folke/lua-dev.nvim"
+
     use {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",

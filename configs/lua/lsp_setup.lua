@@ -18,7 +18,6 @@ local servers = {
     "julials",
     "rust_analyzer",
     "marksman",
-    "sumneko_lua",
     "ltex",
 }
 
@@ -60,7 +59,7 @@ local keymaps = {
 
 local opts = { noremap = true, silent = true }
 
-function M.on_attach(client, bufnr)
+function M.on_attach(_, bufnr)
     -- client.resolved_capabilities.document_formatting = true
 
     -- Enable completion triggered by <c-x><c-o>
@@ -157,6 +156,25 @@ function M.setup_servers()
             -- importMap = "./import_map.json",
         },
     }
+
+    local luadev = require("lua-dev").setup {
+        library = {
+            vimruntime = true, -- runtime path
+            types = true, -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
+            plugins = true, -- installed opt or start plugins in packpath
+            -- you can also specify the list of plugins to make available as a workspace library
+            -- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
+        },
+        -- enable this to get completion in require strings. Slow!
+        runtime_path = false,
+        -- pass any additional options that will be merged in the final lsp config
+        lspconfig = {
+            -- cmd = {"lua-language-server"},
+            -- on_attach = ...
+        },
+    }
+
+    lspconfig.sumneko_lua.setup(luadev)
 
     local efm = require "efm"
 
