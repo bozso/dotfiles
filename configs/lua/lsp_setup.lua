@@ -32,6 +32,7 @@ end
 local buf = "<cmd>lua vim.lsp.buf.%s()<CR>"
 local diag = "<cmd>lua vim.diagnostic.%s()<CR>"
 
+M.lua = "<cmd>lua %s<cr>"
 M.fmt = "<cmd>lua require('utils').format()<cr>"
 M.fzf = "<cmd>lua require('fzf-lua').%s()<cr>"
 M.fzf_w = fmt("%s<cmd>w<cr><cmd>lua require('fzf-lua').%%s()<cr>", M.fmt)
@@ -44,7 +45,7 @@ local keymaps = {
     ["<leader>s"] = fmt(M.fzf_w, "lsp_workspace_symbols"),
     ["<leader>ds"] = fmt(M.fzf, "lsp_document_symbols"),
     ["<leader>wd"] = fmt(M.fzf, "lsp_workspace_diagnostics"),
-    ["<leader>a"] = fmt(M.fzf, "lsp_code_actions"),
+    ["<leader>a"] = fmt(M.lua, "vim.lsp.buf.code_action()"),
 
     ["<leader>r"] = fmt(buf, "references"),
     ["<leader>rn"] = fmt(buf, "rename"),
