@@ -22,7 +22,9 @@ local base16 = require "mini.base16"
 local palette = base16.mini_palette("#e2e5ca", "#002a83", 75)
 base16.setup { palette = palette, name = "minischeme", use_cterm = true }
 
-require("github-theme").setup {
+local gt = require "github-theme"
+
+gt.setup {
     theme_style = "light",
     function_style = "italic",
     sidebars = { "qf", "vista_kind", "terminal", "packer" },
@@ -32,13 +34,13 @@ require("github-theme").setup {
 }
 
 -- TODO: figure out how to change colorscheme properly
-local status, err = pcall(vim.cmd, "colorscheme github_light_default")
+local status, _ = pcall(vim.cmd, "colorscheme github_light_default")
 
 if not status then
     vim.cmd [[colorscheme delek]]
 end
 
-require("mini.comment").setup()
+require("mini.comment").setup {}
 
 require("mini.completion").setup {
     lsp_completion = {
