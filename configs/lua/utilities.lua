@@ -1,14 +1,22 @@
 local M = {}
 local fmt = string.format
 
+-- @param s string
+-- @param tab table<string, any>
+function M.interp(s, tab)
+    return s:gsub("($%b{})", function(w)
+        return tab[w:sub(3, -2)] or w
+    end)
+end
+
 function M.update_table(opts)
     local to = opts.to
     local groups = opts.groups
     local options = opts.options
 
     if groups ~= nil then
-        for name, opts in pairs(groups) do
-            for key, val in pairs(opts) do
+        for name, lopts in pairs(groups) do
+            for key, val in pairs(lopts) do
                 to[name .. key] = val
             end
         end
@@ -18,12 +26,6 @@ function M.update_table(opts)
         for key, opt in pairs(options) do
             to[key] = opt
         end
-    end
-end
-
-local function apply_dict(dict, options)
-    for key, opt in pairs(options) do
-        dict[key] = opt
     end
 end
 
