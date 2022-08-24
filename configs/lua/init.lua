@@ -8,6 +8,8 @@ local lsp = require "lsp_setup"
 local ts = require "tree_sitter"
 local mason = require "mason_setup"
 local lsp_diag = require "lsp_diag"
+local pkgs = require "packages"
+
 require "null_ls"
 
 mason.setup()
@@ -15,7 +17,7 @@ lsp.setup_servers()
 ts.setup()
 lsp_diag.setup()
 
-vim.api.nvim_create_user_command("Install", install, {})
+vim.api.nvim_create_user_command("Install", pkgs.install, {})
 
 local fmt = string.format
 vim.o.background = "light"
