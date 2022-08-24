@@ -1,5 +1,15 @@
 local M = {}
 
+local arch_aliases = {
+    ["x86_64"] = "x64",
+    ["i386"] = "x86",
+    ["i686"] = "x86", -- x86 compat
+    ["aarch64"] = "arm64",
+    ["aarch64_be"] = "arm64",
+    ["armv8b"] = "arm64", -- arm64 compat
+    ["armv8l"] = "arm64", -- arm64 compat
+}
+
 -- taken from https://raw.githubusercontent.com/WhoIsSethDaniel/mason-tool-installer.nvim/e2bb024f50dcbf2d9a0e0520c1cce6d734984f9f/lua/mason-tool-installer/init.lua
 local show = function(msg)
     vim.schedule_wrap(print(string.format("[mason-tool-installer] %s", msg)))
@@ -33,12 +43,14 @@ end
 -- @param p Pkg
 -- @param version string
 local function install_one(p, version)
-    if p:is_installed() and version ~= nil then
-        p:get_installed_version(function(ok, installed_version)
-            if ok and installed_version ~= version then
-                do_install(p, version)
-            end
-        end)
+    if p:is_installed() then
+        if version ~= nil then
+            p:get_installed_version(function(ok, installed_version)
+                if ok and installed_version ~= version then
+                    do_install(p, version)
+                end
+            end)
+        end
     else
         do_install(p, version)
     end
@@ -52,6 +64,9 @@ function M.install(tbl)
             version = item.version
         else
             p = item
+        end
+        if type(p) == "function" then
+            p = p(version)
         end
         install_one(p, version)
     end
