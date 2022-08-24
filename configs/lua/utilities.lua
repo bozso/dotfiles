@@ -1,8 +1,17 @@
 local M = {}
 local fmt = string.format
 
--- @param s string
--- @param tab table<string, any>
+local platform = require "mason-core.platform"
+local is_win = platform.is.win
+
+--- @param name string
+--- @return string
+function M.get_exe(name)
+    return is_win and fmt("%s.exe", name) or name
+end
+
+--- @param s string
+--- @param tab table<string, any>
 function M.interp(s, tab)
     return s:gsub("($%b{})", function(w)
         return tab[w:sub(3, -2)] or w
