@@ -14,6 +14,10 @@ export srht="$src/sr.ht"
 export dotfiles="$github/dotfiles"
 mount="$HOME/mount"
 
+vinstall() {
+	nvim -u "$dotfiles/configs/install.vim"
+}
+
 storage() {
 	sudo mount.cifs //storage/bozsoi "$HOME"/mount/storage/ -o user=bozsoi,vers=3
 }
