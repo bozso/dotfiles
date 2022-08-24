@@ -47,6 +47,7 @@ local function setup()
         fmt.golines,
         fmt.goimports,
         fmt.gofumpt,
+        diag.golangci_lint.with { args = { "run" } },
         -- protobuf
         fmt.buf,
         diag.buf,

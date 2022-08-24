@@ -98,9 +98,9 @@ function M.setup_servers()
         }
     end
 
-    lspconfig.golangci_lint_ls.setup {
-        filetypes = { "go", "gomod" },
-    }
+    -- lspconfig.golangci_lint_ls.setup {
+    --     filetypes = { "go", "gomod" },
+    -- }
 
     lspconfig.gopls.setup {
         on_attach = on_attach,
@@ -161,8 +161,11 @@ function M.setup_servers()
     local luadev = require("lua-dev").setup {
         library = {
             vimruntime = true, -- runtime path
-            types = true, -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
-            plugins = true, -- installed opt or start plugins in packpath
+            -- TODO: customize
+            -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
+            types = false,
+            -- installed opt or start plugins in packpath
+            plugins = true,
             -- you can also specify the list of plugins to make available as a workspace library
             -- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
         },
