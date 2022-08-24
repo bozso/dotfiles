@@ -33,7 +33,7 @@ local buf = "<cmd>lua vim.lsp.buf.%s()<CR>"
 local diag = "<cmd>lua vim.diagnostic.%s()<CR>"
 
 M.lua = "<cmd>lua %s<cr>"
-M.fmt = "<cmd>lua require('utils').format()<cr>"
+M.fmt = "<cmd>lua require('utilities').format()<cr>"
 M.fzf = "<cmd>lua require('fzf-lua').%s()<cr>"
 M.fzf_w = fmt("%s<cmd>w<cr><cmd>lua require('fzf-lua').%%s()<cr>", M.fmt)
 
