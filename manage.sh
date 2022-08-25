@@ -46,6 +46,7 @@ link_file() {
 
 dm_symlinks() {
 	link_dir "$dotfiles/configs/lua" "$HOME/.config/nvim/lua"
+	link_dir "$dotfiles/configs/colors" "$HOME/.config/nvim/colors"
 	link_dir "$dotfiles/configs/snippets" "$HOME/.config/nvim/snippets"
 	link_dir "$dotfiles/plz-out/bin/prebuilt/fonts" "$HOME/.local/share/fonts"
 
