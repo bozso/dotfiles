@@ -3,6 +3,7 @@ require "statusline"
 require "fmter_config"
 require "lint_config"
 
+local format = string.format
 local ut = require "utilities"
 local lsp = require "lsp_setup"
 local ts = require "tree_sitter"
@@ -22,23 +23,10 @@ vim.api.nvim_create_user_command("Install", pkgs.install, {})
 local fmt = string.format
 vim.o.background = "light"
 
-local base16 = require "mini.base16"
-local palette = base16.mini_palette("#e2e5ca", "#002a83", 75)
-base16.setup { palette = palette, name = "minischeme", use_cterm = true }
-
-local gt = require "github-theme"
-
-gt.setup {
-    theme_style = "light",
-    function_style = "italic",
-    sidebars = { "qf", "vista_kind", "terminal", "packer" },
-    colors = {
-        bg_visual_selection = "#c0cec7",
-    },
-}
-
 -- TODO: figure out how to change colorscheme properly
-local status, _ = pcall(vim.cmd, "colorscheme github_light_default")
+local colorscheme = "mycolors"
+local colorscheme_cmd = format("colorscheme %s", colorscheme)
+local status, _ = pcall(vim.cmd, colorscheme_cmd)
 
 if not status then
     vim.cmd [[colorscheme delek]]
@@ -262,6 +250,4 @@ vim.cmd [[
     if match($TERM, '^xterm.*') != -1 || exists('g:started_by_firenvim')
       set termguicolors
     endif
-
-    au BufRead,BufNewFile *.build_defs if &ft == '' | setfiletype bzl | endif
 ]]
