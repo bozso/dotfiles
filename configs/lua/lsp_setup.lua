@@ -127,6 +127,9 @@ function M.setup_servers()
                     unusedwrite = true,
                     useany = true,
                 },
+                formatting = {
+                    gofumpt = true,
+                },
                 staticcheck = true,
             },
         },

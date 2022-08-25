@@ -47,7 +47,17 @@ local function setup()
         fmt.golines,
         fmt.goimports,
         fmt.gofumpt,
-        diag.golangci_lint.with { args = { "run" } },
+        diag.golangci_lint.with {
+            args = {
+                "run",
+                "--fix=false",
+                "--enable-all",
+                "--out-format=json",
+                "$DIRNAME",
+                "--path-prefix",
+                "$ROOT",
+            },
+        },
         -- protobuf
         fmt.buf,
         diag.buf,
