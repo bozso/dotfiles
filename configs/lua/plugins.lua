@@ -5,7 +5,7 @@
 -- https://github.com/neovim/neovim/pull/12632 merged
 -- vim._update_package_paths()
 
-return require("packer").startup(function()
+return require("packer").startup(function(use)
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
 
