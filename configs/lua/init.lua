@@ -13,6 +13,10 @@ local pkgs = require "packages"
 
 require "null_ls"
 
+require("lsp_lines").setup()
+
+vim.diagnostic.config { virtual_lines = true, virtual_text = false }
+
 mason.setup()
 lsp.setup_servers()
 ts.setup()

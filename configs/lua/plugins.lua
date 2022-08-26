@@ -9,6 +9,10 @@ return require("packer").startup(function()
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
 
+    use {
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    }
+
     use "nvim-treesitter/nvim-treesitter"
 
     use "neovim/nvim-lspconfig"
