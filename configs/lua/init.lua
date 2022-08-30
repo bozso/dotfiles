@@ -218,6 +218,13 @@ local nnoremaps = {
     ["<leader>sv"] = "<cmd>source $MYVIMRC<cr>",
 }
 
+set_key(
+    "",
+    "<Leader>l",
+    require("lsp_lines").toggle,
+    { desc = "Toggle lsp_lines" }
+)
+
 -- TODO: refactor this into separate directory
 local ls = require "luasnip"
 local exorj = ls.expand_or_jumpable
