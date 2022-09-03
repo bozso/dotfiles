@@ -1,1 +1,0 @@
-export PATH=${PATH}:/quanta1/home/istvan/packages/downloaded/clang/13.0.0/bin:/quanta1/home/istvan/packages/downloaded/flutter/2.5.3/bin:/quanta1/home/istvan/packages/downloaded/node/14.18.1/bin:/quanta1/home/istvan/packages/downloaded/go/1.17.2/bin:/quanta1/home/istvan/packages/downloaded/deno/1.15.3
