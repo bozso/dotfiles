@@ -216,6 +216,7 @@ local nnoremaps = {
 
     ["<leader>w"] = fmt("%s<cmd>w<C-j>", lsp.fmt),
     ["<leader>sv"] = "<cmd>source $MYVIMRC<cr>",
+    ["<leader>e"] = ":e %:h/",
 }
 
 set_key(
@@ -227,14 +228,15 @@ set_key(
 
 -- TODO: refactor this into separate directory
 local ls = require "luasnip"
-local exorj = ls.expand_or_jumpable
-local exj = ls.expand_or_jump
 
 -- file named _.snippets applies to all files
 -- TODO: this does not work
 ls.filetype_extend("all", { "_" })
 
 require("luasnip.loaders.from_snipmate").lazy_load()
+
+local exorj = ls.expand_or_jumpable
+local exj = ls.expand_or_jump
 
 local inoremaps = {
     ["<Tab>"] = function()
