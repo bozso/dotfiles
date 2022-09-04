@@ -13,9 +13,7 @@ local pkgs = require "packages"
 
 require "null_ls"
 
-require("lsp_lines").setup()
-
-vim.diagnostic.config { virtual_lines = true, virtual_text = false }
+vim.diagnostic.config { virtual_text = false }
 
 mason.setup()
 lsp.setup_servers()
@@ -218,13 +216,6 @@ local nnoremaps = {
     ["<leader>sv"] = "<cmd>source $MYVIMRC<cr>",
     ["<leader>e"] = ":e %:h/",
 }
-
-set_key(
-    "",
-    "<Leader>l",
-    require("lsp_lines").toggle,
-    { desc = "Toggle lsp_lines" }
-)
 
 -- TODO: refactor this into separate directory
 local ls = require "luasnip"
