@@ -166,7 +166,7 @@ function M.setup_servers()
             vimruntime = true, -- runtime path
             -- TODO: customize
             -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
-            types = false,
+            types = true,
             -- installed opt or start plugins in packpath
             plugins = true,
             -- you can also specify the list of plugins to make available as a workspace library
