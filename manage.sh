@@ -50,9 +50,11 @@ dm_symlinks() {
 	link_dir "$dotfiles/configs/snippets" "$HOME/.config/nvim/snippets"
 	link_dir "$dotfiles/plz-out/bin/prebuilt/fonts" "$HOME/.local/share/fonts"
 
-	local zellij="$HOME/.config/zellij"
+	local conf="$HOME/.config"
+	local zellij="$conf/zellij"
 	mkdir -p "$zellij"
 	link_file "$dotfiles/configs/zellij.yaml" "$zellij/config.yaml"
+	link_file "$dotfiles/configs/redshift.conf" "$conf/redshift.conf"
 }
 
 please_version="16.14.0"
