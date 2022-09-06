@@ -1,0 +1,3 @@
+[[quote]]
+src = "https://www.gamedeveloper.com/programming/in-depth-functional-programming-in-c-"
+text = "The pure functional way to append something to a list is to return a completely new copy of the list with the new element at the end, leaving the original list unchanged. Actual functional languages are implemented in ways that make this not as disastrous as it sounds, but if you do this with typical C++ containers you will die."
