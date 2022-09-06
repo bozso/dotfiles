@@ -818,10 +818,10 @@ def nushell(cfg):
         repo="nushell",
         version=version
     )
+
     main_name = "nushell"
-    version_escaped = version.replace(".", "_")
-    name = "nu_%s_${OS}" % (version_escaped)
-    sub_name = "nushell-%s" % (version)
+    name = "nu-%s-x86_64-unknown-${OS}-gnu" % version
+    sub_name = "nushell-%s" % version
 
     return {
         "name": main_name,
@@ -829,7 +829,7 @@ def nushell(cfg):
         "url": "%s/%s.tar.gz" % (url, name),
         "strip_prefix": "%s/%s" % (name, sub_name),
         "out": main_name,
-        "bin": main_name,
+        "bin": "%s/nu" % main_name,
     }
 
 def gitui(cfg):
@@ -1013,7 +1013,7 @@ home = {
     "go": "1.18.3",
     "misspell": "0.3.4",
     "haxe": "4.2.5",
-    # "nushell": "0.43.0",
+    "nushell": "0.67.0",
     "gitui": {
         "version": "0.20.1",
         "libc": "musl",
