@@ -9,7 +9,15 @@ local function setup()
     local diag = builtins.diagnostics
     local fmter = require "fmter_config"
     local mydiag = require "diagnostics"
-    local django_fts = { "django", "jinja.html", "htmldjango", "html" }
+    local tpl_fts = {
+        "django",
+        "jinja.html",
+        "htmldjango",
+        "html",
+        "gotmpl",
+        "tmpl",
+        "template",
+    }
     local on_save = null_ls.methods.DIAGNOSTICS_ON_SAVE
 
     local srcs = {
@@ -22,10 +30,10 @@ local function setup()
         -- html,css
         -- diag.tidy,
         diag.djlint.with {
-            filetypes = django_fts,
+            filetypes = tpl_fts,
         },
         fmt.djlint.with {
-            filetypes = django_fts,
+            filetypes = tpl_fts,
         },
         diag.misspell,
         -- lua
