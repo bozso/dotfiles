@@ -5,7 +5,7 @@ local all = { "releases", "commits" }
 M.github_repos = {
     {
         user = "KAWAIYOO",
-        repo = "LAMBDA",
+        repo = { "LAMBDA" },
         modes = all,
     },
 }
