@@ -53,12 +53,48 @@ local with_all = {
         user = "dalyagergely",
         repos = { "schupy" },
     },
+    {
+        user = "RadarCODE",
+        repos = { "awesome-sar" },
+    },
+    {
+        user = "dbekaert",
+        repos = { "TRAIN", "StaMPS" },
+    },
+    {
+        user = "dbekaert",
+        repos = { "TRAIN" },
+    },
+    {
+        user = "dblalock",
+        repos = { "bolt" },
+    },
+    {
+        user = "paudetseis",
+        repos = { "PlateFlex" },
+    },
+    {
+        user = "nvim-lua",
+        repos = { "plenary.nvim" },
+    },
+    {
+        user = "LukeSmithxyz",
+        repos = { "etc", "based.cooking", "landchad" },
+    },
 }
 
 local releases_only = {
     {
         user = "oven-sh",
         repos = { "bun" },
+    },
+    {
+        user = "reneklacan",
+        repos = { "symspell" },
+    },
+    {
+        user = "neovim",
+        repos = { "nvim-lspconfig", "neovim" },
     },
 }
 
