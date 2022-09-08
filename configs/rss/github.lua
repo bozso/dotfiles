@@ -22,6 +22,10 @@ local with_all = {
         repos = { "ICASAR" },
     },
     {
+        user = "dm6718",
+        repos = { "RITSAR" },
+    },
+    {
         user = "gbaier",
         repos = { "sarsim" },
     },
@@ -48,6 +52,7 @@ local with_all = {
     {
         user = "sebbekarlsson",
         repos = { "fuex" },
+        desc = "alternative regex",
     },
     {
         user = "dalyagergely",
@@ -62,16 +67,14 @@ local with_all = {
         repos = { "TRAIN", "StaMPS" },
     },
     {
-        user = "dbekaert",
-        repos = { "TRAIN" },
-    },
-    {
         user = "dblalock",
         repos = { "bolt" },
+        desc = "decrease calculation time for matrix operations",
     },
     {
         user = "paudetseis",
         repos = { "PlateFlex" },
+        desc = "Estimating effective elastic thickness of the lithosphere",
     },
     {
         user = "nvim-lua",
@@ -81,9 +84,173 @@ local with_all = {
         user = "LukeSmithxyz",
         repos = { "etc", "based.cooking", "landchad" },
     },
+    {
+        user = "roman-kashitsyn",
+        repos = { "phantom-newtype" },
+        desc = "abstractions for phantom types e.g. ids, units",
+    },
+    {
+        user = "LvAprograms",
+        repos = { "IntroToNumericalGeodynamicModelling" },
+    },
+    {
+        user = "IanBoyanZhang",
+        repos = { "radar_sar_rma" },
+    },
+    {
+        user = "ggciag",
+        repos = { "mandyoc" },
+    },
+    {
+        user = "ibraheemdev",
+        repos = { "modern-unix" },
+    },
+    {
+        user = "seismicreservoirmodeling",
+        repos = { "SeReMpy" },
+        desc = "Seismic Reservoir Modeling Python package",
+    },
+    {
+        user = "starfishprime101",
+        repos = { "Infrasound-Monitor" },
+        desc = "Low cost infrasound monitor using i2c digital differential pressure sensor",
+    },
+    {
+        user = "higham",
+        repos = { "what-is" },
+        desc = "Important concepts in numerical analysis and related areas",
+    },
+    {
+        user = "ambujmishra0008",
+        repos = { "Landslide-Forecasting-System" },
+    },
+    {
+        user = "insarlab",
+        repos = { "PySolid", "MintPy", "PyAPS", "MiaplPy" },
+    },
 }
 
 local releases_only = {
+    {
+        user = "nim-lang",
+        repos = { "Nim" },
+    },
+    {
+        user = "makepath",
+        repos = { "xarray-spatial" },
+    },
+    {
+        user = "mvdan",
+        repos = { "sh" },
+    },
+    {
+        user = "zslayton",
+        repos = { "lifeguard" },
+    },
+    {
+        user = "jart",
+        repos = { "cosmopolitan" },
+    },
+    {
+        user = "ejmahler",
+        repos = { "RustFFT" },
+    },
+    {
+        user = "Theldus",
+        repos = { "sourcery" },
+        desc = [[Spell-checker written in C]],
+    },
+    {
+        user = "tizonia",
+        repos = { "tizonia-openmax-il" },
+        desc = [[
+            Command-line cloud music player for Linux with support for
+            Spotify, Google Play Music, YouTube, SoundCloud, TuneIn,
+            iHeartRadio, Plex servers and Chromecast devices.
+        ]],
+    },
+    {
+        user = "blue-yonder",
+        repos = { "tsfresh" },
+        desc = "Automatic extraction of relevant features from time series",
+    },
+    {
+        user = "zpl-c",
+        repos = { "tester", "zpl" },
+    },
+    {
+        user = "pydata",
+        repos = { "xarray" },
+    },
+    {
+        user = "muesli",
+        repos = { "duf" },
+        desc = "disc usage analyzer",
+    },
+    {
+        user = "hadolint",
+        repos = { "hadolint" },
+        desc = "docker linter",
+    },
+    {
+        user = "doy",
+        repos = { "rbw" },
+    },
+    {
+        user = "schollz",
+        repos = { "croc" },
+        desc = "send files",
+    },
+    {
+        user = "errata-ai",
+        repos = { "vale" },
+        desc = "code aware prose linter",
+    },
+    {
+        user = "dlr-eoc",
+        repos = { "ukis-pysat" },
+        desc = "download multispectral images",
+    },
+    {
+        user = "extrawurst",
+        repos = { "gitui" },
+    },
+    {
+        user = "fatiando",
+        repos = { "pooch" },
+    },
+    {
+        user = "nivekuil",
+        repos = { "rip" },
+    },
+    {
+        user = "bopen",
+        repos = { "xarray-sentinel" },
+    },
+    {
+        user = "yannforget",
+        repos = { "asarapi" },
+    },
+    {
+        user = "Zulko",
+        repos = { "moviepy" },
+    },
+    {
+        user = "samtay",
+        repos = { "so" },
+    },
+    {
+        user = "Nukesor",
+        repos = { "pueue" },
+    },
+    {
+        user = "wbthomason",
+        repos = { "packer.nvim" },
+    },
+    {
+        user = "SciTools",
+        repos = { "iris" },
+    },
     {
         user = "oven-sh",
         repos = { "bun" },
