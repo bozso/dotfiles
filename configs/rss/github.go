@@ -8,7 +8,7 @@ type (
 
 type GithubRss struct {
 	User  User         `mapstructure:"user"`
-	Repos []Repository `mapstructure:"repo"`
+	Repos []Repository `mapstructure:"repos"`
 	Modes []Mode       `mapstructure:"modes"`
 }
 
