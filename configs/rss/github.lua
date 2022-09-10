@@ -64,7 +64,7 @@ local with_all = {
     },
     {
         user = "dbekaert",
-        repos = { "TRAIN", "StaMPS" },
+        repos = { "TRAIN", "StaMPS", "RAiDER" },
     },
     {
         user = "dblalock",
@@ -128,9 +128,115 @@ local with_all = {
         user = "insarlab",
         repos = { "PySolid", "MintPy", "PyAPS", "MiaplPy" },
     },
+    {
+        user = "zyedidia",
+        repos = { "Literate" },
+    },
 }
 
 local releases_only = {
+    {
+        user = "ziglang",
+        repos = { "zig" },
+    },
+    {
+        user = "yumorishita",
+        repos = { "LiCSBAS" },
+    },
+    {
+        user = "sharkdp",
+        repos = { "hyperfine" },
+    },
+    {
+        user = "johntruckenbrodt",
+        repos = { "pyroSAR" },
+    },
+    {
+        user = "hajimehoshi",
+        repos = { "ebiten" },
+    },
+    {
+        user = "hajimehoshi",
+        repos = { "ebiten" },
+    },
+    {
+        user = "upx",
+        repos = { "upx" },
+    },
+    {
+        user = "denoland",
+        repos = { "deno" },
+    },
+    {
+        user = "zyedidia",
+        repos = { "gopher-lua", "knit" },
+    },
+    {
+        user = "geodynamics",
+        repos = { "aspect", "pylith" },
+    },
+    {
+        user = "sentinelsat",
+        repos = { "sentinelsat" },
+    },
+    {
+        user = "TUDelftGeodesy",
+        repos = { "Doris" },
+    },
+    {
+        user = "jgomezdans",
+        repos = { "get_modis" },
+    },
+    {
+        user = "yairm210",
+        repos = { "Unciv" },
+    },
+    {
+        user = "gorgonia",
+        repos = { "tensor" },
+    },
+    {
+        user = "isce-framework",
+        repos = { "isce2", "isce3", "fringe" },
+    },
+    {
+        user = "nushell",
+        repos = { "nushell" },
+    },
+    {
+        user = "dandavison",
+        repos = { "delta" },
+    },
+    {
+        user = "lxxue",
+        repos = { "FRNN" },
+        desc = "Fixed Radius Nearest Neighbor Search on GPU",
+    },
+    {
+        user = "ngageoint",
+        repos = { "sarpy" },
+    },
+    {
+        user = "kartverket",
+        repos = { "midgard" },
+        desc = "Python geodesy library",
+    },
+    {
+        user = "earthly",
+        repos = { "earthly" },
+    },
+    {
+        user = "tectonic-typesetting",
+        repos = { "tectonic" },
+    },
+    {
+        user = "latex-lsp",
+        repos = { "texlab" },
+    },
+    {
+        user = "EarthBigData",
+        repos = { "openSAR" },
+    },
     {
         user = "nim-lang",
         repos = { "Nim" },

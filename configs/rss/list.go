@@ -19,6 +19,7 @@ func (cfg Config) Step() error {
 	github := mainTpl.Lookup("github_rss")
 	w := os.Stdout
 
+	// fmt.Printf("%#v\n", cfg.GithubRepos)
 	for _, gh := range cfg.GithubRepos {
 		for _, mode := range gh.Modes {
 			for _, repo := range gh.Repos {
