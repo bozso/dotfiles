@@ -5,7 +5,7 @@ local tools = {
     { "rust-analyzer", version = "2022-08-08" },
     -- golang
     { "gopls", version = "v0.9.1" },
-    { "golangci-lint-langserver", version = "v0.0.6" },
+    { "golangci-lint", version = "v1.49.0" },
     { "gofumpt", version = "v0.3.1" },
     { "goimports", version = "v0.1.12" },
     -- TODO: integration with nvim
