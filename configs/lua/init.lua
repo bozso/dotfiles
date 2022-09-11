@@ -204,6 +204,7 @@ end
 local fzf_w = lsp.fzf_w
 
 local nnoremaps = {
+    ["<leader>p"] = "<cmd>FzfLua commands<cr>",
     ["<leader>j"] = "<cmd>FzfLua<cr>",
     ["<leader>f"] = fmt(fzf_w, "files"),
     ["<leader>b"] = fmt(fzf_w, "buffers"),
