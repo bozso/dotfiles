@@ -55,6 +55,8 @@ dm_symlinks() {
 	mkdir -p "$zellij"
 	link_file "$dotfiles/configs/zellij.yaml" "$zellij/config.yaml"
 	link_file "$dotfiles/configs/redshift.conf" "$conf/redshift.conf"
+	mkdir -p "$conf/meli"
+	link_file "$dotfiles/configs/meli.toml" "$conf/meli/config.toml"
 }
 
 please_version="16.14.0"
