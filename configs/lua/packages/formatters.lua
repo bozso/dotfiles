@@ -23,12 +23,6 @@ M.dprint = Pkg.new {
     ---@async
     ---@param ctx InstallContext
     install = function(ctx)
-        -- dprint-aarch64-apple-darwin.zip
-        -- dprint-x86_64-apple-darwin.zip
-        -- dprint-x86_64-pc-windows-msvc.zip
-        -- dprint-aarch64-unknown-linux-gnu.zip
-        -- dprint-x86_64-unknown-linux-gnu.zip
-
         local target = coalesce(
             when(platform.is.mac_x64, "x86_64-apple-darwin"),
             when(platform.is.mac_arm64, "aarch64-apple-darwin"),
