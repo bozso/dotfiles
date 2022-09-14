@@ -13,7 +13,6 @@ snippet {
 
 snippet block
 	{% block ${1} %}
-		${0}
 	{% endblock %}
 
 snippet #
@@ -45,3 +44,7 @@ snippet with
 	{% with ${1} as ${2} %}
 		${0}
 	{% endwith %}
+
+snippet macro
+	{% macro ${1}()%}
+	{% endmacro %}
