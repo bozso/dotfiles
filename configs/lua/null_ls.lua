@@ -11,7 +11,9 @@ local function setup()
     local mydiag = require "diagnostics"
     local tpl_fts = {
         "django",
+        "django.html",
         "jinja.html",
+        "hb.html",
         "htmldjango",
         "html",
         "gotmpl",
