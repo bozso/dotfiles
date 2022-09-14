@@ -59,7 +59,7 @@ local function setup()
             args = {
                 "run",
                 "--fix=false",
-                "--enable-all",
+                "--fast",
                 "--out-format=json",
                 "$DIRNAME",
                 "--path-prefix",
