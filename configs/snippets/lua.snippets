@@ -1,7 +1,20 @@
+snippet func "function"
+	function ${1}()
+	end
+
+snippet lfunc "function"
+	local function ${1}()
+	end
+
+snippet pkg "package setup"
+	local M = {}
+	${1}
+	return M
+
+snippet ret "shortcut to return"
+	return
+
 snippet class "class definition with documentation"
 	---@class ${1:class_name}
 	---@field
 	M.${1} = {}
-
-snippet ap "append"
-	${1} = append(${1}, ${2})
