@@ -9,6 +9,9 @@ return require("packer").startup(function(use)
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
 
+    -- file manager
+    use "SidOfc/carbon.nvim"
+
     use "nvim-treesitter/nvim-treesitter"
 
     use "neovim/nvim-lspconfig"
