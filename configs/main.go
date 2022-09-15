@@ -5,13 +5,15 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/bozso/dotfiles/configs/download"
 	"github.com/bozso/dotfiles/configs/rss"
 	"github.com/yuin/gluamapper"
 	lua "github.com/yuin/gopher-lua"
 )
 
 type Config struct {
-	Rss rss.Config `mapstructure:"rss"`
+	Download download.Config `mapstructure:"download"`
+	Rss      rss.Config      `mapstructure:"rss"`
 }
 
 type (
@@ -40,7 +42,8 @@ func run(L *lua.LState) error {
 	}
 
 	steps := Steps{
-		"rss": cfg.Rss,
+		"rss":      cfg.Rss,
+		"download": cfg.Download,
 	}
 	stepStruct, ok := steps[step]
 	if !ok {
@@ -81,8 +84,21 @@ func Main() error {
 	return nil
 }
 
+func MainNew() error {
+	cfg := Config{
+		Download: download.Config{
+			EveOst: download.EveOst{
+				Url: "https://www.modenstudios.com/EVE/music/",
+				Dir: "/home/istvan/Zenék/eve",
+			},
+		},
+	}
+
+	return cfg.Download.Step()
+}
+
 func main() {
-	err := Main()
+	err := MainNew()
 	if err != nil {
 		fmt.Printf("error: '%s'", err)
 	}
