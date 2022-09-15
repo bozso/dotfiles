@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
+	"github.com/melbahja/got"
 )
 
 type EveOst struct {
@@ -131,44 +132,22 @@ func (eve EveOst) Download() error {
 	if err != nil {
 		return err
 	}
-	// root, err := url.Parse(eve.Url)
-	// if err != nil {
-	// 	return err
-	// }
-	fmt.Printf("%s\n", eve.Url)
 
 	err = os.MkdirAll(eve.Dir, 0775)
 	if err != nil {
 		return err
 	}
 
+	g := got.New()
+
 	for _, link := range links {
 		outpath := filepath.Join(eve.Dir, link)
 		currUrl := fmt.Sprintf("%s%s", eve.Url, link)
-		// fmt.Printf("%s\n", currUrl)
-		err = download(currUrl, outpath)
+		err = g.Download(currUrl, outpath)
 		if err != nil {
 			return err
 		}
-		// _, err := grab.Get(eve.Dir, currUrlStr)
-		// currUrl, err := url.Parse(currUrlStr)
-		// if err != nil {
-		// 	return err
-		// }
-		//
 	}
 
 	return nil
 }
-
-// func getHost(u *url.URL) string {
-// 	if u.IsAbs() {
-// 		host := r.Host
-// 		// Slice off any port information.
-// 		if i := strings.Index(host, ":"); i != -1 {
-// 			host = host[:i]
-// 		}
-// 		return host
-// 	}
-// 	return r.URL.Host
-// }
