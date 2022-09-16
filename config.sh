@@ -18,6 +18,12 @@ vinstall() {
 	nvim -u "$dotfiles/configs/install.vim"
 }
 
+startup() {
+	redshift &
+	ripcord &
+	thunderbird &
+}
+
 storage() {
 	sudo mount.cifs //storage/bozsoi "$HOME"/mount/storage/ -o user=bozsoi,vers=3
 }
