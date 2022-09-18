@@ -26,32 +26,26 @@ snippet co "constants with iota"
 
 snippet iface "interface"
 	type ${1} interface{
-		${2}
 	}
 
 snippet struct "structure"
 	type ${1} struct {
-		${2}
 	}
 
 snippet fnh "http handler function on receiver"
 	func ${1:funcName}(${2:w} http.ResponseWriter, ${3:r} *http.Request) {
-		${0:${VISUAL}}
 	}
 
 snippet fnrh "http handler function on receiver"
 	func (${1:receiver} ${2:type}) ${3:funcName}(${4:w} http.ResponseWriter, ${5:r} *http.Request) {
-		${0:${VISUAL}}
 	}
 
 snippet ju "Unmarshal scaffolding"
 	func ($1 *$2) UnmarshalJSON() ([]byte, error) {
-		$0
 	}
 
 snippet jm "Marshal scaffolding"
 	func ($1 *$2) MarshalJSON() ([]byte, error) {
-		$0
 	}
 
 snippet ret
@@ -69,6 +63,9 @@ snippet perr
 		panic(${1})
 	}
 
-snippet ferr
-    (${0}, error)
+snippet ferr "function return signiture with error return"
+	(${0}, error)
 
+snippet meth
+	func ($1) () {
+	}

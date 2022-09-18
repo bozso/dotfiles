@@ -18,13 +18,9 @@ snippet idt "import typing package"
 snippet datac "dataclass definition"
 	@dc.dataclass
 	class ${1:ClassName}(object):
-		"""${2:description}"""
-		${3}
 
 snippet iface "interface / protocol definition"
 	class ${1:ClassName}(t.Protocol):
-		"""${2:description}"""
-		${3}
 
 snippet context "context manager methods" b
 	def __enter__(self):
@@ -35,12 +31,9 @@ snippet context "context manager methods" b
 
 snippet namedt NamedTuple
 	class ${1:ClassName}(t.NamedTuple):
-		"""${2:description}"""
-		${3}
 
 snippet ret
 	return ${0}
-
 
 snippet trip
 	"""${0}
