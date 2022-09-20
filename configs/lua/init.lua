@@ -232,7 +232,7 @@ local exorj = ls.expand_or_jumpable
 local exj = ls.expand_or_jump
 
 local inoremaps = {
-    ["<Tab>"] = function()
+    [",,"] = function()
         if exorj() then
             exj()
         end
