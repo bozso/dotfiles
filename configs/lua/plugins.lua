@@ -48,8 +48,6 @@ return require("packer").startup(function(use)
         },
     }
 
-    use "mattn/emmet-vim"
-
     use {
         "earthly/earthly.vim",
         branch = "main",
@@ -60,6 +58,5 @@ return require("packer").startup(function(use)
     -- extra language packages
     -- commented out for now, using treesitter for syntax highlight
     -- use "teal-language/vim-teal"
-    -- use "ziglang/zig.vim"
     -- use "alaviss/nim.nvim"
 end)
