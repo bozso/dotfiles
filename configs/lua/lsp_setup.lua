@@ -10,6 +10,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 local servers = {
     -- "pyre",
     "rust_analyzer",
+    "texlab",
     "rls",
     "pylsp",
     "clangd",
@@ -18,7 +19,6 @@ local servers = {
     "julials",
     "rust_analyzer",
     "marksman",
-    "ltex",
 }
 
 local function buf_set_keymap(bufnr, ...)
@@ -101,6 +101,27 @@ function M.setup_servers()
     -- lspconfig.golangci_lint_ls.setup {
     --     filetypes = { "go", "gomod" },
     -- }
+
+    lspconfig.texlab.setup {
+        single_file_support = true,
+        settings = {
+            texlab = {
+                build = {
+                    executable = "tectonic",
+                    args = {
+                        "-X",
+                        "compile",
+                        "%f",
+                        "--synctex",
+                        "--keep-logs",
+                        "--keep-intermediates",
+                    },
+                },
+                -- not implemented yet
+                -- latexFormatter = "texlab",
+            },
+        },
+    }
 
     lspconfig.gopls.setup {
         on_attach = on_attach,
