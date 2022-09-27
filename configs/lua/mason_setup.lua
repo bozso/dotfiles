@@ -17,7 +17,8 @@ local tools = {
     -- C/C++
     "clangd",
     -- LaTeX, HTML, Markdown
-    { "ltex-ls", version = "15.2.0" },
+    { "texlab", version = "v4.3.0" },
+    { "tectonic", version = "tectonic@0.9.0" },
     { "marksman", version = "2022-08-07" },
     { "misspell", version = "v0.3.4" },
     -- lua
