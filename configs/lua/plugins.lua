@@ -10,7 +10,7 @@ return require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
 
     -- file manager
-    use "SidOfc/carbon.nvim"
+    -- use "SidOfc/carbon.nvim"
 
     use "nvim-treesitter/nvim-treesitter"
 
