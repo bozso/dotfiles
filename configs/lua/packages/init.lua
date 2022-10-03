@@ -14,6 +14,7 @@ m.web = require "packages.web"
 function m.install()
     mw.install {
         { m.utils.so, version = "v0.4.7" },
+        { m.utils.gaze, version = "v1.1.2" },
         { m.formatters.dprint, version = "0.30.3" },
         { m.compilers.zig, version = "0.9.1" },
         { m.bt.knit, version = "v0.0.1" },
