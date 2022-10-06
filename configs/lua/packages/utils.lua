@@ -101,4 +101,43 @@ M.nvim = Pkg.new {
     end,
 }
 
+M.gaze = Pkg.new {
+    name = "gaze",
+    desc = "Executes commands for you.",
+    homepage = "https://github.com/wtetsu/gaze",
+    languages = {},
+    categories = {},
+    ---@async
+    ---@param ctx InstallContext
+    install = function(ctx)
+        local calced_path = nil
+        local path = function(version)
+            local target = coalesce(
+                when(platform.is.mac_arm64, "macos_arm"),
+                when(platform.is.mac_x64, "macos_amd"),
+                when(platform.is.linux_x64, "linux"),
+                when(platform.is.win64, "windows")
+            )
+
+            if calced_path == nil then
+                calced_path = format("gaze_%s_%s", target, version)
+            end
+            return calced_path
+        end
+        local opts = {
+            repo = "wtetsu/gaze",
+            -- https://github.com/wtetsu/gaze/releases/download/v1.1.2/gaze_linux_v1.1.2.zip
+            asset_file = function(version)
+                return path(version) .. ".zip"
+            end,
+        }
+
+        local source = github.unzip_release_file(opts)
+        source.with_receipt()
+        local exe = is_win and "gaze.exe" or "gaze"
+        local exe_path = format("%s/%s", calced_path, exe)
+        ctx:link_bin("gaze", exe_path)
+    end,
+}
+
 return M
