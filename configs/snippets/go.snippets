@@ -23,6 +23,17 @@ snippet co "constants with iota"
 		${0}
 	)
 
+snippet ctor "New function template"
+	func New() ${1:struct} {
+	    return $1 {
+		}
+	}
+
+snippet ector "New function template"
+	func New() (${1:struct}, error) {
+	    return $1 {
+		}
+	}
 
 snippet iface "interface"
 	type ${1} interface{
