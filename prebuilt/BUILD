@@ -56,9 +56,19 @@ def zig(version):
         "bin": "zig/v%s" % version,
     }
 
-def nvim(version):
+def nvim(cfg):
     pre = "nvim-%s64" % CONFIG.OS
     out = "neovim"
+    version = cfg["version"]
+    outdir = "%s/%s" % (out, version)
+
+    
+    release = github_release(
+        owner = cfg["owner"],
+        repo = cfg["repo"],
+        version = "v" + version,
+    )
+    # https://github.com/antoineco/neovim-neovim/releases/download/v0.8.0/nvim-linux64.tar.gz
 
     return {
         "name": "neovim",
@@ -105,16 +115,32 @@ def nvim(version):
             "sha256: a72a90e2897ea296b777c325a37c981a0b51e2fe0c8b8735e3366b65e958cddc",
             # nvim-win64.msi
             "sha256: c79b647338c3728e8d690ff70f81a4dda815adf9195cfdcfaa4f715514b0b3b2",
+
+            # 0.8.0
+            # nvim-linux64.tar.gz
+            "sha256: 1af27471f76f1b4f7ad6563c863a4a78117f0515e3390ee4d911132970517fa7",
+            "sha256: d3fc12bda179c0b48d9dd965f6e3878f5b34619bf217ae61c0288141486c3407",
+            # nvim-linux64.deb
+            "sha256: 215c88e8cf3fefcd02ef45dc8cdad563e1c601faeddca41565b6b852fceb26b5",
+            "sha256: ae502d24e4ffa11a8f141fecaf7e8000b9c809dcbf62bef9dadb485f2c6e142e",
+            # nvim.appimage
+            "sha256: e1e6512bd5d9081d293ac7d1283166e09cbb32d15063853ade4b03719919e22f",
+            "sha256: 4f440c61263483216aea01a24d472df4a419b97d62f8accb8c557d1c350125af",
+            # nvim.appimage.zsync
+            "sha256: c36b78021333db3c5d312b83ff1634997c1085473e2cedce3862786eddae481d", 
+            "sha256: 6483d5acdad52ed5306f45235dd287c0172e025d36331ed0c67e5da52d645efe", 
+            # nvim-macos.tar.gz
+            "sha256: abe0b0c1ca46b7d05e689d4791055a6dbbf2394cb53a6a8d8274813e6762c1f1",
+            # nvim-win64.zip
+            "sha256: c52e0a93e8bd7e0192c3fe4552d8b0fb66fc8e08b6949e92340cccc4fa3a9bd0",
+            # nvim-win64.msi
+            "sha256: 1f38694a43c9fb33b045407edaab793e4a4f6da6751ec6f09f6fd96da4fba786",
         ],
-        "out": out,
-        "bin": "%s/bin" % out,
+        "out": outdir,
+        "bin": "%s/bin" % outdir,
         "strip_prefix": pre,
         "url": "%s/%s.tar.gz" % (
-            github_release(
-                owner = "neovim",
-                repo = "neovim",
-                version = "v" + version,
-            ),
+            release,
             pre,
         ),
     }
@@ -902,6 +928,25 @@ def mage(cfg):
         "url": url,
     }
 
+def knit(cfg):
+    # https://github.com/zyedidia/knit/releases/download/v0.1.1/knit-0.1.1-linux-amd64.tar.gz
+    version = cfg
+
+    url = github_release(
+        owner="zyedidia",
+        repo="knit",
+        version="v%s" % version,
+    )
+
+    filename = "knit-%s-${OS}-amd64" % version
+    url = "%s/%s.tar.gz" % (url, filename)
+
+    return {
+        "name": "knit",
+        "exported_files": ["%s/knit" % filename],
+        "url": url,
+    }
+
 
 def bcd(cfg):
     # https://framagit.org/Ezwen/bandcamp-collection-downloader/-/jobs/1515933/artifacts/raw/build/libs/bandcamp-collection-downloader.jar?inline=false
@@ -946,12 +991,13 @@ fns = {
     "tectonic": tectonic,
     "starship": starship,
     "delta": delta,
-    "ripcord": ripcord,
+    # "ripcord": ripcord,
     "deno": deno,
     "dust": dust,
     "nnn": nnn,
     "fzf": fzf,
     "nushell": nushell,
+    "knit": knit,
     "jq": jq,
     "xplr": xplr,
     "pandoc": pandoc,
@@ -1004,13 +1050,23 @@ home = {
     "node": "14.18.1",
     "nim": "1.6.0",
     "zig": "0.9.0",
+    "nvim": {
+        "version": "0.7.0",
+        "owner": "neovim",
+        "repo": "neovim",
+    },
+    #"nvim": {
+     #   "version": "0.8.0",
+      #  "owner": "antoineco",
+       # "repo": "neovim-neovim",
+    #},
     "dprint": "0.18.2",
-    "nvim": "0.7.0",
     "starship": "1.2.1",
     "fzf": "0.28.0",
     "pandoc": "2.16.2",
     "jq": "1.6",
-    "go": "1.18.3",
+    "go": "1.19.2",
+    "knit": "0.1.1",
     "misspell": "0.3.4",
     "haxe": "4.2.5",
     "nushell": "0.67.0",
