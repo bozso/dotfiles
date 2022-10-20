@@ -34,6 +34,15 @@ if not status then
     vim.cmd [[colorscheme delek]]
 end
 
+local notify = vim.notify
+vim.notify = function(msg, ...)
+    if msg:match "warning: multiple different client offset_encodings" then
+        return
+    end
+
+    notify(msg, ...)
+end
+
 require("mini.comment").setup {}
 
 require("mini.completion").setup {
@@ -175,9 +184,11 @@ ut.update_table {
     },
 }
 
+local new_fo = table.insert(vim.opt.fo, "a")
 ut.update_table {
     to = vim.opt,
     options = {
+        fo = new_fo,
         splitright = true,
         tabstop = 4,
         softtabstop = 4,
