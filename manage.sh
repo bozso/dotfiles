@@ -1,5 +1,13 @@
 down="$pkgs/downloaded"
 
+copy_file() {
+	cp "$1" "$2"
+}
+
+copy_dir() {
+	cp -r "$1" "$2"
+}
+
 download() {
 	[ ! -f "$2" ] && wget "$1"
 }
@@ -57,6 +65,15 @@ dm_symlinks() {
 	link_file "$dotfiles/configs/redshift.conf" "$conf/redshift.conf"
 	mkdir -p "$conf/meli"
 	link_file "$dotfiles/configs/meli.toml" "$conf/meli/config.toml"
+}
+
+dm_firefox() {
+	local fdir="/home/istvan/.mozilla/firefox/5okjrwhs.default-release"
+	local cdir="$dotfiles/configs/firefox"
+
+	copy_file "$cdir/user.js" "$fdir/user.js"
+	# rm -rf "$fdir/chrome"
+	copy_dir "$cdir/chrome" "$fdir"
 }
 
 please_version="16.14.0"
