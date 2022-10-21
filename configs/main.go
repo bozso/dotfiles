@@ -91,6 +91,12 @@ func MainNew() error {
 				Url: "https://www.modenstudios.com/EVE/music/",
 				Dir: "/home/istvan/Zenék/eve",
 			},
+			Arkenfox: download.Arkenfox{
+				URL:    "https://raw.githubusercontent.com/arkenfox/user.js/996881aef184246a011ac29382e91d634cda7b65/user.js",
+				User:   "istvan",
+				UserID: "5okjrwhs.default-release",
+				File:   "/tmp/user.js",
+			},
 		},
 	}
 
