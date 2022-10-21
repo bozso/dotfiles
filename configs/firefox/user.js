@@ -1228,6 +1228,9 @@ user_pref("_user.js.parrot", "8000 syntax error: the parrot's crossed the Jordan
 user_pref("_user.js.parrot", "9000 syntax error: the parrot's cashed in 'is chips!");
 /* WELCOME & WHAT'S NEW NOTICES ***/
 user_pref("browser.startup.homepage_override.mstone", "ignore"); // master switch
+// [FF68+] allow userChrome/userContent
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true); 
+
    // user_pref("startup.homepage_welcome_url", "");
    // user_pref("startup.homepage_welcome_url.additional", "");
    // user_pref("startup.homepage_override_url", ""); // What's New page after updates
@@ -1250,7 +1253,6 @@ user_pref("browser.startup.homepage_override.mstone", "ignore"); // master switc
    // user_pref("extensions.getAddons.cache.enabled", false); // disable extension metadata (extension detail tab)
 /* APPEARANCE ***/
    // user_pref("browser.download.autohideButton", false); // [FF57+]
-   // user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true); // [FF68+] allow userChrome/userContent
    // user_pref("ui.prefersReducedMotion", 1); // disable chrome animations [FF77+] [RESTART] [HIDDEN PREF]
       // 0=no-preference, 1=reduce: with RFP this only affects chrome
    // user_pref("ui.systemUsesDarkTheme", 1); // [FF67+] [HIDDEN PREF]
