@@ -402,7 +402,7 @@ user_pref("_user.js.parrot", "1000 syntax error: the parrot's gone to meet 'is m
 /* 1001: disable disk cache
  * [SETUP-CHROME] If you think disk cache helps perf, then feel free to override this
  * [NOTE] We also clear cache on exit (2811) ***/
-user_pref("browser.cache.disk.enable", false);
+user_pref("browser.cache.disk.enable", true);
 /* 1002: disable media cache from writing to disk in Private Browsing
  * [NOTE] MSE (Media Source Extensions) are already stored in-memory in PB ***/
 user_pref("browser.privatebrowsing.forceMediaMemoryCache", true); // [FF75+]
@@ -876,7 +876,7 @@ user_pref("privacy.resistFingerprinting.block_mozAddonManager", true); // [HIDDE
  * [WARNING] DO NOT USE: the dimension pref is only meant for testing
  * [1] https://bugzilla.mozilla.org/1407366
  * [2] https://hg.mozilla.org/mozilla-central/rev/6d2d7856e468#l2.32 ***/
-user_pref("privacy.resistFingerprinting.letterboxing", true); // [HIDDEN PREF]
+user_pref("privacy.resistFingerprinting.letterboxing", false); // [HIDDEN PREF]
    // user_pref("privacy.resistFingerprinting.letterboxing.dimensions", ""); // [HIDDEN PREF]
 /* 4505: experimental RFP [FF91+]
  * [WARNING] DO NOT USE unless testing, see [1] comment 12
