@@ -1,24 +1,7 @@
 {
     "createdBy": "Redirector v3.5.3",
-    "createdAt": "2022-07-27T10:35:28.404Z",
+    "createdAt": "2022-10-23T09:04:31.067Z",
     "redirects": [
-        {
-            "description": "Twitter to Nitter",
-            "exampleUrl": "https://twitter.com/golang/status/1446247743148670989",
-            "exampleResult": "https://nitter.net/golang/status/1446247743148670989",
-            "error": null,
-            "includePattern": "^https?://(?:.*\\.)*twitter.com/(.*)$",
-            "excludePattern": "",
-            "patternDesc": "",
-            "redirectUrl": "https://nitter.net/$1",
-            "patternType": "R",
-            "processMatches": "noProcessing",
-            "disabled": false,
-            "grouped": false,
-            "appliesTo": [
-                "main_frame"
-            ]
-        },
         {
             "description": "Example redirect, try going to http://example.com/anywordhere",
             "exampleUrl": "http://example.com/some-word-that-matches-wildcard",
@@ -37,14 +20,31 @@
             ]
         },
         {
-            "description": "Old reddit",
+            "description": "Twitter to Nitter",
+            "exampleUrl": "https://twitter.com/golang/status/1446247743148670989",
+            "exampleResult": "https://nitter.net/golang/status/1446247743148670989",
+            "error": null,
+            "includePattern": "^https?://(?:.*\\.)*twitter.com/(.*)$",
+            "excludePattern": "",
+            "patternDesc": "",
+            "redirectUrl": "https://nitter.net/$1",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "Reddit",
             "exampleUrl": "https://reddit.com/r/rustjerk/comments/q59q96/ah_another_productive_day_of_using_glorious_rust/",
-            "exampleResult": "https://libredd.it/r/rustjerk/comments/q59q96/ah_another_productive_day_of_using_glorious_rust/",
+            "exampleResult": "https://libreddit.privacy.com.de/r/rustjerk/comments/q59q96/ah_another_productive_day_of_using_glorious_rust/",
             "error": null,
             "includePattern": "^https?://(?:.*\\.)*reddit.com/(.*)$",
             "excludePattern": "",
             "patternDesc": "",
-            "redirectUrl": "https://libredd.it/$1",
+            "redirectUrl": "https://libreddit.privacy.com.de/$1",
             "patternType": "R",
             "processMatches": "noProcessing",
             "disabled": false,
@@ -71,14 +71,14 @@
             ]
         },
         {
-            "description": "Yewtube to Snopyta",
-            "exampleUrl": "https://yewtu.be/watch?v=Ix_GQWNYcNU",
-            "exampleResult": "https://invidious.snopyta.org/watch?v=Ix_GQWNYcNU",
+            "description": "Snopyta to Yewtube",
+            "exampleUrl": "https://invidious.snopyta.org/watch?v=Ix_GQWNYcNU",
+            "exampleResult": "https://yewtu.be/watch?v=Ix_GQWNYcNU",
             "error": null,
-            "includePattern": "^https?://(?:.*\\.)*yewtu.be/(.*)$",
+            "includePattern": "^https?://(?:.*\\.)*invidious.snopyta.org/(.*)$",
             "excludePattern": "",
             "patternDesc": "",
-            "redirectUrl": "https://invidious.snopyta.org/$1",
+            "redirectUrl": "https://yewtu.be/$1",
             "patternType": "R",
             "processMatches": "noProcessing",
             "disabled": false,
