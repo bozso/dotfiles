@@ -9,6 +9,9 @@ return require("packer").startup(function(use)
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
 
+    -- require replacement with niceties
+    use "miversen33/import.nvim"
+
     -- file manager
     -- use "SidOfc/carbon.nvim"
 
