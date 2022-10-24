@@ -1,7 +1,8 @@
-require "plugins"
-require "statusline"
-require "fmter_config"
-require "lint_config"
+require "import"
+import "plugins"
+import "statusline"
+import "fmter_config"
+-- import "lint_config"
 
 local format = string.format
 local ut = require "utilities"
@@ -11,7 +12,7 @@ local mason = require "mason_setup"
 local lsp_diag = require "lsp_diag"
 local pkgs = require "packages"
 
-require "null_ls"
+require("null_ls").setup()
 
 vim.diagnostic.config { virtual_text = false }
 

@@ -1,6 +1,9 @@
+-- require "import"
 local lsp = require "lsp_setup"
 
-local function setup()
+local M = {}
+
+function M.setup()
     local null_ls = require "null-ls"
     local builtins = null_ls.builtins
     local actions = builtins.code_actions
@@ -111,4 +114,4 @@ local function setup()
     }
 end
 
-setup()
+return M
