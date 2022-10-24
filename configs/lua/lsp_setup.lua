@@ -10,7 +10,6 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 local servers = {
     -- "pyre",
     "rust_analyzer",
-    "texlab",
     "rls",
     "pylsp",
     "clangd",
@@ -103,6 +102,7 @@ function M.setup_servers()
     -- }
 
     lspconfig.texlab.setup {
+        filetypes = { "tex", "bib", "plaintex" },
         single_file_support = true,
         settings = {
             texlab = {
@@ -129,7 +129,7 @@ function M.setup_servers()
         flags = { debounce_text_changes = 150 },
         filetypes = { "go", "gomod", "gotmpl", "template" },
         root_dir = function(fname)
-            return util.root_pattern "go.work" (fname)
+            return util.root_pattern "go.work"(fname)
                 or util.root_pattern("go.mod", ".git")(fname)
         end,
         single_file_support = true,
@@ -212,13 +212,13 @@ function M.setup_servers()
             "-logfile",
             "/tmp/efm.log",
             "-loglevel",
-            "100",
+            "1",
         },
         settings = {
             rootMarkers = { ".git/" },
             languages = efm,
         },
-        filetypes = { "zig" },
+        filetypes = { "zig", "d" },
         single_file_support = false, -- This is the important line for supporting older version of EFM
     }
 end
