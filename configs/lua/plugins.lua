@@ -16,6 +16,8 @@ return require("packer").startup(function(use)
     -- use "SidOfc/carbon.nvim"
 
     use "nvim-treesitter/nvim-treesitter"
+    -- quick navigation
+    use "ggandor/leap.nvim"
 
     use "neovim/nvim-lspconfig"
 

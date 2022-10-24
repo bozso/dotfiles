@@ -13,6 +13,9 @@ local lsp_diag = require "lsp_diag"
 local pkgs = require "packages"
 
 require("null_ls").setup()
+import("leap", function(leap)
+    leap.add_default_mappings()
+end)
 
 vim.diagnostic.config { virtual_text = false }
 
