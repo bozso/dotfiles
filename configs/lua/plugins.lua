@@ -16,6 +16,9 @@ return require("packer").startup(function(use)
 
     use "neovim/nvim-lspconfig"
 
+    -- efm-langserver configs
+    use "creativenull/efmls-configs-nvim"
+
     use {
         "folke/trouble.nvim",
         requires = "kyazdani42/nvim-web-devicons",
