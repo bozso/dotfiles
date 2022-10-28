@@ -150,6 +150,8 @@ alias nbrc="nano -u ~/.bashrc"
 alias fm="nnn-musl-static -d -R"
 alias tb="gotoolbox"
 alias light="sudo \$pkgs_bin/xbacklight -set"
+alias ze="zellij"
+alias zr="zellij run"
 
 alias reload='. ${dotfiles}/config.sh'
 alias menu='sh ${dotfiles}/menu.sh modules'
