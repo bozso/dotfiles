@@ -1044,7 +1044,7 @@ home = {
         "cflags": "",
     },
     # "unciv": "3.19.10",
-    "zellij": "0.23.0",
+    "zellij": "0.32.0",
     "inkscape": {"hash": "3bf5ae0"},
     "procs": "0.12.1",
     "node": "14.18.1",
