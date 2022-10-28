@@ -157,6 +157,14 @@ alias reload='. ${dotfiles}/config.sh'
 alias menu='sh ${dotfiles}/menu.sh modules'
 alias import='sh ${dotfiles}/menu.sh import'
 
+nvim_packer() {
+	# Only load packer configuration to avoid errors
+	# trying to start neovim when packages defined in
+	# plugins.lua are not yet installed and the Packer{Compile,Install}
+	# commands cannot be defined.
+	nvim -S "$dotfiles/configs/lua/plugins.lua"
+}
+
 paths="
 $github/insar_meteo
 $github/pygomma
