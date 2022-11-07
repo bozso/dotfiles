@@ -354,9 +354,17 @@ mm_setup() {
 export DOWNLOAD_THREADS=32
 
 bandcamp_download() {
+	local cookies
+
+	if [ -e "/tmp/bandcamp.com_cookies.txt" ]; then
+		cookies="/tmp/bandcamp.com_cookies.txt"
+	else
+		cookies="/tmp/cookies.json"
+	fi
+
 	java -jar -jar "$HOME/bin/bandcamp-collection-downloader.jar" \
 		-d "$HOME/Zenék" \
-		--cookies-file=/tmp/bandcamp.com_cookies.txt bozsoi \
+		--cookies-file="$cookies" bozsoi \
 		-j "$DOWNLOAD_THREADS"
 }
 
