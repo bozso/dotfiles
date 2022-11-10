@@ -88,6 +88,14 @@ bw_c() {
 	bw_impl "clipboard"
 }
 
+gamma_doc() {
+	local path="$HOME/docs/gamma"
+	local sel="$(ls "$path"/*.html | fzf)"
+	# local sel = "$(ls /home/istvan/docs/gamma/*.html | fzf)"
+	[ -n "$sel" ] && firefox "$sel"
+
+}
+
 gen_repos() {
 	gotoolbox genrepos \
 		-config "configs/repository_settings.json" \
