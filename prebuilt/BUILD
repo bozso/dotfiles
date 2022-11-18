@@ -960,8 +960,27 @@ def bcd(cfg):
         "url": url,
     }
 
+def fish(version):
+    # https://github.com/xxh/fish-portable/releases/download/3.4.1/fish-portable-musl-alpine-Linux-x86_64.tar.gz
+    url = github_release(
+        owner="xxh",
+        repo="fish-portable",
+        version=version,
+    )
+
+    filename = "knit-%s-${OS}-amd64" % version
+    filename = "fish-portable-musl-alpine-Linux-x86_64.tar.gz"
+    url = "%s/%s" % (url, filename)
+
+    return {
+        "name": "fish",
+        "exported_files": ["bin/fish", "bin/fish_indent", "bin/fish.sh"],
+        "url": url,
+    }
+
 fns = {
     "bun": bun,
+    "fish": fish,
     "xplr": xplr,
     "dcd": dcd,
     "dmd": dmd,
@@ -1024,6 +1043,7 @@ def gen_env(fns, versions):
 
 
 home = {
+    "fish": "3.4.1",
     "bun": "0.1.6",
     "clib": "2.7.0",
     "dcd": "0.13.6",
